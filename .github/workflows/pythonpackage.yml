@@ -28,4 +28,4 @@ jobs:
     - name: Install package
       run: poetry install -v
     - name: Run unit tests
-      run: tox
+      run: poetry run tox
