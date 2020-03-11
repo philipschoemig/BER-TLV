@@ -1,0 +1,53 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  Linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Get full python version
+      id: full-python-version
+      run: |
+        echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
+    - name: Set up Poetry
+      uses: Gr1N/setup-poetry@v1
+    - name: Configure Poetry
+      run: |
+        poetry config virtualenvs.in-project true
+    - name: Set up cache
+      uses: actions/cache@v1
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
+    - name: Install dependencies
+      run: |
+        source $HOME/.poetry/env
+        poetry install
+    - name: Test
+      run: |
+        source $HOME/.poetry/env
+        poetry run pytest -q tests --junitxml=test/results-${{ matrix.python-version }}.xml --cov --cov-report=xml:coverage/report-${{ matrix.python-version }}.xml
+    - name: Upload test results
+      uses: actions/upload-artifact@master
+      with:
+        name: test-results-${{ matrix.python-version }}
+        path: test/results-${{ matrix.python-version }}.xml
+      # Use always() to always run this step to publish test results when there are test failures
+      if: always()
+    - name: Upload coverage report
+      uses: actions/upload-artifact@master
+      with:
+        name: coverage-report-${{ matrix.python-version }}
+        path: coverage/report-${{ matrix.python-version }}.xml
+      # Use always() to always run this step to publish test results when there are test failures
+      if: always()
