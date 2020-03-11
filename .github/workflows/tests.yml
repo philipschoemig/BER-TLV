@@ -42,6 +42,10 @@ jobs:
       with:
         name: test-results-${{ matrix.python-version }}
         path: test/results-${{ matrix.python-version }}.xml
+      # Use always() to always run this step to publish test results when there are test failures
+      if: always()
+    - name: Upload coverage report
+      uses: actions/upload-artifact@master
       with:
         name: coverage-report-${{ matrix.python-version }}
         path: coverage/report-${{ matrix.python-version }}.xml
