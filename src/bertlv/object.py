@@ -69,7 +69,8 @@ class TlvObject(ABC):
                 length = int(length_data.hex(), 16)
         except StopIteration as e:
             raise RuntimeError(
-                f"Error while parsing TLV length. Offset: {tlv.index} Remaining data: {tlv.remaining.hex()}"
+                f"Error while parsing TLV length. Offset: {tlv.index} "
+                f"Remaining data: {tlv.remaining.hex()}"
             ) from e
         return length
 
@@ -80,7 +81,8 @@ class TlvObject(ABC):
             value = bytearray([next(tlv) for _ in range(length)])
         except StopIteration as e:
             raise RuntimeError(
-                f"Error while parsing TLV value. Offset: {tlv.index} Remaining data: {tlv.remaining.hex()}"
+                f"Error while parsing TLV value. Offset: {tlv.index} "
+                f"Remaining data: {tlv.remaining.hex()}"
             ) from e
         return value
 
@@ -101,7 +103,8 @@ class Element(TlvObject):
     def __init__(self, tag: Tag, children: List[TlvObject] = None):
         if not tag.is_constructed():
             raise RuntimeError(
-                f"Element class expects a constructed TLV tag, but got a primitive tag: {tag}"
+                f"Element class expects a constructed TLV tag, "
+                f"but got a primitive tag: {tag}"
             )
         super().__init__(tag)
         self._list = children or list()
@@ -192,7 +195,8 @@ class Primitive(TlvObject):
     def __init__(self, tag: Tag, value: bytes):
         if tag.is_constructed():
             raise RuntimeError(
-                f"Primitive class expects a primitive TLV tag, but got a constructed tag: {tag}"
+                f"Primitive class expects a primitive TLV tag, "
+                f"but got a constructed tag: {tag}"
             )
         super().__init__(tag, value)
 

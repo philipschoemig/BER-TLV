@@ -85,7 +85,8 @@ class Tag:
                     tag.append(next(tlv))
         except StopIteration as e:
             raise RuntimeError(
-                f"Error while parsing a TLV tag. Offset: {tlv.index} Remaining data: {tlv.remaining.hex()}"
+                f"Error while parsing a TLV tag. Offset: {tlv.index} "
+                f"Remaining data: {tlv.remaining.hex()}"
             ) from e
         return cls(tag)
 

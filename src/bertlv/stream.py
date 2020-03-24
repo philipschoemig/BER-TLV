@@ -36,4 +36,4 @@ class Stream(Iterator):
 
     @property
     def remaining(self) -> bytes:
-        return self._data[self._index :]
+        return self._data[self._index :]  # noqa: E203

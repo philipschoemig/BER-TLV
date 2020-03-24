@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Module allowing for ``python -m bertlv ...``."""
 import argparse
 import sys
 from xml.dom import minidom
