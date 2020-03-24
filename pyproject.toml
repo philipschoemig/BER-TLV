@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bertlv"
-version = "0.1.0"
+version = "0.1.1"
 description = "Library for BER TLV (tag-length-value) en-/decoding."
 license = "BSD-3-Clause"
 authors = ["Philip Schömig <philip.schoemig@posteo.de>"]
