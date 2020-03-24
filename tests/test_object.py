@@ -60,6 +60,11 @@ class TestElement:
         element = Element.from_xml(xml)
         assert str(element) == "Element 0xff60: [Primitive 0x5f20: 112233]"
 
+    def test_from_xml_with_empty_element(self):
+        xml = ElementTree.fromstring(b'<Element Tag="0xFF60"/>')
+        element = Element.from_xml(xml)
+        assert str(element) == "Element 0xff60: []"
+
 
 class TestPrimitive:
     def test_init(self):
@@ -115,3 +120,8 @@ class TestPrimitive:
         )
         primitive = Primitive.from_xml(xml)
         assert str(primitive) == "Primitive 0x5f20: 112233"
+
+    def test_from_xml_with_empty_primitive(self):
+        xml = ElementTree.fromstring(b'<Primitive Tag="0x5F20" Type="Hex"/>')
+        primitive = Primitive.from_xml(xml)
+        assert str(primitive) == "Primitive 0x5f20: Empty"

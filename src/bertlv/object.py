@@ -245,21 +245,23 @@ class Primitive(TlvObject):
         tag = Tag.from_xml(element)
         instance = None
         if element.tag == "Primitive":
-            text = "".join(element.text.split())
-            if element.get("Type") == "Hex" or not element.get("Type"):
-                try:
-                    if len(text) % 2 == 1:
-                        text = text.rjust(len(text) + 1, "0")
-                    value = bytearray.fromhex(text)
-                except Exception as e:
+            value = None
+            if element.text:
+                text = "".join(element.text.split())
+                if element.get("Type") == "Hex" or not element.get("Type"):
+                    try:
+                        if len(text) % 2 == 1:
+                            text = text.rjust(len(text) + 1, "0")
+                        value = bytearray.fromhex(text)
+                    except Exception as e:
+                        raise RuntimeError(
+                            f"Invalid Value for tag {tag}: {text} - {e}"
+                        ) from e
+                elif element.get("Type") == "ASCII":
+                    value = bytearray(text, "iso8859_15")
+                else:
                     raise RuntimeError(
-                        f"Invalid Value for tag {tag}: {text} - {e}"
-                    ) from e
-            elif element.get("Type") == "ASCII":
-                value = bytearray(text, "iso8859_15")
-            else:
-                raise RuntimeError(
-                    f"Invalid Type for a Primitive: {element.get('Type')}"
-                )
+                        f"Invalid Type for a Primitive: {element.get('Type')}"
+                    )
             instance = cls(tag, value)
         return instance
