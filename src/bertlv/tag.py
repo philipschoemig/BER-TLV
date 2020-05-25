@@ -107,7 +107,10 @@ class Tag:
     @classmethod
     def from_xml(cls, element: ElementTree.Element) -> "Tag":
         """Return the tag represented by the given XML element."""
+        tag_attr = element.get("Tag")
+        if not tag_attr:
+            raise RuntimeError(f"Element is missing 'Tag' attribute: {element.tag}")
         try:
-            return cls.from_hex(element.get("Tag"))
+            return cls.from_hex(tag_attr)
         except Exception as e:
             raise RuntimeError(f"Invalid Tag: {element.get('Tag')} - {e}") from e

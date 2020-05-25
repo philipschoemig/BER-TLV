@@ -79,6 +79,7 @@ class TestTag:
         tag = Tag.from_hex("0x00005F20")
         assert repr(tag) == "5f20"
 
+    def test_from_hex_with_invalid_tag(self):
         with pytest.raises(ValueError):
             Tag.from_hex("Invalid")
 
@@ -91,6 +92,12 @@ class TestTag:
         tag = Tag.from_xml(element)
         assert repr(tag) == "5f20"
 
+    def test_from_xml_with_missing_tag(self):
+        element = ElementTree.Element("Test")
+        with pytest.raises(RuntimeError, match="Element is missing 'Tag' attribute"):
+            Tag.from_xml(element)
+
+    def test_from_xml_with_invalid_tag(self):
         element = ElementTree.Element("Primitive", {"Tag": "Invalid"})
         with pytest.raises(RuntimeError, match="Invalid Tag"):
             Tag.from_xml(element)
