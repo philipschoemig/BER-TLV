@@ -1,80 +1,125 @@
-from typing import List, Optional, Union
-from xml.etree import ElementTree
+from abc import ABC, abstractmethod
+from functools import total_ordering
+from typing import Optional, Any, Callable, Iterable
 
-from .object import TlvObject
-from .stream import Stream
-from .tag import Tag
+from anytree import Node, RenderTree
+
+from .tag import Tag, RootTag
 
 
-class Tree:
-    def __init__(self, children: List[TlvObject] = None):
-        self._list = children or list()
+@total_ordering
+class TlvNode(Node):
+    _value = None
 
-    def __iter__(self):
-        return iter(self._list)
+    def __init__(
+        self,
+        tag: Tag,
+        value: Optional[bytes] = None,
+        parent: "TlvNode" = None,
+        children: Iterable["TlvNode"] = None,
+    ):
+        super().__init__(repr(tag))
+        self.tag = tag
+        if value:
+            self.value = value
+        self.parent = parent
+        if children:
+            self.children = children
 
-    def __str__(self):
-        list_str = [str(child) for child in self._list]
-        return f"Tree: [{', '.join(list_str)}]"
+    def __eq__(self, other: "TlvNode"):
+        return self.tag == other.tag
 
-    def find(self, pattern):
-        """Find a child of a TLV object using the given pattern."""
-        tag, *rest = pattern.split("/", maxsplit=1)
-        tag = tag.lower()
-        for child in self._list:
-            if tag.lower() == repr(child.tag):
-                if rest:
-                    return child.find(*rest)
-                return child
-        return None
+    def __lt__(self, other: "TlvNode"):
+        return self.tag < other.tag
 
-    def build(self) -> bytes:
-        """Return an array of bytes representing a TLV tree."""
-        tlv = bytearray()
-        if self._list:
-            for child in self._list:
-                tlv += child.build()
-        return tlv
+    def _pre_attach(self, parent):
+        if not parent.is_constructed():
+            raise RuntimeError("Can not attach to primitive TLV node")
 
-    def to_xml(self) -> ElementTree.Element:
-        """Return an XML element representing a TLV tree."""
-        element = ElementTree.Element("Tlv")
-        if self._list:
-            for child in self._list:
-                child.to_xml(element)
-        return element
+    @property
+    def value(self):
+        return self._value
 
-    def dump(self, indent: Optional[Union[int, str]] = None) -> str:
-        """Return a string with indentation representing a TLV tree."""
-        if not indent:
-            indent = ""
-        if isinstance(indent, int):
-            indent = " " * indent
-        children_str = ""
-        for child in self._list:
-            children_str += child.dump(indent, 0)
-        return f"{children_str}"
+    @value.setter
+    def value(self, value):
+        if self.is_constructed():
+            raise RuntimeError("Can not set value on constructed TLV node")
+        self._value = value
 
-    @classmethod
-    def parse(cls, data: bytes) -> "Tree":
-        """Return the TLV tree parsed from the given array of bytes."""
-        children = []
-        tlv = Stream(data)
-        while not tlv.is_empty():
-            with tlv:
-                tag = Tag.parse(tlv)
-            child = TlvObject.get_object(tag).parse(tlv)
-            if child:
-                children.append(child)
-        return cls(children)
+    @property
+    def length(self) -> int:
+        if self._value:
+            return len(self._value)
+        return 0
 
-    @classmethod
-    def from_xml(cls, root: ElementTree.Element) -> "Tree":
-        """Return the TLV tree represented by the given XML element."""
-        children = []
-        for element in root:
-            tag = Tag.from_xml(element)
-            child = TlvObject.get_object(tag).from_xml(element)
-            if child:
-                children.append(child)
-        return cls(children)
+    def is_constructed(self) -> bool:
+        return self.tag.is_constructed()
+
+    def dump(self) -> str:
+        """Return a string representing the tree starting at this node."""
+        text = ""
+        for pre, _, node in RenderTree(self):
+            if text:
+                text += "\n"
+            text += f"{pre}{repr(node.tag)}"
+            if not node.is_constructed():
+                text += f": {node.value.hex()}"
+        return text
+
+
+class Tree(TlvNode):
+    def __init__(self, children: Iterable[TlvNode] = None):
+        super().__init__(RootTag(), children=children)
+
+
+class BuilderBase(ABC):
+    @abstractmethod
+    def close(self) -> Tree:
+        """Flush the builder buffers, and return the tree."""
+
+    @abstractmethod
+    def end(self, tag: Tag) -> Any:
+        """Close the current TLV node."""
+
+    @abstractmethod
+    def data(self, data: bytes) -> Any:
+        """Add a value to the current TLV node."""
+
+    @abstractmethod
+    def start(self, tag: Tag) -> Any:
+        """Open a new TLV node with the given tag."""
+
+
+def create_node(tag: Tag, *args, **kwargs) -> TlvNode:
+    return TlvNode(tag, *args, **kwargs)
+
+
+class TreeBuilder(BuilderBase):
+    def __init__(self, node_factory: Callable = None):
+        self.node_factory = node_factory
+        if not self.node_factory:
+            self.node_factory = create_node
+
+        self.tree = Tree()
+        self.current = self.tree
+
+    def close(self) -> Tree:
+        """Flush the builder buffers, and return the tree."""
+        assert self.current == self.tree, "missing end tags"
+        return self.tree
+
+    def end(self, tag: Tag) -> TlvNode:
+        """Close the current TLV node. Return the closed node."""
+        node = self.current
+        self.current = self.current.parent
+        return node
+
+    def data(self, data: bytes) -> Any:
+        """Add a value to the current TLV node."""
+        self.current.value = data
+
+    def start(self, tag: Tag) -> TlvNode:
+        """Open a new TLV node with the given tag. Return the opened node."""
+        node = self.node_factory(tag, parent=self.current)
+        self.current = node
+        return node

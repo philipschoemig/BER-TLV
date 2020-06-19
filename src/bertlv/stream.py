@@ -1,39 +1,61 @@
+import io
+import sys
 from collections.abc import Iterator
+from contextlib import contextmanager
 
 
-class Stream(Iterator):
-    def __init__(self, data: bytes):
-        self._data = data
-        self._index = 0
-        self._index_queue = []
+class BufferedStream(Iterator):
+    def __init__(self):
+        self.input = io.BytesIO()
+        self.pos_queue = []
+
+    @contextmanager
+    def rollback(self):
+        self.pos_queue.append(self.input.tell())
+        try:
+            yield
+        finally:
+            pos = self.pos_queue.pop()
+            if sys.exc_info()[0]:
+                self.input.seek(pos)
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        if self._index >= len(self._data):
+        data = self.input.read(1)
+        if not data:
             raise StopIteration
-        item = self._data[self._index]
-        self._index += 1
-        return item
+        return data[0]
 
-    def __enter__(self):
-        self._index_queue.append(self._index)
-        return self
+    def is_eof(self) -> bool:
+        return self.input.tell() >= len(self.input.getvalue())
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self._index = self._index_queue.pop()
+    def size(self) -> int:
+        pos = self.input.tell()
+        try:
+            end_pos = self.input.seek(0, io.SEEK_END)
+        finally:
+            self.input.seek(pos)
+        return end_pos - pos
 
-    def is_empty(self) -> bool:
-        return self._index >= len(self._data)
+    def close(self) -> None:
+        self.input.close()
+        self.pos_queue = []
 
-    def peek(self) -> int:
-        return self._data[self._index]
+    def read(self, size: int = -1) -> bytes:
+        return self.input.read(size)
 
-    @property
-    def index(self) -> int:
-        return self._index
+    def write(self, data: bytes) -> int:
+        return self.input.write(data)
 
-    @property
-    def remaining(self) -> bytes:
-        return self._data[self._index :]  # noqa: E203
+    def push(self, data: bytes) -> None:
+        pos = self.input.tell()
+        try:
+            self.input.seek(0, io.SEEK_END)
+            self.input.write(data)
+        finally:
+            self.input.seek(pos)
+
+    def tell(self) -> int:
+        return self.input.tell()

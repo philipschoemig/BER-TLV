@@ -2,7 +2,7 @@ from xml.etree import ElementTree
 
 import pytest
 
-from bertlv.stream import Stream
+from bertlv import config
 from bertlv.tag import Tag, TagClass, TagType
 
 
@@ -10,6 +10,35 @@ class TestTag:
     def test_init(self):
         tag = Tag(bytes.fromhex("5F20"))
         assert repr(tag) == "5f20"
+
+    def test_init_with_empty_identifier(self):
+        with pytest.raises(ValueError, match="tag must not be empty"):
+            Tag(bytes())
+
+    def test_init_with_missing_octets(self):
+        with pytest.raises(ValueError, match="tag is missing subsequent octets: 5f$"):
+            Tag(b"\x5F")
+
+        with pytest.raises(ValueError, match="tag is missing subsequent octets: 5f81$"):
+            Tag(b"\x5F\x81")
+
+    def test_init_with_first_subsequent_octet_all_zero(self):
+        Tag(b"\x5F\x80\x01")
+
+        config.strict_checking = True
+        with pytest.raises(
+            ValueError,
+            match="tag has first subsequent octet where bits 7 to 1 are all zero: 5f8001$",
+        ):
+            Tag(b"\x5F\x80\x01")
+        config.strict_checking = False
+
+    def test_init_with_invalid_subsequent(self):
+        with pytest.raises(
+            ValueError,
+            match="tag has subsequent octet where bit 1 is not set: 5f6040$",
+        ):
+            Tag(b"\x5F\x60\x40")
 
     def test_repr(self):
         tag = Tag(bytes.fromhex("5F20"))
@@ -46,9 +75,8 @@ class TestTag:
         tag = Tag(bytes.fromhex("FF60"))
         assert tag.is_constructed()
 
-    def test_build(self):
-        tag = Tag(bytes.fromhex("5f20"))
-        assert tag.build().hex() == "5f20"
+        tag = Tag(bytes.fromhex("DF01"), force_constructed=True)
+        assert tag.is_constructed()
 
     def test_to_int(self):
         tag = Tag(bytes.fromhex("5f20"))
@@ -63,16 +91,14 @@ class TestTag:
         element = ElementTree.Element("Primitive")
         assert tag.to_xml(element).get("Tag") == tag.to_hex()
 
-    def test_parse(self):
-        tlv = Stream(bytes.fromhex("5F20"))
-        tag = Tag.parse(tlv)
-        assert repr(tag) == "5f20"
-
     def test_from_int(self):
         tag = Tag.from_int(0x5F20)
         assert repr(tag) == "5f20"
 
     def test_from_hex(self):
+        tag = Tag.from_hex("95")
+        assert repr(tag) == "95"
+
         tag = Tag.from_hex("5F20")
         assert repr(tag) == "5f20"
 
@@ -82,22 +108,3 @@ class TestTag:
     def test_from_hex_with_invalid_tag(self):
         with pytest.raises(ValueError):
             Tag.from_hex("Invalid")
-
-    def test_from_xml(self):
-        element = ElementTree.Element("Primitive", {"Tag": "0x5F20"})
-        tag = Tag.from_xml(element)
-        assert repr(tag) == "5f20"
-
-        element = ElementTree.Element("Element", {"Tag": "0x5F20"})
-        tag = Tag.from_xml(element)
-        assert repr(tag) == "5f20"
-
-    def test_from_xml_with_missing_tag(self):
-        element = ElementTree.Element("Test")
-        with pytest.raises(RuntimeError, match="Element is missing 'Tag' attribute"):
-            Tag.from_xml(element)
-
-    def test_from_xml_with_invalid_tag(self):
-        element = ElementTree.Element("Primitive", {"Tag": "Invalid"})
-        with pytest.raises(RuntimeError, match="Invalid Tag"):
-            Tag.from_xml(element)

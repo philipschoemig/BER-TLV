@@ -10,6 +10,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
+anytree = "^2.8.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3.5"
@@ -17,11 +18,12 @@ pytest-cov = "^2.8.1"
 tox = "^3.14.5"
 bump2version = "^1.0.0"
 black = "^19.10b0"
-flake8 = "^3.7.9"
+flake8 = "^3.8.3"
 pylint = "^2.4.4"
 doc8 = "^0.8.0"
 sphinx = "^2.4.4"
 bandit = "^1.6.2"
+flake8-bugbear = "^20.1.4"
 
 [tool.poetry.scripts]
 bertlv = 'bertlv.__main__:main'
