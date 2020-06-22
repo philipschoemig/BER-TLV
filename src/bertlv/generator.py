@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from typing import BinaryIO
 from xml.etree import ElementTree
 
-import xml.dom
+import xml.dom.minidom
 
 from .tree import Tree, TlvNode
 
@@ -99,9 +99,13 @@ class XmlGenerator(GeneratorBase):
 
     @staticmethod
     def _build_value(node: TlvNode, element: ElementTree.Element) -> None:
-        if node.value and node.value.isalnum():
+        try:
+            text = node.value.decode("utf-8")
+        except UnicodeError:
+            text = None
+        if text and text.isprintable():
             element.set("Type", "ASCII")
-            element.text = node.value.decode("iso8859_15")
+            element.text = text
         else:
             element.set("Type", "Hex")
             element.text = node.value.hex().upper()

@@ -31,3 +31,18 @@ class TestXmlGenerator:
   </Element>
 </Tlv>"""
         )
+
+    def test_close_with_type_ascii(self):
+        node = TlvNode(Tag.from_hex("5F20"), b"\x31\x32\x33")
+        generator = XmlGenerator()
+        generator.write(node)
+        data = generator.close()
+        # Convert OS line endings to newline for comparison
+        data = b"\n".join(data.splitlines())
+        assert (
+            data
+            == b"""<?xml version="1.0" ?>
+<Tlv>
+  <Primitive Tag="0x5F20" Type="ASCII">123</Primitive>
+</Tlv>"""
+        )

@@ -240,6 +240,26 @@ class TestXmlParser:
 └── ff60"""
             )
 
+    def test_close_with_type_ascii(self):
+        with self._create_parser([]) as parser:
+            parser.feed(b"""<Primitive Tag="0x5F20" Type="ASCII">123</Primitive>""")
+            tree = parser.close()
+            assert (
+                tree.dump()
+                == """Root
+└── 5f20: 313233"""
+            )
+
+    def test_close_with_type_hex(self):
+        with self._create_parser([]) as parser:
+            parser.feed(b"""<Primitive Tag="0x5F20" Type="Hex">123</Primitive>""")
+            tree = parser.close()
+            assert (
+                tree.dump()
+                == """Root
+└── 5f20: 0123"""
+            )
+
     def test_close_with_no_data(self):
         with self._create_parser([]) as parser:
             parser.feed(b"")
@@ -339,6 +359,21 @@ class TestXmlParser:
             ) as exc_info:
                 parser.feed(b"""<Element Tag="0x5F20" />""")
             assert type(exc_info.value.__cause__) == AssertionError
+
+    def test_feed_with_invalid_type_attribute(self):
+        with self._create_parser([]) as parser:
+            with pytest.raises(
+                TlvParsingError,
+                match=r"error while parsing the value: tag 5f20, element "
+                r"'<Primitive Tag=\"0x5F20\" Type=\"ANSI\">112233</Primitive>'$",
+            ) as exc_info:
+                parser.feed(
+                    b"""<Primitive Tag="0x5F20" Type="ANSI">112233</Primitive>"""
+                )
+            assert type(exc_info.value.__cause__) == ValueError
+            assert (
+                str(exc_info.value.__cause__) == "invalid 'Type' attribute value: ANSI"
+            )
 
     @contextmanager
     def _create_parser(self, calls: Iterable = None):
