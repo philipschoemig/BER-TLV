@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Library for BER TLV (tag-length-value) encoding.
+Python library for BER-TLV en-/decoding.
 
 Versioning scheme: https://semver.org/spec/v2.0.0.html
 """
@@ -54,7 +54,7 @@ def tree_to_binary(source: Tree, file: BinaryIO = None) -> Optional[bytes]:
     generator_instance = generator.BinaryGenerator()
     if file:
         generator.generate(file, source, generator_instance)
-        return
+        return None
     return generator.generate_bytes(source, generator_instance)
 
 
@@ -68,5 +68,5 @@ def tree_to_xml(source: Tree, file: BinaryIO = None) -> Optional[bytes]:
     generator_instance = generator.XmlGenerator()
     if file:
         generator.generate(file, source, generator_instance)
-        return
+        return None
     return generator.generate_bytes(source, generator_instance)

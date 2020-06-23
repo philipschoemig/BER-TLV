@@ -15,6 +15,11 @@ from . import (
 
 
 def main(argv=None) -> int:
+    """Main function for the bertlv module.
+
+    Parse the input file specified on the command line and dump the resulting TLV tree
+    to standard output or the optional output file.
+    """
     # noinspection PyTypeChecker
     parser = argparse.ArgumentParser(
         description="BER TLV parser.",
@@ -36,8 +41,8 @@ def main(argv=None) -> int:
 
     config.strict_checking = args.strict
 
-    root, ext = os.path.splitext(args.file)
     with open(args.file, "rb") as file:
+        _, ext = os.path.splitext(args.file)
         if ext == ".xml":
             tlv_tree = tree_from_xml(file)
         elif ext == ".tlv":
@@ -48,8 +53,8 @@ def main(argv=None) -> int:
 
     dump = tlv_tree.dump()
     if args.output:
-        root, ext = os.path.splitext(args.output)
         with open(args.output, "wb") as file:
+            _, ext = os.path.splitext(args.output)
             if ext == ".xml":
                 tree_to_xml(tlv_tree, file)
             elif ext == ".tlv":
@@ -68,5 +73,4 @@ def main(argv=None) -> int:
 if __name__ == "__main__":
     # Execute the following lines only when this script is called directly.
     # When it is included from another script they are ignored.
-    status = main()
-    sys.exit(status)
+    sys.exit(main())
