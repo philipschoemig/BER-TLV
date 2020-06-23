@@ -1,5 +1,14 @@
 .. image:: https://github.com/philipschoemig/BER-TLV/workflows/Tests/badge.svg
    :target: https://github.com/philipschoemig/BER-TLV/actions?query=workflow%3ATests
+   :alt: Tests
+
+.. image:: https://api.codeclimate.com/v1/badges/0231c41187cd922b6329/maintainability
+   :target: https://codeclimate.com/github/philipschoemig/BER-TLV/maintainability
+   :alt: Maintainability
+
+.. image:: https://api.codeclimate.com/v1/badges/0231c41187cd922b6329/test_coverage
+   :target: https://codeclimate.com/github/philipschoemig/BER-TLV/test_coverage
+   :alt: Test Coverage
 
 About
 =====
