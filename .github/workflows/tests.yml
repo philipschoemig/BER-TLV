@@ -48,7 +48,6 @@ jobs:
       run: poetry run tox -e py
 
   Coverage:
-    needs: Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -91,7 +90,7 @@ jobs:
     - name: Upload coverage report
       uses: codecov/codecov-action@v1
 
-    - uses: paambaati/codeclimate-action@v2
+    - uses: paambaati/codeclimate-action@v2.6.0
       env:
         CC_TEST_REPORTER_ID: 79982f5a1d5cce202bcdc009fedfbb9fc9f391da090c0f85f04fabd93d71ddb3
       with:
