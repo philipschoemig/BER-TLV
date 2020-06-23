@@ -1,7 +1,7 @@
 import pytest
 
 from bertlv.tag import Tag
-from bertlv.tree import TlvNode, Tree
+from bertlv.tree import TlvError, TlvNode, Tree
 
 
 class TestTlvNode:
@@ -15,13 +15,13 @@ class TestTlvNode:
 
     def test_value_with_constructed_node(self):
         with pytest.raises(
-            RuntimeError, match="Can not set value on constructed TLV node",
+            TlvError, match="Can not set value on constructed node: tag ff60$",
         ):
             TlvNode(Tag.from_hex("FF60"), b"\x11\x22\x33")
 
         node = TlvNode(Tag.from_hex("FF60"))
         with pytest.raises(
-            RuntimeError, match="Can not set value on constructed TLV node",
+            TlvError, match="Can not set value on constructed node: tag ff60$",
         ):
             node.value = b"\x11\x22\x33"
 
@@ -40,7 +40,7 @@ class TestTlvNode:
     def test_parent_with_primitive_node(self):
         parent = TlvNode(Tag.from_hex("DF01"))
         with pytest.raises(
-            RuntimeError, match="Can not attach to primitive TLV node",
+            TlvError, match="Can not attach to primitive node: tag df01$",
         ):
             TlvNode(Tag.from_hex("5F20"), b"\x11\x22\x33", parent=parent)
 
@@ -56,9 +56,25 @@ class TestTlvNode:
     def test_children_with_primitive_node(self):
         children = [TlvNode(Tag.from_hex("5F20"), b"\x11\x22\x33")]
         with pytest.raises(
-            RuntimeError, match="Can not attach to primitive TLV node",
+            TlvError, match="Can not attach to primitive node: tag df01$",
         ):
             TlvNode(Tag.from_hex("DF01"), children=children)
+
+    def test_resolve(self):
+        x5f20 = TlvNode(Tag.from_hex("5F20"), b"\x11\x22\x33")
+        xff60 = TlvNode(Tag.from_hex("FF60"), children=[x5f20])
+        tree = Tree(children=[xff60])
+
+        node = tree.resolve("ff60")
+        assert node == xff60
+
+        node = tree.resolve("ff60/5f20")
+        assert node == x5f20
+
+        with pytest.raises(
+            TlvError, match="Can not resolve path '5f20' from this node: tag Root$",
+        ):
+            tree.resolve("5f20")
 
 
 class TestTree:

@@ -8,11 +8,11 @@ import pytest
 
 from bertlv import config
 from bertlv.parser import (
-    TreeBuilder,
     BinaryParser,
+    InsufficientDataError,
+    ParserError,
+    TreeBuilder,
     XmlParser,
-    TlvInsufficientDataError,
-    TlvParsingError,
 )
 from bertlv.tag import Tag
 from bertlv.tree import TlvNode
@@ -100,7 +100,7 @@ class TestBinaryParser:
         with self._create_parser([]) as parser:
             parser.feed(b"\x5F")
             with pytest.raises(
-                TlvInsufficientDataError,
+                InsufficientDataError,
                 match=r"insufficient data to parse the tag: offset 1$",
             ):
                 parser.close()
@@ -109,8 +109,8 @@ class TestBinaryParser:
         with self._create_parser([]) as parser:
             parser.feed(b"\x5F\x20")
             with pytest.raises(
-                TlvInsufficientDataError,
-                match=r"insufficient data to parse the length: tag 5f20, offset 2",
+                InsufficientDataError,
+                match=r"insufficient data to parse the length: tag 5f20, offset 2$",
             ):
                 parser.close()
 
@@ -118,8 +118,8 @@ class TestBinaryParser:
         with self._create_parser([]) as parser:
             parser.feed(b"\x5F\x20\x81")
             with pytest.raises(
-                TlvInsufficientDataError,
-                match=r"insufficient data to parse the length: tag 5f20, offset 3",
+                InsufficientDataError,
+                match=r"insufficient data to parse the length: tag 5f20, offset 3$",
             ):
                 parser.close()
 
@@ -127,16 +127,16 @@ class TestBinaryParser:
         with self._create_parser([]) as parser:
             parser.feed(b"\x5F\x20\x03")
             with pytest.raises(
-                TlvInsufficientDataError,
-                match=r"insufficient data to parse the value: tag 5f20, offset 3",
+                InsufficientDataError,
+                match=r"insufficient data to parse the value: tag 5f20, offset 3$",
             ):
                 parser.close()
 
         with self._create_parser([]) as parser:
             parser.feed(b"\xFF\x60\x06")
             with pytest.raises(
-                TlvInsufficientDataError,
-                match=r"insufficient data to parse the constructed value: tag ff60, offset 3",
+                InsufficientDataError,
+                match=r"insufficient data to parse the constructed value: tag ff60, offset 3$",
             ):
                 parser.close()
 
@@ -144,16 +144,16 @@ class TestBinaryParser:
         with self._create_parser([]) as parser:
             parser.feed(b"\x5F\x20\x03\x11")
             with pytest.raises(
-                TlvInsufficientDataError,
-                match=r"insufficient data to parse the value: tag 5f20, offset 3",
+                InsufficientDataError,
+                match=r"insufficient data to parse the value: tag 5f20, offset 3$",
             ):
                 parser.close()
 
         with self._create_parser([]) as parser:
             parser.feed(b"\xFF\x60\x06\x5F\x20")
             with pytest.raises(
-                TlvInsufficientDataError,
-                match=r"insufficient data to parse the constructed value: tag ff60, offset 3",
+                InsufficientDataError,
+                match=r"insufficient data to parse the constructed value: tag ff60, offset 3$",
             ):
                 parser.close()
 
@@ -161,7 +161,7 @@ class TestBinaryParser:
         config.strict_checking = True
         with self._create_parser([]) as parser:
             with pytest.raises(
-                TlvParsingError, match=r"error while parsing the tag: offset 3$",
+                ParserError, match=r"error while parsing the tag: offset 3$",
             ):
                 parser.feed(b"\x5F\x80\x01")
         config.strict_checking = False
@@ -264,7 +264,7 @@ class TestXmlParser:
         with self._create_parser([]) as parser:
             parser.feed(b"")
             with pytest.raises(
-                ElementTree.ParseError, match="no element found: line 1, column 0"
+                ElementTree.ParseError, match="no element found: line 1, column 0$"
             ):
                 parser.close()
 
@@ -312,7 +312,7 @@ class TestXmlParser:
     def test_feed_with_missing_tag(self):
         with self._create_parser([]) as parser:
             with pytest.raises(
-                TlvParsingError,
+                ParserError,
                 match=r"error while parsing the tag: element '<Element />'$",
             ) as exc_info:
                 parser.feed(b"<Element />")
@@ -322,7 +322,7 @@ class TestXmlParser:
     def test_feed_with_invalid_tag(self):
         with self._create_parser([]) as parser:
             with pytest.raises(
-                TlvParsingError,
+                ParserError,
                 match=r"error while parsing the tag: element '<Primitive Tag=\"Invalid\" />'$",
             ) as exc_info:
                 parser.feed(b"""<Primitive Tag="Invalid" />""")
@@ -334,7 +334,7 @@ class TestXmlParser:
 
         with self._create_parser([]) as parser:
             with pytest.raises(
-                TlvParsingError,
+                ParserError,
                 match=r"error while parsing the tag: element '<Primitive Tag=\"0x5F\" />'$",
             ) as exc_info:
                 parser.feed(b"""<Primitive Tag="0x5F" />""")
@@ -346,7 +346,7 @@ class TestXmlParser:
     def test_feed_with_incorrect_xml_tag(self):
         with self._create_parser([]) as parser:
             with pytest.raises(
-                TlvParsingError,
+                ParserError,
                 match=r"error while parsing the tag: element '<Primitive Tag=\"0xFF60\" />'$",
             ) as exc_info:
                 parser.feed(b"""<Primitive Tag="0xFF60" />""")
@@ -354,7 +354,7 @@ class TestXmlParser:
 
         with self._create_parser([]) as parser:
             with pytest.raises(
-                TlvParsingError,
+                ParserError,
                 match=r"error while parsing the tag: element '<Element Tag=\"0x5F20\" />'$",
             ) as exc_info:
                 parser.feed(b"""<Element Tag="0x5F20" />""")
@@ -363,7 +363,7 @@ class TestXmlParser:
     def test_feed_with_invalid_type_attribute(self):
         with self._create_parser([]) as parser:
             with pytest.raises(
-                TlvParsingError,
+                ParserError,
                 match=r"error while parsing the value: tag 5f20, element "
                 r"'<Primitive Tag=\"0x5F20\" Type=\"ANSI\">112233</Primitive>'$",
             ) as exc_info:

@@ -1,15 +1,15 @@
 import io
 from abc import ABC, abstractmethod
 from distutils.util import strtobool
-from typing import Optional, BinaryIO
+from typing import BinaryIO, Optional
 from xml.etree import ElementTree
 
 from .stream import BufferedStream
 from .tag import Tag
-from .tree import TlvNode, BuilderBase, TreeBuilder, Tree
+from .tree import BuilderBase, TlvError, TlvNode, Tree, TreeBuilder
 
 
-class TlvError(Exception):
+class ParserError(TlvError):
     def __init__(
         self,
         message: str,
@@ -18,29 +18,18 @@ class TlvError(Exception):
         offset: int = None,
         element: ElementTree.Element = None,
     ):
-        args = []
+        kwargs = {}
         if tag is not None:
-            args.append(f"tag {repr(tag)}")
+            kwargs["tag"] = repr(tag)
         if offset is not None:
-            args.append(f"offset {offset}")
+            kwargs["offset"] = str(offset)
         if element is not None:
             string = ElementTree.tostring(element, encoding="unicode")
-            args.append(f"element '{string.rstrip()}'")
-
-        postfix = ""
-        if args:
-            postfix = ": " + ", ".join(args)
-        super().__init__(f"{message}{postfix}")
-
-
-class TlvParsingError(TlvError):
-    def __init__(
-        self, message: str, **kwargs,
-    ):
+            kwargs["element"] = f"'{string.rstrip()}'"
         super().__init__(f"error while parsing the {message}", **kwargs)
 
 
-class TlvInsufficientDataError(TlvError):
+class InsufficientDataError(ParserError):
     def __init__(
         self, message: str, **kwargs,
     ):
@@ -81,7 +70,7 @@ class BinaryParser(ParserBase):
             while not self.stream.is_eof():
                 with self.stream.rollback():
                     self._parse()
-        except TlvInsufficientDataError:
+        except InsufficientDataError:
             pass
 
     def _parse(self) -> TlvNode:
@@ -91,7 +80,7 @@ class BinaryParser(ParserBase):
             message = "value"
             if tag.is_constructed():
                 message = "constructed value"
-            raise TlvInsufficientDataError(message, tag=tag, offset=self.stream.tell())
+            raise InsufficientDataError(message, tag=tag, offset=self.stream.tell())
 
         self.target.start(tag)
         if tag.is_constructed():
@@ -110,9 +99,9 @@ class BinaryParser(ParserBase):
                     number.append(next(self.stream))
             tag = Tag(number)
         except StopIteration as e:
-            raise TlvInsufficientDataError("tag", offset=self.stream.tell()) from e
+            raise InsufficientDataError("tag", offset=self.stream.tell()) from e
         except Exception as e:
-            raise TlvParsingError("tag", offset=self.stream.tell()) from e
+            raise ParserError("tag", offset=self.stream.tell()) from e
         return tag
 
     def _parse_length(self, tag: Tag) -> int:
@@ -122,22 +111,22 @@ class BinaryParser(ParserBase):
                 length_data = bytes([next(self.stream) for _ in range(length & 0x7F)])
                 length = int(length_data.hex(), 16)
         except StopIteration as e:
-            raise TlvInsufficientDataError(
+            raise InsufficientDataError(
                 "length", tag=tag, offset=self.stream.tell()
             ) from e
         except Exception as e:
-            raise TlvParsingError("length", tag=tag, offset=self.stream.tell()) from e
+            raise ParserError("length", tag=tag, offset=self.stream.tell()) from e
         return length
 
     def _parse_value(self, tag: Tag, length: int) -> bytes:
         try:
             value = bytearray([next(self.stream) for _ in range(length)])
         except StopIteration as e:
-            raise TlvInsufficientDataError(
+            raise InsufficientDataError(
                 "value", tag=tag, offset=self.stream.tell()
             ) from e
         except Exception as e:
-            raise TlvParsingError("value", tag=tag, offset=self.stream.tell()) from e
+            raise ParserError("value", tag=tag, offset=self.stream.tell()) from e
         return value
 
     def _parse_children(self, length: int) -> None:
@@ -199,7 +188,7 @@ class XmlParser(ParserBase):
             else:
                 assert element.tag == "Primitive"
         except Exception as e:
-            raise TlvParsingError("tag", element=element) from e
+            raise ParserError("tag", element=element) from e
         return tag
 
     @staticmethod
@@ -219,7 +208,7 @@ class XmlParser(ParserBase):
                         f"invalid 'Type' attribute value: {element.get('Type')}"
                     )
         except Exception as e:
-            raise TlvParsingError("value", tag=tag, element=element) from e
+            raise ParserError("value", tag=tag, element=element) from e
         return value
 
 

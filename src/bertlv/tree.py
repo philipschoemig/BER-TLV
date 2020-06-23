@@ -2,9 +2,20 @@ from abc import ABC, abstractmethod
 from functools import total_ordering
 from typing import Optional, Any, Callable, Iterable
 
-from anytree import Node, RenderTree
+from anytree import Node, RenderTree, Resolver, ResolverError
 
 from .tag import Tag, RootTag
+
+
+class TlvError(Exception):
+    def __init__(
+        self, message: str, **kwargs,
+    ):
+        args = ""
+        if kwargs:
+            args = ": "
+            args += ", ".join([f"{key} {value}" for key, value in kwargs.items()])
+        super().__init__(f"{message}{args}")
 
 
 @total_ordering
@@ -34,7 +45,7 @@ class TlvNode(Node):
 
     def _pre_attach(self, parent):
         if not parent.is_constructed():
-            raise RuntimeError("Can not attach to primitive TLV node")
+            raise TlvError("Can not attach to primitive node", tag=repr(parent.tag))
 
     @property
     def value(self):
@@ -43,7 +54,7 @@ class TlvNode(Node):
     @value.setter
     def value(self, value):
         if self.is_constructed():
-            raise RuntimeError("Can not set value on constructed TLV node")
+            raise TlvError("Can not set value on constructed node", tag=repr(self.tag))
         self._value = value
 
     @property
@@ -65,6 +76,16 @@ class TlvNode(Node):
             if not node.is_constructed():
                 text += f": {node.value.hex()}"
         return text
+
+    def resolve(self, path: str) -> "TlvNode":
+        """Return the node at *path*."""
+        try:
+            node = Resolver().get(self, path)
+        except ResolverError as error:
+            raise TlvError(
+                f"Can not resolve path '{path}' from this node", tag=repr(self.tag)
+            ) from error
+        return node
 
 
 class Tree(TlvNode):
