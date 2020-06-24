@@ -64,7 +64,7 @@ class TestBinaryParser:
             tree = parser.close()
             assert (
                 tree.dump()
-                == """Root
+                == """root
 └── ff60
     └── 5f20: 112233"""
             )
@@ -76,7 +76,7 @@ class TestBinaryParser:
             tree = parser.close()
             assert (
                 tree.dump()
-                == """Root
+                == """root
 └── 5f20: """
             )
 
@@ -86,7 +86,7 @@ class TestBinaryParser:
             tree = parser.close()
             assert (
                 tree.dump()
-                == """Root
+                == """root
 └── ff60"""
             )
 
@@ -94,7 +94,7 @@ class TestBinaryParser:
         with self._create_parser([]) as parser:
             parser.feed(b"")
             tree = parser.close()
-            assert tree.dump() == """Root"""
+            assert tree.dump() == """root"""
 
     def test_close_with_incomplete_tag(self):
         with self._create_parser([]) as parser:
@@ -202,7 +202,7 @@ class TestXmlParser:
             tree = parser.close()
             assert (
                 tree.dump()
-                == """Root
+                == """root
 └── ff60
     └── 5f20: 112233"""
             )
@@ -222,7 +222,7 @@ class TestXmlParser:
             tree = parser.close()
             assert (
                 tree.dump()
-                == """Root
+                == """root
 └── 5f20: """
             )
 
@@ -236,7 +236,7 @@ class TestXmlParser:
             tree = parser.close()
             assert (
                 tree.dump()
-                == """Root
+                == """root
 └── ff60"""
             )
 
@@ -246,7 +246,7 @@ class TestXmlParser:
             tree = parser.close()
             assert (
                 tree.dump()
-                == """Root
+                == """root
 └── 5f20: 313233"""
             )
 
@@ -256,7 +256,7 @@ class TestXmlParser:
             tree = parser.close()
             assert (
                 tree.dump()
-                == """Root
+                == """root
 └── 5f20: 0123"""
             )
 
@@ -289,7 +289,7 @@ class TestXmlParser:
             tree = parser.close()
             assert (
                 tree.dump()
-                == """Root
+                == """root
 └── df51
     └── 5f20: 112233"""
             )

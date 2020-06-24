@@ -79,6 +79,7 @@ class TlvNode(Node):
 
     def resolve(self, path: str) -> "TlvNode":
         """Return the node at *path*."""
+        path = path.lower()
         try:
             node = Resolver().get(self, path)
         except ResolverError as error:

@@ -117,7 +117,7 @@ class RootTag(Tag):
         super().__init__(b"\x00", force_constructed=True)
 
     def __repr__(self) -> str:
-        return "Root"
+        return "root"
 
     def __str__(self) -> str:
-        return "Root"
+        return "root"

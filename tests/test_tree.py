@@ -65,14 +65,24 @@ class TestTlvNode:
         xff60 = TlvNode(Tag.from_hex("FF60"), children=[x5f20])
         tree = Tree(children=[xff60])
 
-        node = tree.resolve("ff60")
-        assert node == xff60
-
         node = tree.resolve("ff60/5f20")
         assert node == x5f20
 
+        node = tree.resolve("/root/ff60/5f20")
+        assert node == x5f20
+
+    def test_resolve_with_upper_case_path(self):
+        x5f20 = TlvNode(Tag.from_hex("5F20"), b"\x11\x22\x33")
+        xff60 = TlvNode(Tag.from_hex("FF60"), children=[x5f20])
+        tree = Tree(children=[xff60])
+
+        node = tree.resolve("FF60/5F20")
+        assert node == x5f20
+
+    def test_resolve_with_incorrect_path(self):
+        tree = Tree()
         with pytest.raises(
-            TlvError, match="Can not resolve path '5f20' from this node: tag Root$",
+            TlvError, match="Can not resolve path '5f20' from this node: tag root$",
         ):
             tree.resolve("5f20")
 
@@ -80,13 +90,13 @@ class TestTlvNode:
 class TestTree:
     def test_init(self):
         tree = Tree()
-        assert str(tree) == "Tree('/Root', tag=Root)"
+        assert str(tree) == "Tree('/root', tag=root)"
 
     def test_dump(self):
         children = [TlvNode(Tag.from_hex("5F20"), b"\x11\x22\x33")]
         tree = Tree(children)
         assert (
             tree.dump()
-            == """Root
+            == """root
 └── 5f20: 112233"""
         )
