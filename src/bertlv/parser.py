@@ -68,7 +68,7 @@ class BinaryParser(ParserBase):
         self.stream.push(data)
         try:
             while not self.stream.is_eof():
-                with self.stream.rollback():
+                with self.stream.rollback(InsufficientDataError):
                     self._parse()
         except InsufficientDataError:
             pass

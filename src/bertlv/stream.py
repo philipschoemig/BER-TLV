@@ -1,7 +1,7 @@
 import io
-import sys
 from collections.abc import Iterator
 from contextlib import contextmanager
+from typing import Type
 
 
 class BufferedStream(Iterator):
@@ -10,13 +10,17 @@ class BufferedStream(Iterator):
         self.pos_queue = []
 
     @contextmanager
-    def rollback(self):
+    def rollback(self, error_type: Type[Exception]):
         self.pos_queue.append(self.input.tell())
+        error = None
         try:
             yield
+        except error_type as e:
+            error = e
+            raise
         finally:
             pos = self.pos_queue.pop()
-            if sys.exc_info()[0]:
+            if error is not None:
                 self.input.seek(pos)
 
     def __iter__(self):
