@@ -1,0 +1,5 @@
+[flake8]
+min_python_version = 3.6.0
+max-line-length = 88
+ignore = E203, E501, W503
+select = C,E,F,W,B,B950

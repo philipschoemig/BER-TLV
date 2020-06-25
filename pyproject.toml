@@ -1,29 +1,41 @@
 [tool.poetry]
 name = "bertlv"
 version = "0.2.3"
-description = "Library for BER TLV (tag-length-value) en-/decoding."
+description = "Python library for BER-TLV en-/decoding."
 license = "BSD-3-Clause"
 authors = ["Philip Schömig <philip.schoemig@posteo.de>"]
+readme = "README.rst"
+repository = "https://github.com/philipschoemig/BER-TLV"
+keywords = ["BER", "TLV"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Topic :: Communications",
+]
 packages = [
     { include = "bertlv", from = "src" },
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.6.1"
 anytree = "^2.8.0"
 
-[tool.poetry.dev-dependencies]
-pytest = "^5.3.5"
-pytest-cov = "^2.8.1"
-tox = "^3.14.5"
-bump2version = "^1.0.0"
-black = "^19.10b0"
-flake8 = "^3.8.3"
-pylint = "^2.4.4"
-doc8 = "^0.8.0"
-sphinx = "^2.4.4"
-bandit = "^1.6.2"
-flake8-bugbear = "^20.1.4"
+black = {version = "^19.10b0", optional = true}
+bump2version = {version = "^1.0.0", optional = true}
+pre-commit = {version = "^2.5.1", optional = true}
+pytest = {version = "^5.4.3", optional = true}
+pytest-cov = {version = "^2.10.0", optional = true}
+sphinx = {version = "^3.1.1", optional = true}
+tox = {version = "^3.15.2", optional = true}
+
+[tool.poetry.extras]
+dev = ["black", "bump2version", "pre-commit", "pytest", "pytest-cov", "tox"]
+docs = ["sphinx"]
+tests = ["pytest", "pytest-cov"]
 
 [tool.poetry.scripts]
 bertlv = 'bertlv.__main__:main'
@@ -33,24 +45,27 @@ line-length = 88
 target-version = ["py36"]
 include = '\.pyi?$'
 exclude = '''
-
-(
-  /(
-      \.eggs         # exclude a few common directories in the
-    | \.git          # root of the project
-    | \.hg
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | dist
-  )/
-  | foo.py           # also separately exclude a file named foo.py in
-                     # the root of the project
-)
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
 '''
+
+[tool.isort]
+line_length = 88
+
+known_first_party = "bertlv"
+known_third_party = [
+    "anytree",
+]
 
 [build-system]
 requires = ["poetry>=1.0"]

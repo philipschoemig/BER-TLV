@@ -42,7 +42,7 @@ jobs:
       run: poetry run pip --version >/dev/null 2>&1 || rm -rf .venv
 
     - name: Install dependencies
-      run: poetry install
+      run: poetry install -E dev
     
     - name: Run unit-tests
       run: poetry run tox -e py
@@ -82,7 +82,7 @@ jobs:
       run: poetry run pip --version >/dev/null 2>&1 || rm -rf .venv
 
     - name: Install dependencies
-      run: poetry install
+      run: poetry install -E dev
 
     - name: Generate coverage report
       uses: paambaati/codeclimate-action@v2.6.0

@@ -14,7 +14,7 @@
         <array />
       </option>
       <option name="outputFromStdout" value="false" />
-      <option name="program" value="$USER_HOME$/AppData/Local/pypoetry/Cache/virtualenvs/bertlv-0aa4I2wy-py3.8/Scripts/black" />
+      <option name="program" value="$ProjectFileDir$/.venv/Scripts/black" />
       <option name="runOnExternalChanges" value="true" />
       <option name="scopeName" value="Project Files" />
       <option name="trackOnlyRoot" value="false" />
