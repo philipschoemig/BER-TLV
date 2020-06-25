@@ -17,9 +17,11 @@ Python library for BER-TLV en-/decoding.
 Glossary
 ========
 BER
-  Basic Encoding Rules is a standard encoding format for ASN.1. See `X.690 BER encoding`_ on Wikipedia.
+  Basic Encoding Rules is a standard encoding format for ASN.1.
+  See `X.690 BER encoding`_ on Wikipedia.
 TLV
-  Encoding scheme which consists of the fields tag, length and value. See Type-length-value_ on Wikipedia.
+  Encoding scheme which consists of the fields tag, length and value.
+  See Type-length-value_ on Wikipedia.
 
 References
 ==========
