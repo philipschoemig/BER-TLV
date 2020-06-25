@@ -1,23 +1,28 @@
+exclude: ^(\.eggs|\.git|\.hg|\.idea|\.mypy_cache|\.nox|\.tox|\.venv|_build|buck-out|build|dist)/
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.1.0
-    hooks:
-      - id: check-docstring-first
-      - id: check-json
-      - id: check-toml
-      - id: check-xml
-      - id: check-yaml
-
-  - repo: https://github.com/psf/black
-    rev: 19.10b0
-    hooks:
-      - id: black
+#  - repo: https://github.com/pre-commit/pre-commit-hooks
+#    rev: v3.1.0
+#    hooks:
+#      - id: check-byte-order-marker
+#      - id: check-case-conflict
+#      - id: check-docstring-first
+#      - id: check-json
+#      - id: check-merge-conflict
+#      - id: check-symlinks
+#      - id: check-toml
+#      - id: check-yaml
+#      - id: detect-private-key
 
   - repo: https://github.com/timothycrosley/isort
     rev: 4.3.21-2
     hooks:
       - id: isort
         additional_dependencies: [toml]
+
+  - repo: https://github.com/psf/black
+    rev: 19.10b0
+    hooks:
+      - id: black
 
   - repo: https://gitlab.com/pycqa/flake8
     rev: 3.8.3

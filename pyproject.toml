@@ -49,7 +49,9 @@ exclude = '''
     \.eggs
   | \.git
   | \.hg
+  | \.idea
   | \.mypy_cache
+  | \.nox
   | \.tox
   | \.venv
   | _build
@@ -61,11 +63,10 @@ exclude = '''
 
 [tool.isort]
 line_length = 88
-
-known_first_party = "bertlv"
-known_third_party = [
-    "anytree",
-]
+multi_line_output = 3
+use_parentheses = true
+lines_between_types = 1
+include_trailing_comma = true
 
 [build-system]
 requires = ["poetry>=1.0"]
