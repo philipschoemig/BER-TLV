@@ -1,4 +1,5 @@
 import io
+
 from collections.abc import Iterator
 from contextlib import contextmanager
 from typing import Type

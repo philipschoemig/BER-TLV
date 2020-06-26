@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 from functools import total_ordering
-from typing import Optional, Any, Callable, Iterable
+from typing import Any, Callable, Iterable, Optional
 
 from anytree import Node, RenderTree, Resolver, ResolverError
 
-from .tag import Tag, RootTag
+from .tag import RootTag, Tag
 
 
 class TlvError(Exception):

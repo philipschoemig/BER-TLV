@@ -1,5 +1,6 @@
 import io
 import sys
+
 from collections import deque
 from contextlib import contextmanager
 from typing import Any, Iterable

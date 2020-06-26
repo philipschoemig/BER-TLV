@@ -1,12 +1,12 @@
 import io
 import os
+import xml.dom.minidom
+
 from abc import ABC, abstractmethod
 from typing import BinaryIO
 from xml.etree import ElementTree
 
-import xml.dom.minidom
-
-from .tree import Tree, TlvNode
+from .tree import TlvNode, Tree
 
 
 class GeneratorBase(ABC):

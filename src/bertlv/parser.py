@@ -1,4 +1,5 @@
 import io
+
 from abc import ABC, abstractmethod
 from distutils.util import strtobool
 from typing import BinaryIO, Optional

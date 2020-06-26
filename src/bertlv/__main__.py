@@ -6,11 +6,11 @@ import sys
 
 from . import (
     __version__,
+    config,
     tree_from_binary,
     tree_from_xml,
     tree_to_binary,
     tree_to_xml,
-    config,
 )
 
 
