@@ -10,6 +10,18 @@
    :target: https://codeclimate.com/github/philipschoemig/BER-TLV/test_coverage
    :alt: Test Coverage
 
+.. image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
+   :target: https://github.com/pre-commit/pre-commit
+   :alt: pre-commit
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/psf/black
+   :alt: black
+
+.. image:: https://img.shields.io/badge/code%20style-pep8-orange.svg
+   :target: https://www.python.org/dev/peps/pep-0008/
+   :alt: pep8
+
 About
 =====
 Python library for BER-TLV en-/decoding.
