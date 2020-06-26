@@ -22,7 +22,7 @@
    :target: https://www.python.org/dev/peps/pep-0008/
    :alt: pep8
 
-.. image:: https://img.shields.io/badge/semver.org-2.0.0-black.svg
+.. image:: https://img.shields.io/badge/semver-2.0.0-black.svg
    :target: https://semver.org/spec/v2.0.0.html
    :alt: Semantic Versioning
 
