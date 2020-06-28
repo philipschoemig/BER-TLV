@@ -27,11 +27,11 @@
    :alt: Semantic Versioning
 
 About
-=====
+-----
 Python library for BER-TLV en-/decoding.
 
 Glossary
-========
+--------
 BER
   Basic Encoding Rules is a standard encoding format for ASN.1.
   See `X.690 BER encoding`_ on Wikipedia.
@@ -40,7 +40,7 @@ TLV
   See Type-length-value_ on Wikipedia.
 
 References
-==========
+----------
 - `X.690 BER encoding`_
 - Type-length-value_
 - `ISO 7816-4 Annex D`_
