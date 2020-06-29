@@ -47,10 +47,31 @@ pre-commit = {version = "^2.5.1", optional = true}
 tox = {version = "^3.15.2", optional = true}
 
 [tool.poetry.extras]
-dev = ["black", "bump2version", "pytest", "pytest-cov", "tox"]
-checks = ["pre-commit", "bandit", "black", "doc8", "flake8", "isort", "pylint"]
-docs = ["sphinx"]
-tests = ["pytest", "pytest-cov"]
+dev = [
+    "black",
+    "bump2version",
+    "pytest",
+    "pytest-cov",
+    "tox"
+]
+checks = [
+    "pre-commit",
+    "bandit",
+    "black",
+    "doc8",
+    "flake8",
+    "flake8-bugbear",
+    "flake8-typing-imports",
+    "isort",
+    "pylint"
+]
+docs = [
+    "sphinx"
+]
+tests = [
+    "pytest",
+    "pytest-cov"
+]
 
 [tool.poetry.scripts]
 bertlv = 'bertlv.__main__:main'
