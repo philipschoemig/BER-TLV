@@ -1,3 +1,11 @@
+Python library for BER-TLV en-/decoding.
+
+Status
+------
+.. image:: https://github.com/philipschoemig/BER-TLV/workflows/Checks/badge.svg
+   :target: https://github.com/philipschoemig/BER-TLV/actions?query=workflow%3AChecks
+   :alt: Checks
+
 .. image:: https://github.com/philipschoemig/BER-TLV/workflows/Tests/badge.svg
    :target: https://github.com/philipschoemig/BER-TLV/actions?query=workflow%3ATests
    :alt: Tests
@@ -25,10 +33,6 @@
 .. image:: https://img.shields.io/badge/semver-2.0.0-black.svg
    :target: https://semver.org/spec/v2.0.0.html
    :alt: Semantic Versioning
-
-About
------
-Python library for BER-TLV en-/decoding.
 
 Glossary
 --------
