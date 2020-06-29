@@ -38,7 +38,7 @@ jobs:
       run: poetry run pip --version >/dev/null 2>&1 || rm -rf .venv
 
     - name: Install dependencies
-      run: poetry install -E checks -E tests
+      run: poetry install -E dev
 
     - name: Execute checks
       run: poetry run tox -e checks
