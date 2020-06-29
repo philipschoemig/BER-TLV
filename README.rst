@@ -30,6 +30,7 @@
    :target: https://semver.org/spec/v2.0.0.html
    :alt: Semantic Versioning
 
+----
 
 Python library for BER-TLV en-/decoding.
 
