@@ -270,7 +270,7 @@ class TestXmlParser:
         with self._create_parser([]) as parser:
             parser.feed(b"")
             with pytest.raises(
-                ElementTree.ParseError, match="no element found: line 1, column 0$"
+                ElementTree.ParseError, match=r"no element found: line 1, column 0$"
             ):
                 parser.close()
 
