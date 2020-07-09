@@ -1,4 +1,5 @@
-|checks| |tests| |maintainability| |coverage| |pre-commit| |black| |pep8| |semver|
+|checks| |tests| |maintainability| |coverage|
+|pre-commit| |black| |pep8| |semver|
 
 
 Python library for BER-TLV en-/decoding.
