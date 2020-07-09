@@ -15,15 +15,17 @@ import sys
 
 sys.path.insert(0, os.path.abspath("../src"))
 
+import bertlv  # noqa: E402 # isort:skip
+
 
 # -- Project information -----------------------------------------------------
 
-project = "bertlv"
+project = bertlv.__name__
 copyright = "2020, Philip Schömig"
 author = "Philip Schömig"
 
 # The full version, including alpha/beta/rc tags
-version = "0.2.4"
+version = bertlv.__version__
 release = version
 
 
