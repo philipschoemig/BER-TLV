@@ -1,7 +1,3 @@
-[build-system]
-requires = ["poetry>=1.0"]
-build-backend = "poetry.masonry.api"
-
 [tool.poetry]
 name = "bertlv"
 version = "0.2.4"
@@ -80,6 +76,12 @@ tests = [
 [tool.poetry.scripts]
 bertlv = 'bertlv.__main__:main'
 
+
+[build-system]
+requires = ["poetry>=1.0"]
+build-backend = "poetry.masonry.api"
+
+
 [tool.black]
 line-length = 88
 target-version = ["py36"]
@@ -101,12 +103,14 @@ exclude = '''
 )/
 '''
 
+
 [tool.isort]
 line_length = 88
 multi_line_output = 3
 use_parentheses = true
 lines_between_types = 1
 include_trailing_comma = true
+
 
 [tool.pylint.master]
 ignore = ["conf.py"]
@@ -121,6 +125,7 @@ disable = """,
     bad-continuation,
     no-self-use,
     """
+
 
 [tool.pytest.ini_options]
 junit_family = "xunit2"
