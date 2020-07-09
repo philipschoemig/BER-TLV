@@ -1,8 +1,0 @@
-[MASTER]
-ignore=docs
-
-[BASIC]
-good-names=e,fp,_
-
-[MESSAGES CONTROL]
-disable=bad-continuation, no-self-use

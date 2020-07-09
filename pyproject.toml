@@ -1,3 +1,7 @@
+[build-system]
+requires = ["poetry>=1.0"]
+build-backend = "poetry.masonry.api"
+
 [tool.poetry]
 name = "bertlv"
 version = "0.2.4"
@@ -104,6 +108,22 @@ use_parentheses = true
 lines_between_types = 1
 include_trailing_comma = true
 
-[build-system]
-requires = ["poetry>=1.0"]
-build-backend = "poetry.masonry.api"
+[tool.pylint.master]
+ignore = ["conf.py"]
+fail-under = "10"
+jobs = "0"  # Auto-detect the number of processors
+
+[tool.pylint.basic]
+good-names = ["e", "fp", "_"]
+
+[tool.pylint.messages_control]
+disable = """,
+    bad-continuation,
+    no-self-use,
+    """
+
+[tool.pytest.ini_options]
+junit_family = "xunit2"
+testpaths = [
+    "tests",
+]
