@@ -1,4 +1,4 @@
-exclude: ^(\.eggs|\.git|\.hg|\.idea|\.mypy_cache|\.nox|\.tox|\.venv|_build|buck-out|build|dist)/
+exclude: ^(\.eggs|\.git|\.idea|\.mypy_cache|\.nox|\.tox|\.venv|_build|build|dist)/
 repos:
 #  - repo: https://github.com/pre-commit/pre-commit-hooks
 #    rev: v3.1.0
@@ -33,13 +33,14 @@ repos:
         types: [python]
         require_serial: true
 
-      # based on pre-commit hook from https://gitlab.com/pycqa/flake8
-      - id: flake8
-        name: flake8
-        description: '`flake8` is a command-line utility for enforcing style consistency across Python projects.'
-        entry: poetry run flake8
+      # based on pre-commit hook from https://github.com/life4/flakehell
+      - id: flakehell
+        name: flakehell
+        description: '`flakehell` is a `flake8` wrapper to make a nice, legacy-friendly, configurable command-line utility for enforcing style consistency across Python projects.'
+        entry: poetry run flakehell lint
         language: python
-        types: [python]
+        types: [file, text]
+        files: \.(ipynb|md|py|rst|yaml|yml)$
         require_serial: true
 
       # based on pre-commit hook from https://github.com/PyCQA/doc8

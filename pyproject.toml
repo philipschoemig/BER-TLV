@@ -21,16 +21,16 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6.1"
+python = "^3.6.2"
 anytree = "^2.8.0"
 
 # formatters and linters
 bandit = {version = "^1.6.2", optional = true}
 black = {version = "^19.10b0", optional = true}
 doc8 = {version = "^0.8.1", optional = true}
-flake8 = {version = "^3.8.3", optional = true}
 flake8-bugbear = {version = "^20.1.4", optional = true}
 flake8-typing-imports = {version = "^1.9.0", optional = true}
+flakehell = {version = "^0.5.0", optional = true}
 isort = {version = "^4.3.21", optional = true}
 pylint = {version = "^2.5.3", optional = true}
 
@@ -59,9 +59,9 @@ checks = [
     "bandit",
     "black",
     "doc8",
-    "flake8",
     "flake8-bugbear",
     "flake8-typing-imports",
+    "flakehell",
     "isort",
     "pylint"
 ]
@@ -90,18 +90,44 @@ exclude = '''
 /(
     \.eggs
   | \.git
-  | \.hg
   | \.idea
   | \.mypy_cache
   | \.nox
   | \.tox
   | \.venv
   | _build
-  | buck-out
   | build
   | dist
 )/
 '''
+
+
+[tool.flakehell]
+exclude = [
+    ".eggs",
+    ".git",
+    ".idea",
+    ".mypy_cache",
+    ".nox",
+    ".tox",
+    ".venv",
+    "_build",
+    "build",
+    "dist",
+]
+format = "grouped"
+show_source = true
+
+[tool.flakehell.plugins]
+"flake8-*" = ["+*"]
+flake8-typing-imports = ["+*", "-TYP001"]
+mccabe = ["+*"]
+pycodestyle = ["+*", "-E203", "-E501", "-W503"]
+pyflakes = ["+*"]
+#pylint = ["+*"]
+
+[tool.flakehell.exceptions."tests/"]
+pylint = ["-C0116"]
 
 
 [tool.isort]
