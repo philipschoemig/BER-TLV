@@ -10,6 +10,15 @@ class BufferedStream(Iterator):
         self.input = io.BytesIO()
         self.pos_queue = []
 
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        data = self.input.read(1)
+        if not data:
+            raise StopIteration
+        return data[0]
+
     @contextmanager
     def rollback(self, error_type: Type[Exception]):
         self.pos_queue.append(self.input.tell())
@@ -23,15 +32,6 @@ class BufferedStream(Iterator):
             pos = self.pos_queue.pop()
             if error is not None:
                 self.input.seek(pos)
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        data = self.input.read(1)
-        if not data:
-            raise StopIteration
-        return data[0]
 
     def is_eof(self) -> bool:
         return self.input.tell() >= len(self.input.getvalue())
