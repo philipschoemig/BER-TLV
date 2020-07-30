@@ -141,7 +141,7 @@ include_trailing_comma = true
 [tool.pylint.master]
 ignore = ["conf.py"]
 fail-under = "10"
-jobs = "0"  # Auto-detect the number of processors
+jobs = "1"
 
 [tool.pylint.basic]
 good-names = ["e", "fp", "_"]
