@@ -197,13 +197,13 @@ class XmlParser(ParserBase):
         try:
             value = bytes()
             if element.text:
-                text = "".join(element.text.split())
                 if element.get("Type") == "Hex" or not element.get("Type"):
+                    text = "".join(element.text.split())
                     if len(text) % 2 == 1:
                         text = text.rjust(len(text) + 1, "0")
                     value = bytearray.fromhex(text)
                 elif element.get("Type") == "ASCII":
-                    value = bytearray(text, "iso8859_15")
+                    value = bytearray(element.text, "iso8859_15")
                 else:
                     raise ValueError(
                         f"invalid 'Type' attribute value: {element.get('Type')}"

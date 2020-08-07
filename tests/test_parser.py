@@ -248,12 +248,12 @@ class TestXmlParser:
 
     def test_close_with_type_ascii(self):
         with self._create_parser([]) as parser:
-            parser.feed(b"""<Primitive Tag="0x5F20" Type="ASCII">123</Primitive>""")
+            parser.feed(b"""<Primitive Tag="0x5F20" Type="ASCII">123 Go!</Primitive>""")
             tree = parser.close()
             assert (
                 tree.dump()
                 == """root
-└── 5f20: 313233"""
+└── 5f20: 31323320476f21"""
             )
 
     def test_close_with_type_hex(self):
