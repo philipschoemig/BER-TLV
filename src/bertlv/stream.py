@@ -34,15 +34,12 @@ class BufferedStream(Iterator):
                 self.input.seek(pos)
 
     def is_eof(self) -> bool:
-        return self.input.tell() >= len(self.input.getvalue())
+        return self.size() == 0
 
     def size(self) -> int:
-        pos = self.input.tell()
-        try:
-            end_pos = self.input.seek(0, io.SEEK_END)
-        finally:
-            self.input.seek(pos)
-        return end_pos - pos
+        length = len(self.input.getvalue()) - self.input.tell()
+        assert length >= 0
+        return length
 
     def close(self) -> None:
         self.input.close()

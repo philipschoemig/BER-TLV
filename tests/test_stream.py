@@ -33,19 +33,19 @@ class TestBufferedStream:
                 next(stream)
         assert stream.tell() == 0
 
-    def test_is_eof(self):
+    def test_is_eof(self, benchmark):
         stream = BufferedStream()
         assert stream.is_eof()
         stream.push(b"\x10\x21\x42\x84")
-        assert not stream.is_eof()
+        assert not benchmark(stream.is_eof)
         stream.read()
         assert stream.is_eof()
 
-    def test_size(self):
+    def test_size(self, benchmark):
         stream = BufferedStream()
         assert stream.size() == 0
         stream.push(b"\x10\x21\x42\x84")
-        assert stream.size() == 4
+        assert benchmark(stream.size) == 4
         stream.read(2)
         assert stream.size() == 2
 
