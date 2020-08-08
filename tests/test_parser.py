@@ -21,6 +21,8 @@ from bertlv.parser import (
 from bertlv.tag import Tag
 from bertlv.tree import TlvNode
 
+from .test_tree import _test_binary_data, _test_dump
+
 
 class TreeBuilderMockUp(TreeBuilder):
     def __init__(self, expected_calls: deque = None):
@@ -400,13 +402,13 @@ class TestXmlParser:
 
 
 def test_parse():
-    fp = io.BytesIO(_test_data())
+    fp = io.BytesIO(_test_binary_data())
     tree = parse(fp, BinaryParser())
     assert tree.dump() == _test_dump()
 
 
 def test_parse_bytes():
-    tree = parse_bytes(_test_data(), BinaryParser())
+    tree = parse_bytes(_test_binary_data(), BinaryParser())
     assert tree.dump() == _test_dump()
 
 
@@ -419,26 +421,3 @@ def test_parse_bytes_with_other_types():
     with pytest.raises(TypeError):
         # noinspection PyTypeChecker
         parse_bytes(str(), BinaryParser())
-
-
-def _test_data():
-    """Return the data for the test tree."""
-    return (
-        b"\xe1\x35\x9f\x1e\x08\x31\x36\x30\x32\x31\x34\x33\x37\xef\x12\xdf"
-        b"\x0d\x08\x4d\x30\x30\x30\x2d\x4d\x50\x49\xdf\x7f\x04\x31\x2d\x32"
-        b"\x32\xef\x14\xdf\x0d\x0b\x4d\x30\x30\x30\x2d\x54\x45\x53\x54\x4f"
-        b"\x53\xdf\x7f\x03\x36\x2d\x35"
-    )
-
-
-def _test_dump():
-    """Return the dump for the test tree."""
-    return """root
-└── e1
-    ├── 9f1e: 3136303231343337
-    ├── ef
-    │   ├── df0d: 4d3030302d4d5049
-    │   └── df7f: 312d3232
-    └── ef
-        ├── df0d: 4d3030302d544553544f53
-        └── df7f: 362d35"""
