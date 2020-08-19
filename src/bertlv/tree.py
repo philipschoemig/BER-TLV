@@ -43,6 +43,9 @@ class TlvNode(Node):
     def __lt__(self, other: "TlvNode"):
         return self.tag < other.tag
 
+    def __str__(self):
+        return self.separator.join([""] + [str(node.name) for node in self.path])
+
     def _pre_attach(self, parent):
         if not parent.is_constructed():
             raise TlvError("Can not attach to primitive node", tag=repr(parent.tag))
@@ -127,11 +130,14 @@ class TreeBuilder(BuilderBase):
 
     def close(self) -> Tree:
         """Flush the builder buffers, and return the tree."""
-        assert self.current == self.tree, "missing end tags"
+        if self.current is not self.tree:
+            raise TlvError(f"Missing end tag for '{self.current}'")
         return self.tree
 
     def end(self, tag: Tag) -> TlvNode:
         """Close the current TLV node. Return the closed node."""
+        if self.current.tag != tag:
+            raise TlvError(f"End tag mismatch for '{self.current}', got {repr(tag)}")
         node = self.current
         self.current = self.current.parent
         return node

@@ -3,13 +3,14 @@ import os
 import pytest
 
 from bertlv.tag import Tag
-from bertlv.tree import TlvError, TlvNode, Tree
+from bertlv.tree import TlvError, TlvNode, Tree, TreeBuilder
 
 
 class TestTlvNode:
     def test_init(self):
         node = TlvNode(Tag.from_hex("FF60"))
-        assert str(node) == "TlvNode('/ff60', tag=ff60)"
+        assert repr(node) == "TlvNode('/ff60', tag=ff60)"
+        assert str(node) == "/ff60"
 
     def test_value(self):
         node = TlvNode(Tag.from_hex("5F20"), b"\x11\x22\x33")
@@ -92,10 +93,98 @@ class TestTlvNode:
 class TestTree:
     def test_init(self):
         tree = Tree()
-        assert str(tree) == "Tree('/root', tag=root)"
+        assert repr(tree) == "Tree('/root', tag=root)"
+        assert str(tree) == "/root"
 
     def test_dump(self):
         assert _test_tree().dump() == _test_dump()
+
+
+class TestTreeBuilder:
+    def test_init(self):
+        builder = TreeBuilder()
+        assert builder.current == builder.tree
+        assert builder.tree == Tree()
+
+    def test_close(self):
+        assert _test_builder().close() == _test_tree()
+
+    def test_close_with_missing_end(self):
+        builder = TreeBuilder()
+        builder.start(Tag.from_hex("e1"))
+        assert builder.current == TlvNode(Tag.from_hex("e1"))
+        with pytest.raises(
+            TlvError, match="Missing end tag for '/root/e1'$",
+        ):
+            builder.close()
+
+    def test_end(self):
+        builder = TreeBuilder()
+        builder.start(Tag.from_hex("e1"))
+        assert builder.current == TlvNode(Tag.from_hex("e1"))
+        builder.end(Tag.from_hex("e1"))
+        assert builder.current == builder.tree
+
+    def test_end_with_tag_mismatch(self):
+        builder = TreeBuilder()
+        builder.start(Tag.from_hex("e1"))
+        assert builder.current == TlvNode(Tag.from_hex("e1"))
+        with pytest.raises(
+            TlvError, match="End tag mismatch for '/root/e1', got e2$",
+        ):
+            builder.end(Tag.from_hex("e2"))
+
+    def test_data(self):
+        builder = TreeBuilder()
+        builder.start(Tag.from_hex("df7f"))
+        assert builder.current == TlvNode(Tag.from_hex("df7f"))
+        builder.data(bytes.fromhex("3136303231343337"))
+        assert builder.current == TlvNode(
+            Tag.from_hex("df7f"), bytes.fromhex("3136303231343337")
+        )
+        builder.end(Tag.from_hex("df7f"))
+        assert builder.current == builder.tree
+
+    def test_start(self):
+        builder = TreeBuilder()
+        builder.start(Tag.from_hex("e1"))
+        assert builder.current == TlvNode(Tag.from_hex("e1"))
+
+
+def _test_builder():
+    builder = TreeBuilder()
+    builder.start(Tag.from_hex("e1"))
+
+    builder.start(Tag.from_hex("9f1e"))
+    builder.data(bytes.fromhex("3136303231343337"))
+    builder.end(Tag.from_hex("9f1e"))
+
+    builder.start(Tag.from_hex("ef"))
+
+    builder.start(Tag.from_hex("df0d"))
+    builder.data(bytes.fromhex("4d3030302d4d5049"))
+    builder.end(Tag.from_hex("df0d"))
+
+    builder.start(Tag.from_hex("df7f"))
+    builder.data(bytes.fromhex("312d3232"))
+    builder.end(Tag.from_hex("df7f"))
+
+    builder.end(Tag.from_hex("ef"))
+
+    builder.start(Tag.from_hex("ef"))
+
+    builder.start(Tag.from_hex("df0d"))
+    builder.data(bytes.fromhex("4d3030302d544553544f53"))
+    builder.end(Tag.from_hex("df0d"))
+
+    builder.start(Tag.from_hex("df7f"))
+    builder.data(bytes.fromhex("362d35"))
+    builder.end(Tag.from_hex("df7f"))
+
+    builder.end(Tag.from_hex("ef"))
+
+    builder.end(Tag.from_hex("e1"))
+    return builder
 
 
 def _test_tree() -> Tree:
