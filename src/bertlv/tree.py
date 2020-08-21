@@ -115,39 +115,33 @@ class BuilderBase(ABC):
         """Open a new TLV node with the given tag."""
 
 
-def create_node(tag: Tag, *args, **kwargs) -> TlvNode:
-    return TlvNode(tag, *args, **kwargs)
-
-
 class TreeBuilder(BuilderBase):
     def __init__(self, node_factory: Callable = None):
-        self.node_factory = node_factory
-        if not self.node_factory:
-            self.node_factory = create_node
+        self._factory = node_factory or TlvNode
 
-        self.tree = Tree()
-        self.current = self.tree
+        self._tree = Tree()
+        self._current = self._tree
 
     def close(self) -> Tree:
         """Flush the builder buffers, and return the tree."""
-        if self.current is not self.tree:
-            raise TlvError(f"Missing end tag for '{self.current}'")
-        return self.tree
+        if self._current is not self._tree:
+            raise TlvError(f"Missing end tag for '{self._current}'")
+        return self._tree
 
     def end(self, tag: Tag) -> TlvNode:
         """Close the current TLV node. Return the closed node."""
-        if self.current.tag != tag:
-            raise TlvError(f"End tag mismatch for '{self.current}', got {repr(tag)}")
-        node = self.current
-        self.current = self.current.parent
+        if self._current.tag != tag:
+            raise TlvError(f"End tag mismatch for '{self._current}', got {repr(tag)}")
+        node = self._current
+        self._current = self._current.parent
         return node
 
     def data(self, data: bytes) -> Any:
         """Add a value to the current TLV node."""
-        self.current.value = data
+        self._current.value = data
 
     def start(self, tag: Tag) -> TlvNode:
         """Open a new TLV node with the given tag. Return the opened node."""
-        node = self.node_factory(tag, parent=self.current)
-        self.current = node
+        node = self._factory(tag, parent=self._current)
+        self._current = node
         return node
