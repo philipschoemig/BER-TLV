@@ -151,13 +151,6 @@ disable = """,
     """
 
 
-[tool.pytest.ini_options]
-junit_family = "xunit2"
-testpaths = [
-    "tests",
-]
-
-
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
