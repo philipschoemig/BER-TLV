@@ -3,13 +3,27 @@ from xml.etree import ElementTree
 import pytest
 
 from bertlv import config
-from bertlv.tag import Tag, TagClass, TagType
+from bertlv.tag import RootTag, Tag, TagClass, TagType
 
 
 class TestTag:
     def test_init(self):
-        tag = Tag(bytes.fromhex("5F20"))
+        tag = Tag(b"\x5F\x20")
         assert repr(tag) == "5f20"
+        assert str(tag) == "0x5f20"
+
+    def test_init_with_leading_zeros(self):
+        tag = Tag(b"\x00\x00\x5F\x20")
+        assert repr(tag) == "5f20"
+        assert str(tag) == "0x5f20"
+
+    def test_comparison(self):
+        tag_5f20 = Tag(b"\x5F\x20")
+        tag_5f20_2 = Tag(b"\x5F\x20")
+        assert tag_5f20 == tag_5f20_2
+
+        tag_5f21 = Tag(b"\x5F\x21")
+        assert tag_5f20 < tag_5f21
 
     def test_init_with_empty_identifier(self):
         with pytest.raises(ValueError, match="tag must not be empty"):
@@ -102,9 +116,21 @@ class TestTag:
         tag = Tag.from_hex("5F20")
         assert repr(tag) == "5f20"
 
-        tag = Tag.from_hex("0x00005F20")
+    def test_from_hex_with_hex_prefix(self):
+        tag = Tag.from_hex("0x5F20")
+        assert repr(tag) == "5f20"
+
+    def test_from_hex_with_leading_zeros(self):
+        tag = Tag.from_hex("00005F20")
         assert repr(tag) == "5f20"
 
     def test_from_hex_with_invalid_tag(self):
         with pytest.raises(ValueError):
             Tag.from_hex("Invalid")
+
+
+class TestRootTag:
+    def test_init(self):
+        tag = RootTag()
+        assert repr(tag) == "root"
+        assert str(tag) == "root"

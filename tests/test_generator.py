@@ -16,6 +16,23 @@ class TestBinaryGenerator:
         data = generator.close()
         assert data == b"\xFF\x60\x06\x5F\x20\x03\x11\x22\x33"
 
+    def test_close_with_zero_length(self):
+        children = [TlvNode(Tag.from_hex("5F20"))]
+        node = TlvNode(Tag.from_hex("FF60"), children=children)
+        generator = BinaryGenerator()
+        generator.write(node)
+        data = generator.close()
+        assert data == b"\xFF\x60\x03\x5F\x20\x00"
+
+    def test_close_with_extended_length(self):
+        value = bytes([i for i in range(0, 255)])
+        children = [TlvNode(Tag.from_hex("5F20"), value)]
+        node = TlvNode(Tag.from_hex("FF60"), children=children)
+        generator = BinaryGenerator()
+        generator.write(node)
+        data = generator.close()
+        assert data == b"\xFF\x60\x82\x01\x03\x5F\x20\x81\xff" + value
+
 
 class TestXmlGenerator:
     def test_close(self):
@@ -48,6 +65,21 @@ class TestXmlGenerator:
             == b"""<?xml version="1.0" ?>
 <Tlv>
   <Primitive Tag="0x5F20" Type="ASCII">123</Primitive>
+</Tlv>"""
+        )
+
+    def test_close_with_wrong_encoding(self):
+        node = TlvNode(Tag.from_hex("5F20"), b"\x00\x7F\xFF")
+        generator = XmlGenerator()
+        generator.write(node)
+        data = generator.close()
+        # Convert OS line endings to newline for comparison
+        data = b"\n".join(data.splitlines())
+        assert (
+            data
+            == b"""<?xml version="1.0" ?>
+<Tlv>
+  <Primitive Tag="0x5F20" Type="Hex">007FFF</Primitive>
 </Tlv>"""
         )
 

@@ -12,6 +12,14 @@ class TestTlvNode:
         assert repr(node) == "TlvNode('/ff60', tag=ff60)"
         assert str(node) == "/ff60"
 
+    def test_comparison(self):
+        node_5f20 = TlvNode(Tag.from_hex("5F20"))
+        node_5f20_data = TlvNode(Tag.from_hex("5F20"), b"\x11\x22\x33")
+        assert node_5f20 == node_5f20_data
+
+        node_5f21 = TlvNode(Tag.from_hex("5F21"))
+        assert node_5f20 < node_5f21
+
     def test_value(self):
         node = TlvNode(Tag.from_hex("5F20"), b"\x11\x22\x33")
         assert node.dump() == "5f20: 112233"

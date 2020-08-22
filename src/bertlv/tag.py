@@ -19,21 +19,26 @@ class TagType(Enum):
 
 @total_ordering
 class Tag:
-    """This represents a TLV tag following the BER encoding."""
+    """This represents a TLV tag following the BER encoding.
+
+    It consists of the following parts:
+    - Tag class: bits 7-8 of the initial octet
+    - Tag type: bit 6 of the initial octet
+    - Tag number: bits 1-5 of the initial octet and bits 1-7 of subsequent octets
+    """
 
     CLASS_BITMASK = 0b11000000
     TYPE_BITMASK = 0b00100000
 
     def __init__(self, identifier: bytes, *, force_constructed: bool = False):
-        self._check_tag(identifier)
         self.identifier = identifier
         self._force_constructed = force_constructed
 
     def __repr__(self) -> str:
-        return self.identifier.hex()
+        return self._identifier.hex()
 
     def __str__(self) -> str:
-        return f"0x{self.identifier.hex()}"
+        return f"0x{self._identifier.hex()}"
 
     def __eq__(self, other: "Tag"):
         return repr(self) == repr(other)
@@ -42,15 +47,30 @@ class Tag:
         return repr(self) < repr(other)
 
     @property
+    def identifier(self) -> bytes:
+        """Return the identifier octets of this tag."""
+        return self._identifier
+
+    @identifier.setter
+    def identifier(self, identifier: bytes):
+        """Set the identifier octets of this tag."""
+        # Strip leading zeros
+        identifier = identifier.lstrip(b"\x00")
+        self._check_tag(identifier)
+        self._identifier = identifier
+
+    @property
     def tag_class(self) -> TagClass:
+        """Return the class of this tag."""
         # In the initial octet, bits 7-8 encode the class
-        class_bits = (self.identifier[0] & self.CLASS_BITMASK) >> 6
+        class_bits = (self._identifier[0] & self.CLASS_BITMASK) >> 6
         return TagClass(class_bits)
 
     @property
     def tag_type(self) -> TagType:
+        """Return the type of this tag."""
         # In the initial octet, bit 6 encodes the type
-        type_bits = (self.identifier[0] & self.TYPE_BITMASK) >> 5
+        type_bits = (self._identifier[0] & self.TYPE_BITMASK) >> 5
         return TagType(type_bits)
 
     def is_constructed(self) -> bool:
@@ -61,11 +81,11 @@ class Tag:
 
     def to_int(self) -> int:
         """Return an integer representing a tag."""
-        return int.from_bytes(self.identifier, byteorder="big")
+        return int.from_bytes(self._identifier, byteorder="big")
 
     def to_hex(self) -> str:
         """Return a hex string representing a tag."""
-        return "0x" + self.identifier.hex().upper()
+        return "0x" + self._identifier.hex().upper()
 
     def to_xml(self, element: ElementTree.Element) -> ElementTree.Element:
         """Return an XML element representing a tag."""
@@ -85,7 +105,6 @@ class Tag:
         """Return the tag represented by the given hex string."""
         if tag.startswith("0x"):
             tag = tag[2:]
-        tag = tag.lstrip("0")
         return cls(bytes.fromhex(tag), force_constructed=force_constructed)
 
     @staticmethod
@@ -114,7 +133,7 @@ class Tag:
 
 class RootTag(Tag):
     def __init__(self):
-        super().__init__(b"\x00", force_constructed=True)
+        super().__init__(b"\xF0", force_constructed=True)
 
     def __repr__(self) -> str:
         return "root"

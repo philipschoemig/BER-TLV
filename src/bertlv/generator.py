@@ -10,6 +10,8 @@ from .tree import TlvNode, Tree
 
 
 class GeneratorBase(ABC):
+    """Base class for BER-TLV generators."""
+
     @abstractmethod
     def close(self) -> bytes:
         """Close the generator and return the written bytes."""
@@ -20,6 +22,8 @@ class GeneratorBase(ABC):
 
 
 class BinaryGenerator(GeneratorBase):
+    """Base class for BER-TLV generators."""
+
     def __init__(self):
         self.stream = io.BytesIO()
 

@@ -51,11 +51,13 @@ class TlvNode(Node):
             raise TlvError("Can not attach to primitive node", tag=repr(parent.tag))
 
     @property
-    def value(self):
-        return self._value
+    def value(self) -> bytes:
+        if self._value:
+            return self._value
+        return bytes()
 
     @value.setter
-    def value(self, value):
+    def value(self, value: bytes):
         if self.is_constructed():
             raise TlvError("Can not set value on constructed node", tag=repr(self.tag))
         self._value = value
