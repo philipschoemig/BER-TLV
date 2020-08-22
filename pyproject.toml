@@ -51,6 +51,7 @@ tox = {version = "^3.15.2", optional = true}
 dev = [
     "black",
     "bump2version",
+    "isort",
     "pytest",
     "pytest-benchmark",
     "pytest-cov",
