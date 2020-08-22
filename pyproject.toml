@@ -55,7 +55,10 @@ dev = [
     "pytest",
     "pytest-benchmark",
     "pytest-cov",
-    "tox"
+    "tox",
+]
+basis = [
+    "tox",
 ]
 checks = [
     "pre-commit",
@@ -66,15 +69,15 @@ checks = [
     "flake8-typing-imports",
     "flakehell",
     "isort",
-    "pylint"
+    "pylint",
 ]
 docs = [
-    "sphinx"
+    "sphinx",
 ]
 tests = [
     "pytest",
     "pytest-benchmark",
-    "pytest-cov"
+    "pytest-cov",
 ]
 
 [tool.poetry.scripts]

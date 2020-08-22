@@ -940,13 +940,14 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [extras]
+basis = ["tox"]
 checks = ["pre-commit", "bandit", "black", "doc8", "flake8-bugbear", "flake8-typing-imports", "flakehell", "isort", "pylint"]
 dev = ["black", "bump2version", "isort", "pytest", "pytest-benchmark", "pytest-cov", "tox"]
 docs = ["sphinx"]
 tests = ["pytest", "pytest-benchmark", "pytest-cov"]
 
 [metadata]
-content-hash = "e858a5fc248a2660da79a00ded3c155e79fab11d99847a9098c2ecd95e79440f"
+content-hash = "0632e52a199e5aa6b7b688a66c6b2c89a7d52da42057a379b28aa4cfb769736a"
 python-versions = "^3.6.2"
 
 [metadata.files]
