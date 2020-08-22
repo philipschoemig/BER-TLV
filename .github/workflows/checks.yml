@@ -21,10 +21,10 @@ jobs:
     
     - name: Set up Poetry
       uses: Gr1N/setup-poetry@v2
-    
+
     - name: Configure Poetry
       run: poetry config virtualenvs.in-project true
-    
+
     - name: Set up cache
       uses: actions/cache@v2
       id: cache
@@ -38,7 +38,7 @@ jobs:
       run: poetry run pip --version >/dev/null 2>&1 || rm -rf .venv
 
     - name: Install dependencies
-      run: poetry install -E dev
+      run: poetry install -E basis
 
     - name: Execute checks
       run: poetry run tox -e checks
