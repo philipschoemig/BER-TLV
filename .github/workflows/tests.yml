@@ -92,7 +92,11 @@ jobs:
       with:
         tool: 'pytest'
         output-file-path: output.json
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         fail-on-alert: true
+        comment-on-alert: true
+        alert-comment-cc-users: '@philipschoemig'
+        auto-push: true
 
   Coverage:
     runs-on: ubuntu-latest
