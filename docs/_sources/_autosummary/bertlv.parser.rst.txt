@@ -1,0 +1,45 @@
+﻿bertlv.parser
+=============
+
+.. automodule:: bertlv.parser
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      parse
+      parse_bytes
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      BinaryParser
+      ParserBase
+      XmlParser
+   
+   
+
+   
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      InsufficientDataError
+      ParserError
+   
+   
+
+
+

@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bertlv.parser &#8212; bertlv 0.2.4 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bertlv.stream" href="bertlv.stream.html" />
+    <link rel="prev" title="bertlv.generator" href="bertlv.generator.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bertlv.stream.html" title="bertlv.stream"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="bertlv.generator.html" title="bertlv.generator"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv.parser</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-bertlv.parser">
+<span id="bertlv-parser"></span><h1>bertlv.parser<a class="headerlink" href="#module-bertlv.parser" title="Permalink to this headline">¶</a></h1>
+<p class="rubric">Functions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bertlv.parser.parse" title="bertlv.parser.parse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse</span></code></a>(fp, parser)</p></td>
+<td><p>Parse data read from the file-like object fp and return the tree.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bertlv.parser.parse_bytes" title="bertlv.parser.parse_bytes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_bytes</span></code></a>(data, parser)</p></td>
+<td><p>Parse data and return the tree.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bertlv.parser.BinaryParser" title="bertlv.parser.BinaryParser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BinaryParser</span></code></a>(*, target)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bertlv.parser.ParserBase" title="bertlv.parser.ParserBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ParserBase</span></code></a>(*, target)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bertlv.parser.XmlParser" title="bertlv.parser.XmlParser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">XmlParser</span></code></a>(*, target)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Exceptions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bertlv.parser.InsufficientDataError" title="bertlv.parser.InsufficientDataError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InsufficientDataError</span></code></a>(message, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bertlv.parser.ParserError" title="bertlv.parser.ParserError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ParserError</span></code></a>(message, *, tag, offset, element)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py exception">
+<dt id="bertlv.parser.ParserError">
+<em class="property">exception </em><code class="sig-prename descclassname">bertlv.parser.</code><code class="sig-name descname">ParserError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">tag</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tag.html#bertlv.tag.Tag" title="bertlv.tag.Tag">bertlv.tag.Tag</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">element</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/xml.etree.elementtree.html#xml.etree.ElementTree.Element" title="(in Python v3.8)">xml.etree.ElementTree.Element</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bertlv/parser.html#ParserError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.parser.ParserError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="bertlv.tree.html#bertlv.tree.TlvError" title="bertlv.tree.TlvError"><code class="xref py py-class docutils literal notranslate"><span class="pre">bertlv.tree.TlvError</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="bertlv.parser.InsufficientDataError">
+<em class="property">exception </em><code class="sig-prename descclassname">bertlv.parser.</code><code class="sig-name descname">InsufficientDataError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bertlv/parser.html#InsufficientDataError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.parser.InsufficientDataError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bertlv.parser.ParserError" title="bertlv.parser.ParserError"><code class="xref py py-class docutils literal notranslate"><span class="pre">bertlv.parser.ParserError</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bertlv.parser.ParserBase">
+<em class="property">class </em><code class="sig-prename descclassname">bertlv.parser.</code><code class="sig-name descname">ParserBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">target</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tree.html#bertlv.tree.BuilderBase" title="bertlv.tree.BuilderBase">bertlv.tree.BuilderBase</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bertlv/parser.html#ParserBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.parser.ParserBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
+<dl class="py method">
+<dt id="bertlv.parser.ParserBase.close">
+<em class="property">abstract </em><code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="bertlv.tree.html#bertlv.tree.Tree" title="bertlv.tree.Tree">bertlv.tree.Tree</a><a class="reference internal" href="../_modules/bertlv/parser.html#ParserBase.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.parser.ParserBase.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the parser and return the tree.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.parser.ParserBase.feed">
+<em class="property">abstract </em><code class="sig-name descname">feed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a><a class="reference internal" href="../_modules/bertlv/parser.html#ParserBase.feed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.parser.ParserBase.feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feed data to the parser.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bertlv.parser.BinaryParser">
+<em class="property">class </em><code class="sig-prename descclassname">bertlv.parser.</code><code class="sig-name descname">BinaryParser</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">target</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tree.html#bertlv.tree.BuilderBase" title="bertlv.tree.BuilderBase">bertlv.tree.BuilderBase</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bertlv/parser.html#BinaryParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.parser.BinaryParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bertlv.parser.ParserBase" title="bertlv.parser.ParserBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">bertlv.parser.ParserBase</span></code></a></p>
+<dl class="py method">
+<dt id="bertlv.parser.BinaryParser.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="bertlv.tree.html#bertlv.tree.Tree" title="bertlv.tree.Tree">bertlv.tree.Tree</a><a class="reference internal" href="../_modules/bertlv/parser.html#BinaryParser.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.parser.BinaryParser.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the parser and return the tree.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.parser.BinaryParser.feed">
+<code class="sig-name descname">feed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a><a class="reference internal" href="../_modules/bertlv/parser.html#BinaryParser.feed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.parser.BinaryParser.feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feed data to the parser.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bertlv.parser.XmlParser">
+<em class="property">class </em><code class="sig-prename descclassname">bertlv.parser.</code><code class="sig-name descname">XmlParser</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">target</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tree.html#bertlv.tree.BuilderBase" title="bertlv.tree.BuilderBase">bertlv.tree.BuilderBase</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bertlv/parser.html#XmlParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.parser.XmlParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bertlv.parser.ParserBase" title="bertlv.parser.ParserBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">bertlv.parser.ParserBase</span></code></a></p>
+<dl class="py method">
+<dt id="bertlv.parser.XmlParser.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="bertlv.tree.html#bertlv.tree.Tree" title="bertlv.tree.Tree">bertlv.tree.Tree</a><a class="reference internal" href="../_modules/bertlv/parser.html#XmlParser.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.parser.XmlParser.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the parser and return the tree.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.parser.XmlParser.feed">
+<code class="sig-name descname">feed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a><a class="reference internal" href="../_modules/bertlv/parser.html#XmlParser.feed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.parser.XmlParser.feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feed data to the parser.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="bertlv.parser.parse">
+<code class="sig-prename descclassname">bertlv.parser.</code><code class="sig-name descname">parse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fp</span><span class="p">:</span> <span class="n">BinaryIO</span></em>, <em class="sig-param"><span class="n">parser</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#bertlv.parser.ParserBase" title="bertlv.parser.ParserBase">bertlv.parser.ParserBase</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="bertlv.tree.html#bertlv.tree.Tree" title="bertlv.tree.Tree">bertlv.tree.Tree</a><a class="reference internal" href="../_modules/bertlv/parser.html#parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.parser.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse data read from the file-like object fp and return the tree.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="bertlv.parser.parse_bytes">
+<code class="sig-prename descclassname">bertlv.parser.</code><code class="sig-name descname">parse_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></span></em>, <em class="sig-param"><span class="n">parser</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#bertlv.parser.ParserBase" title="bertlv.parser.ParserBase">bertlv.parser.ParserBase</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="bertlv.tree.html#bertlv.tree.Tree" title="bertlv.tree.Tree">bertlv.tree.Tree</a><a class="reference internal" href="../_modules/bertlv/parser.html#parse_bytes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.parser.parse_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse data and return the tree.</p>
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bertlv.generator.html"
+                        title="previous chapter">bertlv.generator</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bertlv.stream.html"
+                        title="next chapter">bertlv.stream</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/_autosummary/bertlv.parser.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bertlv.stream.html" title="bertlv.stream"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="bertlv.generator.html" title="bertlv.generator"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv.parser</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Philip Schömig.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

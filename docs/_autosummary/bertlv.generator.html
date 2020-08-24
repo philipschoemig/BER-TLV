@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bertlv.generator &#8212; bertlv 0.2.4 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bertlv.parser" href="bertlv.parser.html" />
+    <link rel="prev" title="bertlv.config" href="bertlv.config.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bertlv.parser.html" title="bertlv.parser"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="bertlv.config.html" title="bertlv.config"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv.generator</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-bertlv.generator">
+<span id="bertlv-generator"></span><h1>bertlv.generator<a class="headerlink" href="#module-bertlv.generator" title="Permalink to this headline">¶</a></h1>
+<p class="rubric">Functions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bertlv.generator.generate" title="bertlv.generator.generate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate</span></code></a>(fp, tree, generator)</p></td>
+<td><p>Generate the tree and write it to the file-like object fp.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bertlv.generator.generate_bytes" title="bertlv.generator.generate_bytes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_bytes</span></code></a>(tree, generator)</p></td>
+<td><p>Generate the tree and return the data.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bertlv.generator.BinaryGenerator" title="bertlv.generator.BinaryGenerator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BinaryGenerator</span></code></a>()</p></td>
+<td><p>Base class for BER-TLV generators.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bertlv.generator.GeneratorBase" title="bertlv.generator.GeneratorBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GeneratorBase</span></code></a>()</p></td>
+<td><p>Base class for BER-TLV generators.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bertlv.generator.XmlGenerator" title="bertlv.generator.XmlGenerator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">XmlGenerator</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="bertlv.generator.GeneratorBase">
+<em class="property">class </em><code class="sig-prename descclassname">bertlv.generator.</code><code class="sig-name descname">GeneratorBase</code><a class="reference internal" href="../_modules/bertlv/generator.html#GeneratorBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.generator.GeneratorBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
+<p>Base class for BER-TLV generators.</p>
+<dl class="py method">
+<dt id="bertlv.generator.GeneratorBase.close">
+<em class="property">abstract </em><code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a><a class="reference internal" href="../_modules/bertlv/generator.html#GeneratorBase.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.generator.GeneratorBase.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the generator and return the written bytes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.generator.GeneratorBase.write">
+<em class="property">abstract </em><code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tree.html#bertlv.tree.TlvNode" title="bertlv.tree.TlvNode">bertlv.tree.TlvNode</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a><a class="reference internal" href="../_modules/bertlv/generator.html#GeneratorBase.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.generator.GeneratorBase.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the TLV node using the generator.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bertlv.generator.BinaryGenerator">
+<em class="property">class </em><code class="sig-prename descclassname">bertlv.generator.</code><code class="sig-name descname">BinaryGenerator</code><a class="reference internal" href="../_modules/bertlv/generator.html#BinaryGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.generator.BinaryGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bertlv.generator.GeneratorBase" title="bertlv.generator.GeneratorBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">bertlv.generator.GeneratorBase</span></code></a></p>
+<p>Base class for BER-TLV generators.</p>
+<dl class="py method">
+<dt id="bertlv.generator.BinaryGenerator.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a><a class="reference internal" href="../_modules/bertlv/generator.html#BinaryGenerator.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.generator.BinaryGenerator.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the generator and return the written bytes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.generator.BinaryGenerator.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tree.html#bertlv.tree.TlvNode" title="bertlv.tree.TlvNode">bertlv.tree.TlvNode</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a><a class="reference internal" href="../_modules/bertlv/generator.html#BinaryGenerator.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.generator.BinaryGenerator.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the TLV node using the generator.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bertlv.generator.XmlGenerator">
+<em class="property">class </em><code class="sig-prename descclassname">bertlv.generator.</code><code class="sig-name descname">XmlGenerator</code><a class="reference internal" href="../_modules/bertlv/generator.html#XmlGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.generator.XmlGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bertlv.generator.GeneratorBase" title="bertlv.generator.GeneratorBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">bertlv.generator.GeneratorBase</span></code></a></p>
+<dl class="py method">
+<dt id="bertlv.generator.XmlGenerator.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a><a class="reference internal" href="../_modules/bertlv/generator.html#XmlGenerator.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.generator.XmlGenerator.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the generator and return the written bytes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.generator.XmlGenerator.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tree.html#bertlv.tree.TlvNode" title="bertlv.tree.TlvNode">bertlv.tree.TlvNode</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a><a class="reference internal" href="../_modules/bertlv/generator.html#XmlGenerator.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.generator.XmlGenerator.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the TLV node using the generator.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="bertlv.generator.generate">
+<code class="sig-prename descclassname">bertlv.generator.</code><code class="sig-name descname">generate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fp</span><span class="p">:</span> <span class="n">BinaryIO</span></em>, <em class="sig-param"><span class="n">tree</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tree.html#bertlv.tree.Tree" title="bertlv.tree.Tree">bertlv.tree.Tree</a></span></em>, <em class="sig-param"><span class="n">generator</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#bertlv.generator.GeneratorBase" title="bertlv.generator.GeneratorBase">bertlv.generator.GeneratorBase</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a><a class="reference internal" href="../_modules/bertlv/generator.html#generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.generator.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the tree and write it to the file-like object fp.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="bertlv.generator.generate_bytes">
+<code class="sig-prename descclassname">bertlv.generator.</code><code class="sig-name descname">generate_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tree</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tree.html#bertlv.tree.Tree" title="bertlv.tree.Tree">bertlv.tree.Tree</a></span></em>, <em class="sig-param"><span class="n">generator</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#bertlv.generator.GeneratorBase" title="bertlv.generator.GeneratorBase">bertlv.generator.GeneratorBase</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a><a class="reference internal" href="../_modules/bertlv/generator.html#generate_bytes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.generator.generate_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the tree and return the data.</p>
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bertlv.config.html"
+                        title="previous chapter">bertlv.config</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bertlv.parser.html"
+                        title="next chapter">bertlv.parser</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/_autosummary/bertlv.generator.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bertlv.parser.html" title="bertlv.parser"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="bertlv.config.html" title="bertlv.config"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv.generator</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Philip Schömig.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

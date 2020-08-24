@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bertlv &#8212; bertlv 0.2.4 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bertlv.config" href="bertlv.config.html" />
+    <link rel="prev" title="API" href="../api.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bertlv.config.html" title="bertlv.config"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../api.html" title="API"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-bertlv">
+<span id="bertlv"></span><h1>bertlv<a class="headerlink" href="#module-bertlv" title="Permalink to this headline">¶</a></h1>
+<p>Python library for BER-TLV en-/decoding.</p>
+<p>Versioning scheme: <a class="reference external" href="https://semver.org/spec/v2.0.0.html">https://semver.org/spec/v2.0.0.html</a></p>
+<p class="rubric">Functions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bertlv.tree_from_binary" title="bertlv.tree_from_binary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tree_from_binary</span></code></a>(source)</p></td>
+<td><p>Parse a TLV tree from binary data and return the resulting <cite>Tree</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bertlv.tree_from_xml" title="bertlv.tree_from_xml"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tree_from_xml</span></code></a>(source)</p></td>
+<td><p>Parse a TLV tree from XML data and return the resulting <cite>Tree</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bertlv.tree_to_binary" title="bertlv.tree_to_binary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tree_to_binary</span></code></a>(source[, file])</p></td>
+<td><p>Generate binary data of a TLV tree and return it or write it to <em>file</em>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bertlv.tree_to_xml" title="bertlv.tree_to_xml"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tree_to_xml</span></code></a>(source[, file])</p></td>
+<td><p>Generate XML data of a TLV tree and return it or write it to <em>file</em>.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt id="bertlv.tree_from_binary">
+<code class="sig-prename descclassname">bertlv.</code><code class="sig-name descname">tree_from_binary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a><span class="p">, </span>BinaryIO<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="bertlv.tree.html#bertlv.tree.Tree" title="bertlv.tree.Tree">bertlv.tree.Tree</a><a class="reference internal" href="../_modules/bertlv.html#tree_from_binary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree_from_binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse a TLV tree from binary data and return the resulting <cite>Tree</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="bertlv.tree_from_xml">
+<code class="sig-prename descclassname">bertlv.</code><code class="sig-name descname">tree_from_xml</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a><span class="p">, </span>BinaryIO<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="bertlv.tree.html#bertlv.tree.Tree" title="bertlv.tree.Tree">bertlv.tree.Tree</a><a class="reference internal" href="../_modules/bertlv.html#tree_from_xml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree_from_xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse a TLV tree from XML data and return the resulting <cite>Tree</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="bertlv.tree_to_binary">
+<code class="sig-prename descclassname">bertlv.</code><code class="sig-name descname">tree_to_binary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tree.html#bertlv.tree.Tree" title="bertlv.tree.Tree">bertlv.tree.Tree</a></span></em>, <em class="sig-param"><span class="n">file</span><span class="p">:</span> <span class="n">BinaryIO</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a><span class="p">]</span><a class="reference internal" href="../_modules/bertlv.html#tree_to_binary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree_to_binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate binary data of a TLV tree and return it or write it to <em>file</em>.</p>
+<p>If <em>file</em> is <code class="docutils literal notranslate"><span class="pre">None</span></code> return the <cite>bytes</cite> otherwise write data to <em>file</em>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="bertlv.tree_to_xml">
+<code class="sig-prename descclassname">bertlv.</code><code class="sig-name descname">tree_to_xml</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tree.html#bertlv.tree.Tree" title="bertlv.tree.Tree">bertlv.tree.Tree</a></span></em>, <em class="sig-param"><span class="n">file</span><span class="p">:</span> <span class="n">BinaryIO</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a><span class="p">]</span><a class="reference internal" href="../_modules/bertlv.html#tree_to_xml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree_to_xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate XML data of a TLV tree and return it or write it to <em>file</em>.</p>
+<p>If <em>file</em> is <code class="docutils literal notranslate"><span class="pre">None</span></code> return the <cite>bytes</cite> otherwise write data to <em>file</em>.</p>
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../api.html"
+                        title="previous chapter">API</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bertlv.config.html"
+                        title="next chapter">bertlv.config</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/_autosummary/bertlv.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bertlv.config.html" title="bertlv.config"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../api.html" title="API"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Philip Schömig.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

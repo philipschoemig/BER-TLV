@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bertlv &#8212; bertlv 0.2.4 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for bertlv</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Python library for BER-TLV en-/decoding.</span>
+
+<span class="sd">Versioning scheme: https://semver.org/spec/v2.0.0.html</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">BinaryIO</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">generator</span><span class="p">,</span> <span class="n">parser</span>
+<span class="kn">from</span> <span class="nn">.tree</span> <span class="kn">import</span> <span class="n">Tree</span>
+
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;0.2.4&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Philip Schömig&quot;</span>
+
+
+<div class="viewcode-block" id="tree_from_binary"><a class="viewcode-back" href="../_autosummary/bertlv.html#bertlv.tree_from_binary">[docs]</a><span class="k">def</span> <span class="nf">tree_from_binary</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">BinaryIO</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tree</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Parse a TLV tree from binary data and return the resulting `Tree`.&quot;&quot;&quot;</span>
+    <span class="n">parser_instance</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">BinaryParser</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_bytes</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">parser_instance</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">parser_instance</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="tree_from_xml"><a class="viewcode-back" href="../_autosummary/bertlv.html#bertlv.tree_from_xml">[docs]</a><span class="k">def</span> <span class="nf">tree_from_xml</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">BinaryIO</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tree</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Parse a TLV tree from XML data and return the resulting `Tree`.&quot;&quot;&quot;</span>
+    <span class="n">parser_instance</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">XmlParser</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_bytes</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">parser_instance</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">parser_instance</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="tree_to_binary"><a class="viewcode-back" href="../_autosummary/bertlv.html#bertlv.tree_to_binary">[docs]</a><span class="k">def</span> <span class="nf">tree_to_binary</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">Tree</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">BinaryIO</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Generate binary data of a TLV tree and return it or write it to *file*.</span>
+
+<span class="sd">    If *file* is ``None`` return the `bytes` otherwise write data to *file*.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">generator_instance</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">BinaryGenerator</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">generator_instance</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate_bytes</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">generator_instance</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="tree_to_xml"><a class="viewcode-back" href="../_autosummary/bertlv.html#bertlv.tree_to_xml">[docs]</a><span class="k">def</span> <span class="nf">tree_to_xml</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">Tree</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">BinaryIO</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Generate XML data of a TLV tree and return it or write it to *file*.</span>
+
+<span class="sd">    If *file* is ``None`` return the `bytes` otherwise write data to *file*.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">generator_instance</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">XmlGenerator</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">generator_instance</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate_bytes</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">generator_instance</span><span class="p">)</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Philip Schömig.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

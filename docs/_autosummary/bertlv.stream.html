@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bertlv.stream &#8212; bertlv 0.2.4 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bertlv.tag" href="bertlv.tag.html" />
+    <link rel="prev" title="bertlv.parser" href="bertlv.parser.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bertlv.tag.html" title="bertlv.tag"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="bertlv.parser.html" title="bertlv.parser"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv.stream</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-bertlv.stream">
+<span id="bertlv-stream"></span><h1>bertlv.stream<a class="headerlink" href="#module-bertlv.stream" title="Permalink to this headline">¶</a></h1>
+<p class="rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bertlv.stream.BufferedStream" title="bertlv.stream.BufferedStream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferedStream</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="bertlv.stream.BufferedStream">
+<em class="property">class </em><code class="sig-prename descclassname">bertlv.stream.</code><code class="sig-name descname">BufferedStream</code><a class="reference internal" href="../_modules/bertlv/stream.html#BufferedStream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.stream.BufferedStream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.abc.Iterator</span></code></a></p>
+<dl class="py method">
+<dt id="bertlv.stream.BufferedStream.rollback">
+<code class="sig-name descname">rollback</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">error_type</span><span class="p">:</span> <span class="n">Type<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.8)">Exception</a><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bertlv/stream.html#BufferedStream.rollback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.stream.BufferedStream.rollback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.stream.BufferedStream.is_eof">
+<code class="sig-name descname">is_eof</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a><a class="reference internal" href="../_modules/bertlv/stream.html#BufferedStream.is_eof"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.stream.BufferedStream.is_eof" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.stream.BufferedStream.size">
+<code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><a class="reference internal" href="../_modules/bertlv/stream.html#BufferedStream.size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.stream.BufferedStream.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.stream.BufferedStream.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a><a class="reference internal" href="../_modules/bertlv/stream.html#BufferedStream.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.stream.BufferedStream.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.stream.BufferedStream.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">- 1</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a><a class="reference internal" href="../_modules/bertlv/stream.html#BufferedStream.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.stream.BufferedStream.read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.stream.BufferedStream.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><a class="reference internal" href="../_modules/bertlv/stream.html#BufferedStream.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.stream.BufferedStream.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.stream.BufferedStream.push">
+<code class="sig-name descname">push</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a><a class="reference internal" href="../_modules/bertlv/stream.html#BufferedStream.push"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.stream.BufferedStream.push" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.stream.BufferedStream.tell">
+<code class="sig-name descname">tell</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><a class="reference internal" href="../_modules/bertlv/stream.html#BufferedStream.tell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.stream.BufferedStream.tell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bertlv.parser.html"
+                        title="previous chapter">bertlv.parser</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bertlv.tag.html"
+                        title="next chapter">bertlv.tag</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/_autosummary/bertlv.stream.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bertlv.tag.html" title="bertlv.tag"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="bertlv.parser.html" title="bertlv.parser"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv.stream</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Philip Schömig.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

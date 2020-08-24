@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bertlv.tag &#8212; bertlv 0.2.4 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bertlv.tree" href="bertlv.tree.html" />
+    <link rel="prev" title="bertlv.stream" href="bertlv.stream.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bertlv.tree.html" title="bertlv.tree"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="bertlv.stream.html" title="bertlv.stream"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv.tag</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-bertlv.tag">
+<span id="bertlv-tag"></span><h1>bertlv.tag<a class="headerlink" href="#module-bertlv.tag" title="Permalink to this headline">¶</a></h1>
+<p class="rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bertlv.tag.RootTag" title="bertlv.tag.RootTag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RootTag</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bertlv.tag.Tag" title="bertlv.tag.Tag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tag</span></code></a>(identifier, *, force_constructed)</p></td>
+<td><p>This represents a TLV tag following the BER encoding.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bertlv.tag.TagClass" title="bertlv.tag.TagClass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TagClass</span></code></a>(value)</p></td>
+<td><p>An enumeration.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bertlv.tag.TagType" title="bertlv.tag.TagType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TagType</span></code></a>(value)</p></td>
+<td><p>An enumeration.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="bertlv.tag.TagClass">
+<em class="property">class </em><code class="sig-prename descclassname">bertlv.tag.</code><code class="sig-name descname">TagClass</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bertlv/tag.html#TagClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tag.TagClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt id="bertlv.tag.TagClass.UNIVERSAL">
+<code class="sig-name descname">UNIVERSAL</code><em class="property"> = 0</em><a class="headerlink" href="#bertlv.tag.TagClass.UNIVERSAL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="bertlv.tag.TagClass.APPLICATION">
+<code class="sig-name descname">APPLICATION</code><em class="property"> = 1</em><a class="headerlink" href="#bertlv.tag.TagClass.APPLICATION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="bertlv.tag.TagClass.CONTEXT_SPECIFIC">
+<code class="sig-name descname">CONTEXT_SPECIFIC</code><em class="property"> = 2</em><a class="headerlink" href="#bertlv.tag.TagClass.CONTEXT_SPECIFIC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="bertlv.tag.TagClass.PRIVATE">
+<code class="sig-name descname">PRIVATE</code><em class="property"> = 3</em><a class="headerlink" href="#bertlv.tag.TagClass.PRIVATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bertlv.tag.TagType">
+<em class="property">class </em><code class="sig-prename descclassname">bertlv.tag.</code><code class="sig-name descname">TagType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bertlv/tag.html#TagType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tag.TagType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt id="bertlv.tag.TagType.PRIMITIVE">
+<code class="sig-name descname">PRIMITIVE</code><em class="property"> = 0</em><a class="headerlink" href="#bertlv.tag.TagType.PRIMITIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="bertlv.tag.TagType.CONSTRUCTED">
+<code class="sig-name descname">CONSTRUCTED</code><em class="property"> = 1</em><a class="headerlink" href="#bertlv.tag.TagType.CONSTRUCTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bertlv.tag.Tag">
+<em class="property">class </em><code class="sig-prename descclassname">bertlv.tag.</code><code class="sig-name descname">Tag</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifier</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">force_constructed</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bertlv/tag.html#Tag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tag.Tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>This represents a TLV tag following the BER encoding.</p>
+<p>It consists of the following parts:
+- Tag class: bits 7-8 of the initial octet
+- Tag type: bit 6 of the initial octet
+- Tag number: bits 1-5 of the initial octet and bits 1-7 of subsequent octets</p>
+<dl class="py attribute">
+<dt id="bertlv.tag.Tag.CLASS_BITMASK">
+<code class="sig-name descname">CLASS_BITMASK</code><em class="property"> = 192</em><a class="headerlink" href="#bertlv.tag.Tag.CLASS_BITMASK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="bertlv.tag.Tag.TYPE_BITMASK">
+<code class="sig-name descname">TYPE_BITMASK</code><em class="property"> = 32</em><a class="headerlink" href="#bertlv.tag.Tag.TYPE_BITMASK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tag.Tag.identifier">
+<em class="property">property </em><code class="sig-name descname">identifier</code><a class="headerlink" href="#bertlv.tag.Tag.identifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the identifier octets of this tag.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tag.Tag.tag_class">
+<em class="property">property </em><code class="sig-name descname">tag_class</code><a class="headerlink" href="#bertlv.tag.Tag.tag_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the class of this tag.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tag.Tag.tag_type">
+<em class="property">property </em><code class="sig-name descname">tag_type</code><a class="headerlink" href="#bertlv.tag.Tag.tag_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the type of this tag.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tag.Tag.is_constructed">
+<code class="sig-name descname">is_constructed</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a><a class="reference internal" href="../_modules/bertlv/tag.html#Tag.is_constructed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tag.Tag.is_constructed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if the tag is constructed otherwise false.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tag.Tag.to_int">
+<code class="sig-name descname">to_int</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><a class="reference internal" href="../_modules/bertlv/tag.html#Tag.to_int"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tag.Tag.to_int" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an integer representing a tag.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tag.Tag.to_hex">
+<code class="sig-name descname">to_hex</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><a class="reference internal" href="../_modules/bertlv/tag.html#Tag.to_hex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tag.Tag.to_hex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a hex string representing a tag.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tag.Tag.to_xml">
+<code class="sig-name descname">to_xml</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">element</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/xml.etree.elementtree.html#xml.etree.ElementTree.Element" title="(in Python v3.8)">xml.etree.ElementTree.Element</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/xml.etree.elementtree.html#xml.etree.ElementTree.Element" title="(in Python v3.8)">xml.etree.ElementTree.Element</a><a class="reference internal" href="../_modules/bertlv/tag.html#Tag.to_xml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tag.Tag.to_xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an XML element representing a tag.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tag.Tag.from_int">
+<em class="property">classmethod </em><code class="sig-name descname">from_int</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">force_constructed</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bertlv.tag.Tag" title="bertlv.tag.Tag">bertlv.tag.Tag</a><a class="reference internal" href="../_modules/bertlv/tag.html#Tag.from_int"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tag.Tag.from_int" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the tag represented by the given integer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tag.Tag.from_hex">
+<em class="property">classmethod </em><code class="sig-name descname">from_hex</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">force_constructed</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bertlv.tag.Tag" title="bertlv.tag.Tag">bertlv.tag.Tag</a><a class="reference internal" href="../_modules/bertlv/tag.html#Tag.from_hex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tag.Tag.from_hex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the tag represented by the given hex string.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bertlv.tag.RootTag">
+<em class="property">class </em><code class="sig-prename descclassname">bertlv.tag.</code><code class="sig-name descname">RootTag</code><a class="reference internal" href="../_modules/bertlv/tag.html#RootTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tag.RootTag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bertlv.tag.Tag" title="bertlv.tag.Tag"><code class="xref py py-class docutils literal notranslate"><span class="pre">bertlv.tag.Tag</span></code></a></p>
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bertlv.stream.html"
+                        title="previous chapter">bertlv.stream</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bertlv.tree.html"
+                        title="next chapter">bertlv.tree</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/_autosummary/bertlv.tag.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bertlv.tree.html" title="bertlv.tree"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="bertlv.stream.html" title="bertlv.stream"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv.tag</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Philip Schömig.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

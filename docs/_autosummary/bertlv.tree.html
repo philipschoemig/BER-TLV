@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bertlv.tree &#8212; bertlv 0.2.4 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="bertlv.tag" href="bertlv.tag.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bertlv.tag.html" title="bertlv.tag"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" accesskey="U">API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv.tree</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-bertlv.tree">
+<span id="bertlv-tree"></span><h1>bertlv.tree<a class="headerlink" href="#module-bertlv.tree" title="Permalink to this headline">¶</a></h1>
+<p class="rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bertlv.tree.BuilderBase" title="bertlv.tree.BuilderBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BuilderBase</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bertlv.tree.TlvNode" title="bertlv.tree.TlvNode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TlvNode</span></code></a>(tag, value, parent, children)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bertlv.tree.Tree" title="bertlv.tree.Tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tree</span></code></a>(children)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bertlv.tree.TreeBuilder" title="bertlv.tree.TreeBuilder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TreeBuilder</span></code></a>(node_factory)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Exceptions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bertlv.tree.TlvError" title="bertlv.tree.TlvError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TlvError</span></code></a>(message, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py exception">
+<dt id="bertlv.tree.TlvError">
+<em class="property">exception </em><code class="sig-prename descclassname">bertlv.tree.</code><code class="sig-name descname">TlvError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bertlv/tree.html#TlvError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.TlvError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bertlv.tree.TlvNode">
+<em class="property">class </em><code class="sig-prename descclassname">bertlv.tree.</code><code class="sig-name descname">TlvNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tag.html#bertlv.tag.Tag" title="bertlv.tag.Tag">bertlv.tag.Tag</a></span></em>, <em class="sig-param"><span class="n">value</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">parent</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#bertlv.tree.TlvNode" title="bertlv.tree.TlvNode">bertlv.tree.TlvNode</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">children</span><span class="p">:</span> <span class="n">Iterable<span class="p">[</span><a class="reference internal" href="#bertlv.tree.TlvNode" title="bertlv.tree.TlvNode">TlvNode</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bertlv/tree.html#TlvNode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.TlvNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://anytree.readthedocs.io/en/2.8.0/api/anytree.node.html#anytree.node.node.Node" title="(in anytree v2.8.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">anytree.node.node.Node</span></code></a></p>
+<dl class="py method">
+<dt id="bertlv.tree.TlvNode.value">
+<em class="property">property </em><code class="sig-name descname">value</code><a class="headerlink" href="#bertlv.tree.TlvNode.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tree.TlvNode.length">
+<em class="property">property </em><code class="sig-name descname">length</code><a class="headerlink" href="#bertlv.tree.TlvNode.length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tree.TlvNode.is_constructed">
+<code class="sig-name descname">is_constructed</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a><a class="reference internal" href="../_modules/bertlv/tree.html#TlvNode.is_constructed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.TlvNode.is_constructed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tree.TlvNode.dump">
+<code class="sig-name descname">dump</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><a class="reference internal" href="../_modules/bertlv/tree.html#TlvNode.dump"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.TlvNode.dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string representing the tree starting at this node.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tree.TlvNode.resolve">
+<code class="sig-name descname">resolve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bertlv.tree.TlvNode" title="bertlv.tree.TlvNode">bertlv.tree.TlvNode</a><a class="reference internal" href="../_modules/bertlv/tree.html#TlvNode.resolve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.TlvNode.resolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the node at <em>path</em>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bertlv.tree.Tree">
+<em class="property">class </em><code class="sig-prename descclassname">bertlv.tree.</code><code class="sig-name descname">Tree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">children</span><span class="p">:</span> <span class="n">Iterable<span class="p">[</span><a class="reference internal" href="#bertlv.tree.TlvNode" title="bertlv.tree.TlvNode">bertlv.tree.TlvNode</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bertlv/tree.html#Tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.Tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bertlv.tree.TlvNode" title="bertlv.tree.TlvNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">bertlv.tree.TlvNode</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bertlv.tree.BuilderBase">
+<em class="property">class </em><code class="sig-prename descclassname">bertlv.tree.</code><code class="sig-name descname">BuilderBase</code><a class="reference internal" href="../_modules/bertlv/tree.html#BuilderBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.BuilderBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
+<dl class="py method">
+<dt id="bertlv.tree.BuilderBase.close">
+<em class="property">abstract </em><code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bertlv.tree.Tree" title="bertlv.tree.Tree">bertlv.tree.Tree</a><a class="reference internal" href="../_modules/bertlv/tree.html#BuilderBase.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.BuilderBase.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flush the builder buffers, and return the tree.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tree.BuilderBase.end">
+<em class="property">abstract </em><code class="sig-name descname">end</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tag.html#bertlv.tag.Tag" title="bertlv.tag.Tag">bertlv.tag.Tag</a></span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/bertlv/tree.html#BuilderBase.end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.BuilderBase.end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the current TLV node.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tree.BuilderBase.data">
+<em class="property">abstract </em><code class="sig-name descname">data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/bertlv/tree.html#BuilderBase.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.BuilderBase.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a value to the current TLV node.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tree.BuilderBase.start">
+<em class="property">abstract </em><code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tag.html#bertlv.tag.Tag" title="bertlv.tag.Tag">bertlv.tag.Tag</a></span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/bertlv/tree.html#BuilderBase.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.BuilderBase.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a new TLV node with the given tag.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bertlv.tree.TreeBuilder">
+<em class="property">class </em><code class="sig-prename descclassname">bertlv.tree.</code><code class="sig-name descname">TreeBuilder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node_factory</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bertlv/tree.html#TreeBuilder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.TreeBuilder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bertlv.tree.BuilderBase" title="bertlv.tree.BuilderBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">bertlv.tree.BuilderBase</span></code></a></p>
+<dl class="py method">
+<dt id="bertlv.tree.TreeBuilder.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bertlv.tree.Tree" title="bertlv.tree.Tree">bertlv.tree.Tree</a><a class="reference internal" href="../_modules/bertlv/tree.html#TreeBuilder.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.TreeBuilder.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flush the builder buffers, and return the tree.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tree.TreeBuilder.end">
+<code class="sig-name descname">end</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tag.html#bertlv.tag.Tag" title="bertlv.tag.Tag">bertlv.tag.Tag</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bertlv.tree.TlvNode" title="bertlv.tree.TlvNode">bertlv.tree.TlvNode</a><a class="reference internal" href="../_modules/bertlv/tree.html#TreeBuilder.end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.TreeBuilder.end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the current TLV node. Return the closed node.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tree.TreeBuilder.data">
+<code class="sig-name descname">data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="../_modules/bertlv/tree.html#TreeBuilder.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.TreeBuilder.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a value to the current TLV node.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bertlv.tree.TreeBuilder.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bertlv.tag.html#bertlv.tag.Tag" title="bertlv.tag.Tag">bertlv.tag.Tag</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bertlv.tree.TlvNode" title="bertlv.tree.TlvNode">bertlv.tree.TlvNode</a><a class="reference internal" href="../_modules/bertlv/tree.html#TreeBuilder.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bertlv.tree.TreeBuilder.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a new TLV node with the given tag. Return the opened node.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bertlv.tag.html"
+                        title="previous chapter">bertlv.tag</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/_autosummary/bertlv.tree.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bertlv.tag.html" title="bertlv.tag"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api.html" >API</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv.tree</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Philip Schömig.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

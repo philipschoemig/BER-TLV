@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bertlv.tag &#8212; bertlv 0.2.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../bertlv.html" accesskey="U">bertlv</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv.tag</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for bertlv.tag</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">total_ordering</span>
+<span class="kn">from</span> <span class="nn">xml.etree</span> <span class="kn">import</span> <span class="n">ElementTree</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">config</span>
+
+
+<div class="viewcode-block" id="TagClass"><a class="viewcode-back" href="../../_autosummary/bertlv.tag.html#bertlv.tag.TagClass">[docs]</a><span class="k">class</span> <span class="nc">TagClass</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">UNIVERSAL</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 0b00000000</span>
+    <span class="n">APPLICATION</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># 0b01000000</span>
+    <span class="n">CONTEXT_SPECIFIC</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># 0b10000000</span>
+    <span class="n">PRIVATE</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># 0b11000000</span></div>
+
+
+<div class="viewcode-block" id="TagType"><a class="viewcode-back" href="../../_autosummary/bertlv.tag.html#bertlv.tag.TagType">[docs]</a><span class="k">class</span> <span class="nc">TagType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">PRIMITIVE</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 0b00000000</span>
+    <span class="n">CONSTRUCTED</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># 0b00100000</span></div>
+
+
+<div class="viewcode-block" id="Tag"><a class="viewcode-back" href="../../_autosummary/bertlv.tag.html#bertlv.tag.Tag">[docs]</a><span class="nd">@total_ordering</span>
+<span class="k">class</span> <span class="nc">Tag</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This represents a TLV tag following the BER encoding.</span>
+
+<span class="sd">    It consists of the following parts:</span>
+<span class="sd">    - Tag class: bits 7-8 of the initial octet</span>
+<span class="sd">    - Tag type: bit 6 of the initial octet</span>
+<span class="sd">    - Tag number: bits 1-5 of the initial octet and bits 1-7 of subsequent octets</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">CLASS_BITMASK</span> <span class="o">=</span> <span class="mb">0b11000000</span>
+    <span class="n">TYPE_BITMASK</span> <span class="o">=</span> <span class="mb">0b00100000</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">force_constructed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span> <span class="o">=</span> <span class="n">identifier</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_force_constructed</span> <span class="o">=</span> <span class="n">force_constructed</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;0x</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Tag&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">repr</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Tag&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">repr</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the identifier octets of this tag.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span>
+
+    <span class="nd">@identifier</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the identifier octets of this tag.&quot;&quot;&quot;</span>
+        <span class="c1"># Strip leading zeros</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_tag</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span> <span class="o">=</span> <span class="n">identifier</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tag_class</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TagClass</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the class of this tag.&quot;&quot;&quot;</span>
+        <span class="c1"># In the initial octet, bits 7-8 encode the class</span>
+        <span class="n">class_bits</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">CLASS_BITMASK</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">6</span>
+        <span class="k">return</span> <span class="n">TagClass</span><span class="p">(</span><span class="n">class_bits</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tag_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TagType</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the type of this tag.&quot;&quot;&quot;</span>
+        <span class="c1"># In the initial octet, bit 6 encodes the type</span>
+        <span class="n">type_bits</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">TYPE_BITMASK</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span>
+        <span class="k">return</span> <span class="n">TagType</span><span class="p">(</span><span class="n">type_bits</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Tag.is_constructed"><a class="viewcode-back" href="../../_autosummary/bertlv.tag.html#bertlv.tag.Tag.is_constructed">[docs]</a>    <span class="k">def</span> <span class="nf">is_constructed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return true if the tag is constructed otherwise false.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tag_type</span> <span class="o">==</span> <span class="n">TagType</span><span class="o">.</span><span class="n">CONSTRUCTED</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_force_constructed</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Tag.to_int"><a class="viewcode-back" href="../../_autosummary/bertlv.tag.html#bertlv.tag.Tag.to_int">[docs]</a>    <span class="k">def</span> <span class="nf">to_int</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return an integer representing a tag.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Tag.to_hex"><a class="viewcode-back" href="../../_autosummary/bertlv.tag.html#bertlv.tag.Tag.to_hex">[docs]</a>    <span class="k">def</span> <span class="nf">to_hex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a hex string representing a tag.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;0x&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Tag.to_xml"><a class="viewcode-back" href="../../_autosummary/bertlv.tag.html#bertlv.tag.Tag.to_xml">[docs]</a>    <span class="k">def</span> <span class="nf">to_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return an XML element representing a tag.&quot;&quot;&quot;</span>
+        <span class="n">element</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;Tag&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_hex</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">element</span></div>
+
+<div class="viewcode-block" id="Tag.from_int"><a class="viewcode-back" href="../../_autosummary/bertlv.tag.html#bertlv.tag.Tag.from_int">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_int</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">force_constructed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Tag&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the tag represented by the given integer.&quot;&quot;&quot;</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span> <span class="o">+</span> <span class="mi">7</span><span class="p">)</span> <span class="o">//</span> <span class="mi">8</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">tag</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;big&quot;</span><span class="p">),</span> <span class="n">force_constructed</span><span class="o">=</span><span class="n">force_constructed</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Tag.from_hex"><a class="viewcode-back" href="../../_autosummary/bertlv.tag.html#bertlv.tag.Tag.from_hex">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_hex</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">force_constructed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Tag&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the tag represented by the given hex string.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;0x&quot;</span><span class="p">):</span>
+            <span class="n">tag</span> <span class="o">=</span> <span class="n">tag</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">tag</span><span class="p">),</span> <span class="n">force_constructed</span><span class="o">=</span><span class="n">force_constructed</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_check_tag</span><span class="p">(</span><span class="n">octets</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check the tag octets against the Basic encoding rules of ASN.1 (see ISO/IEC 8825).&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">octets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;tag must not be empty&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">octets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0x1F</span> <span class="o">==</span> <span class="mh">0x1F</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">octets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tag is missing subsequent octets: </span><span class="si">{</span><span class="n">octets</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">byte</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">octets</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">byte</span> <span class="o">==</span> <span class="mh">0x80</span> <span class="ow">and</span> <span class="n">config</span><span class="o">.</span><span class="n">strict_checking</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;tag has first subsequent octet where bits 7 to 1 are all &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;zero: </span><span class="si">{</span><span class="n">octets</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+                <span class="k">if</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">octets</span><span class="p">)</span> <span class="ow">and</span> <span class="n">byte</span> <span class="o">&amp;</span> <span class="mh">0x80</span> <span class="o">!=</span> <span class="mh">0x80</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;tag has subsequent octet where bit 1 is not set: </span><span class="si">{</span><span class="n">octets</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+                <span class="k">if</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">octets</span><span class="p">)</span> <span class="ow">and</span> <span class="n">byte</span> <span class="o">&amp;</span> <span class="mh">0x80</span> <span class="o">==</span> <span class="mh">0x80</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;tag is missing subsequent octets: </span><span class="si">{</span><span class="n">octets</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RootTag"><a class="viewcode-back" href="../../_autosummary/bertlv.tag.html#bertlv.tag.RootTag">[docs]</a><span class="k">class</span> <span class="nc">RootTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\xF0</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">force_constructed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;root&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;root&quot;</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">bertlv 0.2.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../bertlv.html" >bertlv</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bertlv.tag</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Philip Schömig.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>
