@@ -38,10 +38,7 @@ jobs:
       run: poetry install -E basis
 
     - name: Create documentation
-      uses: ammaraskar/sphinx-action@master
-      with:
-        build-command: "poetry run tox -e docs"
-        docs-folder: "docs/"
+      run: poetry run tox -e docs
 
     - name: Commit documentation changes
       run: |
