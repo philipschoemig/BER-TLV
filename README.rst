@@ -1,4 +1,4 @@
-|checks| |tests| |maintainability| |coverage|
+|checks| |tests| |codecov| |maintainability| |coverage|
 |pre-commit| |black| |pep8| |semver|
 
 
@@ -27,6 +27,10 @@ References
 .. |tests| image:: https://github.com/philipschoemig/BER-TLV/workflows/Tests/badge.svg
    :target: https://github.com/philipschoemig/BER-TLV/actions?query=workflow%3ATests
    :alt: Tests
+
+.. |codecov| image:: https://codecov.io/gh/philipschoemig/BER-TLV/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/philipschoemig/BER-TLV
+   :alt: Code Coverage
 
 .. |maintainability| image:: https://api.codeclimate.com/v1/badges/0231c41187cd922b6329/maintainability
    :target: https://codeclimate.com/github/philipschoemig/BER-TLV/maintainability
