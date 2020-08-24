@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1598287912784,
+  "lastUpdate": 1598288468483,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -190,6 +190,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 5.793045100289104e-7",
             "extra": "mean: 392.2746989293964 nsec\nrounds: 200000"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "distinct": true,
+          "id": "5046b01100800db9b72ff38a200ed18a2b081e77",
+          "message": "Comment not used paths for templates and html static files.",
+          "timestamp": "2020-08-24T19:00:12+02:00",
+          "tree_id": "2dac10d9fba3b6ca1e6cd6ce37ee127d4f92444b",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/5046b01100800db9b72ff38a200ed18a2b081e77"
+        },
+        "date": 1598288468069,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1475346.0940124176,
+            "unit": "iter/sec",
+            "range": "stddev: 4.807701913059104e-7",
+            "extra": "mean: 677.8070610404064 nsec\nrounds: 135136"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2623717.0509295757,
+            "unit": "iter/sec",
+            "range": "stddev: 1.5291665553665724e-7",
+            "extra": "mean: 381.1386596153728 nsec\nrounds: 200000"
           }
         ]
       }
