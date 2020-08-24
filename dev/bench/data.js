@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1598265101382,
+  "lastUpdate": 1598268890294,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -76,6 +76,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 9.078277353886573e-7",
             "extra": "mean: 412.45691957852574 nsec\nrounds: 192271"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "33c2f63d805c36fcd37cfa82ac9e5694615f647c",
+          "message": "Update README.rst",
+          "timestamp": "2020-08-24T13:34:05+02:00",
+          "tree_id": "852c85c4207f5d3a278568493c6ff53d6540c1eb",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/33c2f63d805c36fcd37cfa82ac9e5694615f647c"
+        },
+        "date": 1598268889904,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1665400.7433421249,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000010319525995632997",
+            "extra": "mean: 600.4560788133196 nsec\nrounds: 35336"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 3321006.5099819372,
+            "unit": "iter/sec",
+            "range": "stddev: 2.954132990179162e-7",
+            "extra": "mean: 301.1135319953223 nsec\nrounds: 192308"
           }
         ]
       }
