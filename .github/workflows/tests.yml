@@ -141,3 +141,6 @@ jobs:
         CC_TEST_REPORTER_ID: 79982f5a1d5cce202bcdc009fedfbb9fc9f391da090c0f85f04fabd93d71ddb3
       with:
         coverageCommand: poetry run tox -e py -- --cov-report=xml
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
