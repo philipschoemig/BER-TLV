@@ -1,6 +1,7 @@
 import io
 
 from abc import ABC, abstractmethod
+from contextlib import suppress
 from distutils.util import strtobool
 from typing import BinaryIO, Optional
 from xml.etree import ElementTree
@@ -67,12 +68,10 @@ class BinaryParser(ParserBase):
     def feed(self, data: bytes) -> None:
         """Feed data to the parser."""
         self.stream.push(data)
-        try:
+        with suppress(InsufficientDataError):
             while not self.stream.is_eof():
                 with self.stream.rollback(InsufficientDataError):
                     self._parse()
-        except InsufficientDataError:
-            pass
 
     def _parse(self) -> TlvNode:
         tag = self._parse_tag()
@@ -101,13 +100,15 @@ class BinaryParser(ParserBase):
             tag = Tag(number)
         except StopIteration as e:
             raise InsufficientDataError("tag", offset=self.stream.tell()) from e
-        except Exception as e:
+        except ValueError as e:
             raise ParserError("tag", offset=self.stream.tell()) from e
         return tag
 
     def _parse_length(self, tag: Tag) -> int:
         try:
             length = next(self.stream)
+            if length == 0x80:
+                raise NotImplementedError("indefinite length form is not supported")
             if length & 0x80 == 0x80:
                 length_data = bytes([next(self.stream) for _ in range(length & 0x7F)])
                 length = int(length_data.hex(), 16)
@@ -115,18 +116,18 @@ class BinaryParser(ParserBase):
             raise InsufficientDataError(
                 "length", tag=tag, offset=self.stream.tell()
             ) from e
-        except Exception as e:
+        except ValueError as e:
             raise ParserError("length", tag=tag, offset=self.stream.tell()) from e
         return length
 
     def _parse_value(self, tag: Tag, length: int) -> bytes:
         try:
-            value = bytearray([next(self.stream) for _ in range(length)])
+            value = bytes([next(self.stream) for _ in range(length)])
         except StopIteration as e:
             raise InsufficientDataError(
                 "value", tag=tag, offset=self.stream.tell()
             ) from e
-        except Exception as e:
+        except ValueError as e:
             raise ParserError("value", tag=tag, offset=self.stream.tell()) from e
         return value
 
@@ -143,11 +144,7 @@ class XmlParser(ParserBase):
 
     def close(self) -> Tree:
         """Close the parser and return the tree."""
-        try:
-            for event in self.parser.read_events():
-                self._parse(event)
-        finally:
-            self.parser.close()
+        self.parser.close()
         return self.target.close()
 
     def feed(self, data: bytes) -> None:
@@ -164,7 +161,8 @@ class XmlParser(ParserBase):
         node = None
         if event_type == "start":
             self.target.start(tag)
-        elif event_type == "end":
+        else:
+            assert event_type == "end"
             if not tag.is_constructed():
                 data = self._parse_value(tag, element)
                 self.target.data(data)

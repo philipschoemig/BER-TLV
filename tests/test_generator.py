@@ -25,7 +25,7 @@ class TestBinaryGenerator:
         assert data == b"\xFF\x60\x03\x5F\x20\x00"
 
     def test_close_with_extended_length(self):
-        value = bytes([i for i in range(0, 255)])
+        value = bytes([i for i in range(1, 256)])
         children = [TlvNode(Tag.from_hex("5F20"), value)]
         node = TlvNode(Tag.from_hex("FF60"), children=children)
         generator = BinaryGenerator()

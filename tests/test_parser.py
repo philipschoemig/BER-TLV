@@ -18,10 +18,23 @@ from bertlv.parser import (
     parse,
     parse_bytes,
 )
+from bertlv.stream import BufferedStream
 from bertlv.tag import Tag
 from bertlv.tree import TlvNode
 
 from .test_tree import _test_binary_data, _test_dump
+
+
+class BufferedStreamMockUp(BufferedStream):
+    def __init__(self, byte: int, offset: int):
+        super().__init__()
+        self.byte = byte
+        self.offset = offset
+
+    def __next__(self):
+        if self.tell() == self.offset:
+            return self.byte
+        return super().__next__()
 
 
 class TreeBuilderMockUp(TreeBuilder):
@@ -51,19 +64,21 @@ class TreeBuilderMockUp(TreeBuilder):
         ), f"expected calls missing: {list(self.expected_calls)}"
 
     def _check_call(self, name, args):
-        if self.expected_calls:
-            call = self.expected_calls.popleft()
-            assert {name: args} == call
+        if self.expected_calls is not None:
+            actual = (name, args)
+            assert len(self.expected_calls) >= 1, f"unexpected call: {actual}"
+            expected = self.expected_calls.popleft()
+            assert actual == expected, f"expected call {expected} but got {actual}"
 
 
 class TestBinaryParser:
     def test_close(self):
         calls = [
-            {"start": ["ff60"]},
-            {"start": ["5f20"]},
-            {"data": ["112233"]},
-            {"end": ["5f20"]},
-            {"end": ["ff60"]},
+            ("start", ["ff60"]),
+            ("start", ["5f20"]),
+            ("data", ["112233"]),
+            ("end", ["5f20"]),
+            ("end", ["ff60"]),
         ]
         with self._create_parser(calls) as parser:
             parser.feed(b"\xFF\x60\x06\x5F\x20\x03\x11\x22\x33")
@@ -76,7 +91,7 @@ class TestBinaryParser:
             )
 
     def test_close_with_empty_value(self):
-        calls = [{"start": ["5f20"]}, {"data": [""]}, {"end": ["5f20"]}]
+        calls = [("start", ["5f20"]), ("data", [""]), ("end", ["5f20"])]
         with self._create_parser(calls) as parser:
             parser.feed(b"\x5F\x20\x00")
             tree = parser.close()
@@ -86,7 +101,7 @@ class TestBinaryParser:
 └── 5f20: """
             )
 
-        calls = [{"start": ["ff60"]}, {"end": ["ff60"]}]
+        calls = [("start", ["ff60"]), ("end", ["ff60"])]
         with self._create_parser(calls) as parser:
             parser.feed(b"\xFF\x60\x00")
             tree = parser.close()
@@ -110,6 +125,18 @@ class TestBinaryParser:
                 match=r"insufficient data to parse the tag: offset 1$",
             ):
                 parser.close()
+
+    def test_close_with_extended_length(self):
+        with self._create_parser() as parser:
+            value = bytes([i for i in range(1, 256)])
+            parser.feed(b"\xFF\x60\x82\x01\x03\x5F\x20\x81\xff" + value)
+            tree = parser.close()
+            assert (
+                tree.dump()
+                == f"""root
+└── ff60
+    └── 5f20: {value.hex()}"""
+            )
 
     def test_close_with_missing_length(self):
         with self._create_parser([]) as parser:
@@ -174,6 +201,34 @@ class TestBinaryParser:
                 parser.feed(b"\x5F\x80\x01")
         config.strict_checking = False
 
+    def test_feed_with_invalid_length(self):
+        with self._create_parser([]) as parser:
+            with pytest.raises(
+                ParserError,
+                match=r"error while parsing the length: tag 5f20, offset 3$",
+            ):
+                parser.stream = BufferedStreamMockUp(256, 3)
+                # last byte is overwritten by mock up
+                parser.feed(b"\x5F\x20\x81\x00")
+
+    def test_feed_with_indefinite_length(self):
+        with self._create_parser([]) as parser:
+            with pytest.raises(
+                NotImplementedError, match=r"indefinite length form is not supported$",
+            ):
+                parser.feed(b"\x5F\x20\x80\x11\x22\x33\x00\x00")
+
+    def test_feed_with_invalid_value(self):
+        calls = [("start", ["5f20"])]
+        with self._create_parser(calls) as parser:
+            with pytest.raises(
+                ParserError,
+                match=r"error while parsing the value: tag 5f20, offset 5$",
+            ):
+                parser.stream = BufferedStreamMockUp(256, 5)
+                # last byte is overwritten by mock up
+                parser.feed(b"\x5F\x20\x03\x11\x22\x00")
+
     @contextmanager
     def _create_parser(self, calls: Iterable = None):
         target = None
@@ -191,11 +246,11 @@ class TestBinaryParser:
 class TestXmlParser:
     def test_close(self):
         calls = [
-            {"start": ["ff60"]},
-            {"start": ["5f20"]},
-            {"data": ["112233"]},
-            {"end": ["5f20"]},
-            {"end": ["ff60"]},
+            ("start", ["ff60"]),
+            ("start", ["5f20"]),
+            ("data", ["112233"]),
+            ("end", ["5f20"]),
+            ("end", ["ff60"]),
         ]
         with self._create_parser(calls) as parser:
             parser.feed(
@@ -217,9 +272,9 @@ class TestXmlParser:
 
     def test_close_with_empty_value(self):
         calls = [
-            {"start": ["5f20"]},
-            {"data": [""]},
-            {"end": ["5f20"]},
+            ("start", ["5f20"]),
+            ("data", [""]),
+            ("end", ["5f20"]),
         ]
         with self._create_parser(calls) as parser:
             parser.feed(
@@ -234,7 +289,7 @@ class TestXmlParser:
 └── 5f20: """
             )
 
-        calls = [{"start": ["ff60"]}, {"end": ["ff60"]}]
+        calls = [("start", ["ff60"]), ("end", ["ff60"])]
         with self._create_parser(calls) as parser:
             parser.feed(
                 b"""<Tlv>
@@ -249,7 +304,7 @@ class TestXmlParser:
             )
 
     def test_close_with_type_ascii(self):
-        with self._create_parser([]) as parser:
+        with self._create_parser() as parser:
             parser.feed(b"""<Primitive Tag="0x5F20" Type="ASCII">123 Go!</Primitive>""")
             tree = parser.close()
             assert (
@@ -259,7 +314,7 @@ class TestXmlParser:
             )
 
     def test_close_with_type_hex(self):
-        with self._create_parser([]) as parser:
+        with self._create_parser() as parser:
             parser.feed(b"""<Primitive Tag="0x5F20" Type="Hex">123</Primitive>""")
             tree = parser.close()
             assert (
@@ -276,13 +331,36 @@ class TestXmlParser:
             ):
                 parser.close()
 
+    def test_close_with_partial_data(self):
+        calls = [("start", ["5f20"])]
+        with self._create_parser(calls) as parser:
+            parser.feed(
+                b"""<Tlv>
+<Primitive Tag="0x5F20" Type="Hex">"""
+            )
+            with pytest.raises(
+                ElementTree.ParseError, match=r"no element found: line 2, column 35$"
+            ):
+                parser.close()
+
+        calls = [("start", ["ff60"])]
+        with self._create_parser(calls) as parser:
+            parser.feed(
+                b"""<Tlv>
+<Element Tag="0xFF60">"""
+            )
+            with pytest.raises(
+                ElementTree.ParseError, match=r"no element found: line 2, column 22$"
+            ):
+                parser.close()
+
     def test_close_with_forced_constructed(self):
         calls = [
-            {"start": ["df51"]},
-            {"start": ["5f20"]},
-            {"data": ["112233"]},
-            {"end": ["5f20"]},
-            {"end": ["df51"]},
+            ("start", ["df51"]),
+            ("start", ["5f20"]),
+            ("data", ["112233"]),
+            ("end", ["5f20"]),
+            ("end", ["df51"]),
         ]
         with self._create_parser(calls) as parser:
             parser.feed(
@@ -302,15 +380,43 @@ class TestXmlParser:
     └── 5f20: 112233"""
             )
 
+    def test_close_with_xml_comments(self):
+        calls = [
+            ("start", ["ff60"]),
+            ("start", ["5f20"]),
+            ("data", ["112233"]),
+            ("end", ["5f20"]),
+            ("end", ["ff60"]),
+        ]
+        with self._create_parser(calls) as parser:
+            parser.feed(
+                b"""<Tlv>
+  <!-- Test comment -->
+  <Element Tag="0xFF60">
+    <!-- Test comment -->
+    <Primitive Tag="0x5F20" Type="Hex">
+      112233
+    </Primitive>
+  </Element>
+</Tlv>"""
+            )
+            tree = parser.close()
+            assert (
+                tree.dump()
+                == """root
+└── ff60
+    └── 5f20: 112233"""
+            )
+
     def test_feed_with_partial_data(self):
-        calls = [{"start": ["5f20"]}]
+        calls = [("start", ["5f20"])]
         with self._create_parser(calls) as parser:
             parser.feed(
                 b"""<Tlv>
 <Primitive Tag="0x5F20" Type="Hex">"""
             )
 
-        calls = [{"start": ["ff60"]}]
+        calls = [("start", ["ff60"])]
         with self._create_parser(calls) as parser:
             parser.feed(
                 b"""<Tlv>
@@ -373,7 +479,8 @@ class TestXmlParser:
             assert type(exc_info.value.__cause__) == AssertionError
 
     def test_feed_with_invalid_type_attribute(self):
-        with self._create_parser([]) as parser:
+        calls = [("start", ["5f20"])]
+        with self._create_parser(calls) as parser:
             with pytest.raises(
                 ParserError,
                 match=r"error while parsing the value: tag 5f20, element "
