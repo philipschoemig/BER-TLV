@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1599819850984,
+  "lastUpdate": 1600424583681,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -342,6 +342,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.0000010222285852895014",
             "extra": "mean: 336.9567371434292 nsec\nrounds: 196079"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "distinct": true,
+          "id": "8e4a5303591b4a4b23fe22cfd282cd5b1c9fb7b5",
+          "message": "Add unit tests for module __main__",
+          "timestamp": "2020-09-18T12:22:03+02:00",
+          "tree_id": "67350382e6b9b7d08a1022578111184ca149f758",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/8e4a5303591b4a4b23fe22cfd282cd5b1c9fb7b5"
+        },
+        "date": 1600424583134,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1500936.6830769393,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000013027863456018776",
+            "extra": "mean: 666.2506228777002 nsec\nrounds: 138870"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2640246.6490896484,
+            "unit": "iter/sec",
+            "range": "stddev: 7.593972093435844e-7",
+            "extra": "mean: 378.7524928194339 nsec\nrounds: 196040"
           }
         ]
       }
