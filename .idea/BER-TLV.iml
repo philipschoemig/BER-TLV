@@ -12,6 +12,9 @@
   <component name="PackageRequirementsSettings">
     <option name="requirementsPath" value="$MODULE_DIR$/pyproject.toml" />
   </component>
+  <component name="ReSTService">
+    <option name="DOC_DIR" value="$MODULE_DIR$/docs" />
+  </component>
   <component name="TestRunnerService">
     <option name="PROJECT_TEST_RUNNER" value="pytest" />
   </component>
