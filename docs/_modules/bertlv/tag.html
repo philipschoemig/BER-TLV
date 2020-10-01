@@ -173,7 +173,8 @@
 
 <div class="viewcode-block" id="RootTag"><a class="viewcode-back" href="../../_autosummary/bertlv.tag.html#bertlv.tag.RootTag">[docs]</a><span class="k">class</span> <span class="nc">RootTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\xF0</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">force_constructed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># Tag 0x30 = ASN.1 type &quot;SEQUENCE and SEQUENCE OF&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x30</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;root&quot;</span>
