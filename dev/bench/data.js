@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1600424583681,
+  "lastUpdate": 1601547261253,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -380,6 +380,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 7.593972093435844e-7",
             "extra": "mean: 378.7524928194339 nsec\nrounds: 196040"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "distinct": true,
+          "id": "47f9911f31d23239433aa8bde1e87c77126f5f3a",
+          "message": "Use ASN.1 type \"SEQUENCE\" for root tag",
+          "timestamp": "2020-10-01T11:56:18+02:00",
+          "tree_id": "7ab811acaa2cb724ecf7101c238835c40e81894e",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/47f9911f31d23239433aa8bde1e87c77126f5f3a"
+        },
+        "date": 1601547260769,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1390343.7291268688,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000032045059864748914",
+            "extra": "mean: 719.2465999958131 nsec\nrounds: 125000"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2519239.740711146,
+            "unit": "iter/sec",
+            "range": "stddev: 4.136831870001487e-7",
+            "extra": "mean: 396.9451512845511 nsec\nrounds: 192308"
           }
         ]
       }
