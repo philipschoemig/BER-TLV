@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601547261253,
+  "lastUpdate": 1601552745980,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -418,6 +418,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 4.136831870001487e-7",
             "extra": "mean: 396.9451512845511 nsec\nrounds: 192308"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "distinct": true,
+          "id": "c4d1aaaf41cf5901a40f6bdc0f45d05f3d1d5189",
+          "message": "Create pytest fixtures for TLV test data",
+          "timestamp": "2020-10-01T13:44:48+02:00",
+          "tree_id": "f3156b0094c4c08db504a63243f5bf3898e31b24",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/c4d1aaaf41cf5901a40f6bdc0f45d05f3d1d5189"
+        },
+        "date": 1601552745507,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1545424.4561906909,
+            "unit": "iter/sec",
+            "range": "stddev: 7.637634685713845e-7",
+            "extra": "mean: 647.0714217017731 nsec\nrounds: 144928"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2608070.319369733,
+            "unit": "iter/sec",
+            "range": "stddev: 2.2817650220330277e-7",
+            "extra": "mean: 383.42524454717966 nsec\nrounds: 192308"
           }
         ]
       }
