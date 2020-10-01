@@ -133,7 +133,8 @@ class Tag:
 
 class RootTag(Tag):
     def __init__(self):
-        super().__init__(b"\xF0", force_constructed=True)
+        # Tag 0x30 = ASN.1 type "SEQUENCE and SEQUENCE OF"
+        super().__init__(b"\x30")
 
     def __repr__(self) -> str:
         return "root"
