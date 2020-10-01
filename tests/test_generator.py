@@ -4,8 +4,6 @@ from bertlv.generator import BinaryGenerator, XmlGenerator, generate, generate_b
 from bertlv.tag import Tag
 from bertlv.tree import TlvNode
 
-from .test_tree import _test_binary_data, _test_tree
-
 
 class TestBinaryGenerator:
     def test_close(self):
@@ -84,12 +82,12 @@ class TestXmlGenerator:
         )
 
 
-def test_generate():
+def test_generate(tlv_binary_data, tlv_tree):
     fp = io.BytesIO()
-    generate(fp, _test_tree(), BinaryGenerator())
-    assert fp.getvalue() == _test_binary_data()
+    generate(fp, tlv_tree, BinaryGenerator())
+    assert fp.getvalue() == tlv_binary_data
 
 
-def test_generate_bytes():
-    data = generate_bytes(_test_tree(), BinaryGenerator())
-    assert data == _test_binary_data()
+def test_generate_bytes(tlv_binary_data, tlv_tree):
+    data = generate_bytes(tlv_tree, BinaryGenerator())
+    assert data == tlv_binary_data

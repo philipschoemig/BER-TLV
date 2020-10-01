@@ -22,8 +22,6 @@ from bertlv.stream import BufferedStream
 from bertlv.tag import Tag
 from bertlv.tree import TlvNode
 
-from .test_tree import _test_binary_data, _test_dump
-
 
 class BufferedStreamMockUp(BufferedStream):
     def __init__(self, byte: int, offset: int):
@@ -508,15 +506,15 @@ class TestXmlParser:
                 target.check_empty()
 
 
-def test_parse():
-    fp = io.BytesIO(_test_binary_data())
+def test_parse(tlv_binary_data, tlv_dump):
+    fp = io.BytesIO(tlv_binary_data)
     tree = parse(fp, BinaryParser())
-    assert tree.dump() == _test_dump()
+    assert tree.dump() == tlv_dump
 
 
-def test_parse_bytes():
-    tree = parse_bytes(_test_binary_data(), BinaryParser())
-    assert tree.dump() == _test_dump()
+def test_parse_bytes(tlv_binary_data, tlv_dump):
+    tree = parse_bytes(tlv_binary_data, BinaryParser())
+    assert tree.dump() == tlv_dump
 
 
 def test_parse_bytes_with_other_types():
