@@ -20,7 +20,7 @@ def test_main():
         bertlv.__main__.main(["--help"])
 
 
-def test_main_with_input_tlv_and_output_txt(capsys, tmp_path, tlv_dump, tlv_tree):
+def test_main_with_input_tlv_and_output_txt(capsys, tlv_dump, tlv_tree, tmp_path):
     test_tree_to_binary_with_file(tlv_tree, tmp_path)
     path = tmp_path / "test.tlv"
     exit_code = bertlv.__main__.main([str(path)])
@@ -29,17 +29,22 @@ def test_main_with_input_tlv_and_output_txt(capsys, tmp_path, tlv_dump, tlv_tree
     assert tlv_dump in captured.out
 
 
-def test_main_with_input_xml_and_output_txt(capsys, tmp_path, tlv_dump, tlv_tree):
+def test_main_with_input_xml_and_output_txt(capsys, tlv_dump, tlv_tree, tmp_path):
     test_tree_to_binary_with_file(tlv_tree, tmp_path)
     path = tmp_path / "test.tlv"
     exit_code = bertlv.__main__.main([str(path)])
     captured = capsys.readouterr()
     assert exit_code == 0
     assert tlv_dump in captured.out
+
+
+def test_main_with_unknown_file_format():
+    with pytest.raises(RuntimeError, match=r"Unknown file format: jpg$"):
+        bertlv.__main__.main(["test.jpg"])
 
 
 def test_main_with_no_arguments(capsys):
     with pytest.raises(SystemExit, match=r"2$"):
         bertlv.__main__.main([])
     captured = capsys.readouterr()
-    assert "error: the following arguments are required: FILE" in captured.err
+    assert "error: the following arguments are required: input" in captured.err

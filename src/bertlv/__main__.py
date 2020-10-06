@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """Module allowing for ``python -m bertlv ...``."""
 import argparse
-import os
+import contextlib
 import sys
+
+from pathlib import Path
+from typing import List
 
 from . import (
     __version__,
@@ -13,59 +16,86 @@ from . import (
     tree_to_xml,
 )
 
+INPUT_FORMATS = {
+    "tlv": lambda file: tree_from_binary(file),
+    "xml": lambda file: tree_from_xml(file),
+}
+OUTPUT_FORMATS = {
+    "tlv": lambda tree, file: tree_to_binary(tree, file),
+    "txt": lambda tree, file: file.write(tree.dump().encode("utf-8")),
+    "xml": lambda tree, file: tree_to_xml(tree, file),
+}
 
-def main(argv=None) -> int:
+
+def detect_file_format(filename: str, formats: dict, default: str = None) -> str:
+    if filename == "-":
+        return default
+    file_format = Path(filename).suffix[1:]
+    if file_format not in formats:
+        raise RuntimeError(f"Unknown file format: {file_format}")
+    return file_format
+
+
+def open_or_stdio(file, mode: str, *args, **kwargs):
+    if file == "-":
+        if "r" in mode:
+            stream = sys.stdin
+        else:
+            stream = sys.stdout
+        if "b" in mode:
+            stream = stream.buffer
+        return contextlib.nullcontext(stream)
+    else:
+        return open(file, mode, *args, **kwargs)
+
+
+def main(argv: List = None) -> int:
     """Main function for the bertlv module.
 
     Parse the input file specified on the command line and dump the resulting TLV tree
     to standard output or the optional output file.
     """
-    # noinspection PyTypeChecker
-    parser = argparse.ArgumentParser(
-        description="BER TLV parser.",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
+    parser = argparse.ArgumentParser(description="BER TLV parser.")
     parser.add_argument("-V", "--version", action="version", version=__version__)
     parser.add_argument(
         "-s",
         "--strict",
         action="store_true",
-        help="Enable strict checking of TLV encoding",
+        help="Enable strict checking of TLV encoding (default: %(default)s)",
     )
-    parser.add_argument("-o", "--output", help="Path to the output file")
     parser.add_argument(
-        "file", metavar="FILE", help="Path to the file containing a TLV tree"
+        "--input-format",
+        choices=INPUT_FORMATS.keys(),
+        help="Format to use for the input (default: extension of input file)",
+    )
+    parser.add_argument(
+        "--output-format",
+        choices=OUTPUT_FORMATS.keys(),
+        help="Format to use for the output (default: extension of input file)",
+    )
+    parser.add_argument(
+        "input", help="Input file to read the TLV tree from",
+    )
+    parser.add_argument(
+        "output",
+        nargs="?",
+        default="-",
+        help="Output file to write the TLV tree to (default: stdout)",
     )
 
     args = parser.parse_args(argv)
 
     config.strict_checking = args.strict
 
-    with open(args.file, "rb") as file:
-        _, ext = os.path.splitext(args.file)
-        if ext == ".xml":
-            tlv_tree = tree_from_xml(file)
-        elif ext == ".tlv":
-            tlv_tree = tree_from_binary(file)
-        else:
-            print(f"Unknown file extension '{ext}' for input file: {args.file}")
-            return 1
+    input_format = args.input_format or detect_file_format(args.input, INPUT_FORMATS)
+    with open_or_stdio(args.input, "rb") as file:
+        tlv_tree = INPUT_FORMATS[input_format](file)
 
-    dump = tlv_tree.dump()
-    if args.output:
-        with open(args.output, "wb") as file:
-            _, ext = os.path.splitext(args.output)
-            if ext == ".xml":
-                tree_to_xml(tlv_tree, file)
-            elif ext == ".tlv":
-                tree_to_binary(tlv_tree, file)
-            elif ext == ".txt":
-                file.write(dump.encode("utf-8"))
-            else:
-                print(f"Unknown file extension '{ext}' for output file: {args.output}")
-                return 1
-    else:
-        print(dump)
+    output_format = args.output_format or detect_file_format(
+        args.output, OUTPUT_FORMATS, "txt"
+    )
+    with open_or_stdio(args.output, "wb") as file:
+        OUTPUT_FORMATS[output_format](tlv_tree, file)
 
     return 0
 
