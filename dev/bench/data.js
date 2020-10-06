@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601552745980,
+  "lastUpdate": 1601996875717,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -456,6 +456,42 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 2.2817650220330277e-7",
             "extra": "mean: 383.42524454717966 nsec\nrounds: 192308"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "committer": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "distinct": true,
+          "id": "cdfae759c68e985a2e9c25e6fba79fe75855a11e",
+          "message": "Refactor handling of input and output formats in main method",
+          "timestamp": "2020-10-06T17:06:58+02:00",
+          "tree_id": "aba1740215a4991379358e5a554dc9100471d7c0",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/cdfae759c68e985a2e9c25e6fba79fe75855a11e"
+        },
+        "date": 1601996875230,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1438755.219560755,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000024603064881727716",
+            "extra": "mean: 695.0452630193031 nsec\nrounds: 109891"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2532379.4421227793,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000011262383141086536",
+            "extra": "mean: 394.88553072523837 nsec\nrounds: 192308"
           }
         ]
       }
