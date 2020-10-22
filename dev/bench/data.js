@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1601996875717,
+  "lastUpdate": 1603377447939,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -492,6 +492,42 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.0000011262383141086536",
             "extra": "mean: 394.88553072523837 nsec\nrounds: 192308"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "committer": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "distinct": true,
+          "id": "ec195433d48883485cf1efa2b0dd3f79b78988a3",
+          "message": "Add package-level function to generate text dump\n* Clean up format maps in main module\n* Add test fixtures for binary, text and xml files",
+          "timestamp": "2020-10-22T16:36:22+02:00",
+          "tree_id": "96a2b922b1f602bb837d4cb8c082e65aa6a798d7",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/ec195433d48883485cf1efa2b0dd3f79b78988a3"
+        },
+        "date": 1603377444316,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1395985.887249708,
+            "unit": "iter/sec",
+            "range": "stddev: 3.355643365281246e-7",
+            "extra": "mean: 716.3396200015626 nsec\nrounds: 200000"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2492547.357637303,
+            "unit": "iter/sec",
+            "range": "stddev: 6.588774493850893e-8",
+            "extra": "mean: 401.19598808651403 nsec\nrounds: 192308"
           }
         ]
       }
