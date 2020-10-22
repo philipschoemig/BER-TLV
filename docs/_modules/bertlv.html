@@ -82,6 +82,18 @@
     <span class="k">return</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate_bytes</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">generator_instance</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="tree_to_text"><a class="viewcode-back" href="../_autosummary/bertlv.html#bertlv.tree_to_text">[docs]</a><span class="k">def</span> <span class="nf">tree_to_text</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">Tree</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">BinaryIO</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Generate a text dump of a TLV tree and return it or write it to *file*.</span>
+
+<span class="sd">    If *file* is ``None`` return the `bytes` otherwise write data to *file*.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
 <div class="viewcode-block" id="tree_to_xml"><a class="viewcode-back" href="../_autosummary/bertlv.html#bertlv.tree_to_xml">[docs]</a><span class="k">def</span> <span class="nf">tree_to_xml</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">Tree</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">BinaryIO</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Generate XML data of a TLV tree and return it or write it to *file*.</span>
 
