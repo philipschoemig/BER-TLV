@@ -82,12 +82,12 @@ class TestXmlGenerator:
         )
 
 
-def test_generate(tlv_binary_data, tlv_tree):
+def test_generate(tlv_data_binary, tlv_tree):
     fp = io.BytesIO()
     generate(fp, tlv_tree, BinaryGenerator())
-    assert fp.getvalue() == tlv_binary_data
+    assert fp.getvalue() == tlv_data_binary
 
 
-def test_generate_bytes(tlv_binary_data, tlv_tree):
+def test_generate_bytes(tlv_data_binary, tlv_tree):
     data = generate_bytes(tlv_tree, BinaryGenerator())
-    assert data == tlv_binary_data
+    assert data == tlv_data_binary

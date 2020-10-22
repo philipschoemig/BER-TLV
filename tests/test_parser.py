@@ -506,14 +506,14 @@ class TestXmlParser:
                 target.check_empty()
 
 
-def test_parse(tlv_binary_data, tlv_dump):
-    fp = io.BytesIO(tlv_binary_data)
+def test_parse(tlv_data_binary, tlv_dump):
+    fp = io.BytesIO(tlv_data_binary)
     tree = parse(fp, BinaryParser())
     assert tree.dump() == tlv_dump
 
 
-def test_parse_bytes(tlv_binary_data, tlv_dump):
-    tree = parse_bytes(tlv_binary_data, BinaryParser())
+def test_parse_bytes(tlv_data_binary, tlv_dump):
+    tree = parse_bytes(tlv_data_binary, BinaryParser())
     assert tree.dump() == tlv_dump
 
 

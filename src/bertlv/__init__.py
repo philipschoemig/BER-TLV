@@ -43,6 +43,18 @@ def tree_to_binary(source: Tree, file: BinaryIO = None) -> Optional[bytes]:
     return generator.generate_bytes(source, generator_instance)
 
 
+def tree_to_text(source: Tree, file: BinaryIO = None) -> Optional[bytes]:
+    """Generate a text dump of a TLV tree and return it or write it to *file*.
+
+    If *file* is ``None`` return the `bytes` otherwise write data to *file*.
+    """
+    data = source.dump().encode("utf-8")
+    if file:
+        file.write(data)
+        return None
+    return data
+
+
 def tree_to_xml(source: Tree, file: BinaryIO = None) -> Optional[bytes]:
     """Generate XML data of a TLV tree and return it or write it to *file*.
 

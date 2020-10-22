@@ -13,22 +13,23 @@ from . import (
     tree_from_binary,
     tree_from_xml,
     tree_to_binary,
+    tree_to_text,
     tree_to_xml,
 )
 
 INPUT_FORMATS = {
-    "tlv": lambda file: tree_from_binary(file),
-    "xml": lambda file: tree_from_xml(file),
+    "tlv": tree_from_binary,
+    "xml": tree_from_xml,
 }
 OUTPUT_FORMATS = {
-    "tlv": lambda tree, file: tree_to_binary(tree, file),
-    "txt": lambda tree, file: file.write(tree.dump().encode("utf-8")),
-    "xml": lambda tree, file: tree_to_xml(tree, file),
+    "tlv": tree_to_binary,
+    "txt": tree_to_text,
+    "xml": tree_to_xml,
 }
 
 
 def detect_file_format(filename: str, formats: dict, default: str = None) -> str:
-    if filename == "-":
+    if filename == "-" and default is not None:
         return default
     file_format = Path(filename).suffix[1:]
     if file_format not in formats:

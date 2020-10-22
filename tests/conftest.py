@@ -90,8 +90,8 @@ def tlv_builder():
 
 
 @pytest.fixture
-def tlv_binary_data():
-    """Return the binary data for the test tree."""
+def tlv_data_binary():
+    """Return the binary data for the test tree as bytes."""
     return (
         b"\xe1\x35\x9f\x1e\x08\x31\x36\x30\x32\x31\x34\x33\x37\xef\x12\xdf"
         b"\x0d\x08\x4d\x30\x30\x30\x2d\x4d\x50\x49\xdf\x7f\x04\x31\x2d\x32"
@@ -101,8 +101,14 @@ def tlv_binary_data():
 
 
 @pytest.fixture
-def tlv_xml_data():
-    """Return the XML data for the test tree."""
+def tlv_data_text(tlv_dump):
+    """Return the text dump for the test tree as bytes."""
+    return tlv_dump.encode("utf-8")
+
+
+@pytest.fixture
+def tlv_data_xml():
+    """Return the XML data for the test tree as bytes."""
     data = """<?xml version="1.0" ?>
 <Tlv>
   <Element Tag="0xE1">
@@ -120,3 +126,27 @@ def tlv_xml_data():
 """
     # Convert newlines to OS line separator before encoding the string
     return data.replace("\n", os.linesep).encode("utf-8")
+
+
+@pytest.fixture
+def tlv_file_binary(tlv_data_binary, tmp_path):
+    """Return the path to a binary file containing the test tree."""
+    path = tmp_path / "expected.tlv"
+    path.write_bytes(tlv_data_binary)
+    return path
+
+
+@pytest.fixture
+def tlv_file_text(tlv_data_text, tmp_path):
+    """Return the path to a text file containing the test tree."""
+    path = tmp_path / "expected.txt"
+    path.write_bytes(tlv_data_text)
+    return path
+
+
+@pytest.fixture
+def tlv_file_xml(tlv_data_xml, tmp_path):
+    """Return the path to an XML file containing the test tree."""
+    path = tmp_path / "expected.xml"
+    path.write_bytes(tlv_data_xml)
+    return path
