@@ -23,6 +23,7 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.6.2"
 anytree = "^2.8.0"
+importlib-metadata = {version = "^2.0.0", python = "<3.8"}
 
 # formatters and linters
 bandit = {version = "^1.6.2", optional = true}
@@ -43,14 +44,12 @@ pytest-benchmark = {version = "^3.2.3", optional = true}
 pytest-cov = {version = "^2.10.0", optional = true}
 
 # others
-bump2version = {version = "^1.0.0", optional = true}
 pre-commit = {version = "^2.5.1", optional = true}
 tox = {version = "^3.15.2", optional = true}
 
 [tool.poetry.extras]
 dev = [
     "black",
-    "bump2version",
     "isort",
     "pytest",
     "pytest-benchmark",
