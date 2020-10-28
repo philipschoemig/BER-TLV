@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1603462157786,
+  "lastUpdate": 1603901814650,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -564,6 +564,42 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 5.482932166274298e-8",
             "extra": "mean: 388.9486706013834 nsec\nrounds: 196040"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "committer": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "distinct": true,
+          "id": "cc4ebe82f3a848dad67e0719d9052f3b415f33dc",
+          "message": "Update minimum supported Python version to 3.7",
+          "timestamp": "2020-10-28T16:46:01+01:00",
+          "tree_id": "27b865302d4dc54bac2c504b1591ff04015acbe2",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/cc4ebe82f3a848dad67e0719d9052f3b415f33dc"
+        },
+        "date": 1603901813877,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1452267.9867242605,
+            "unit": "iter/sec",
+            "range": "stddev: 1.0967692469816969e-7",
+            "extra": "mean: 688.5781475191799 nsec\nrounds: 142858"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2541536.2742268834,
+            "unit": "iter/sec",
+            "range": "stddev: 2.338814875593476e-8",
+            "extra": "mean: 393.46280835801076 nsec\nrounds: 196079"
           }
         ]
       }
