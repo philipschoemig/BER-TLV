@@ -21,7 +21,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6.2"
+python = "^3.7"
 anytree = "^2.8.0"
 importlib-metadata = {version = "^2.0.0", python = "<3.8"}
 
