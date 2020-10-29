@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1604001481546,
+  "lastUpdate": 1604003803481,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -636,6 +636,42 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 2.451095444526614e-8",
             "extra": "mean: 389.1504277012615 nsec\nrounds: 196040"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "committer": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "distinct": true,
+          "id": "6a0b60f0501e72b6aeef3630a8eb11533f8765af",
+          "message": "Revert \"Remove bump2version dependency and instead use poetry version command. Close #1\"\n\nThis reverts commit bba22c9f",
+          "timestamp": "2020-10-29T21:35:42+01:00",
+          "tree_id": "b5e98d894f873f62744ea2a09f1b261de8b9674f",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/6a0b60f0501e72b6aeef3630a8eb11533f8765af"
+        },
+        "date": 1604003799452,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1400664.8698689886,
+            "unit": "iter/sec",
+            "range": "stddev: 0.00000409744039614389",
+            "extra": "mean: 713.9466559859784 nsec\nrounds: 125000"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2617134.609445742,
+            "unit": "iter/sec",
+            "range": "stddev: 4.142202634367005e-7",
+            "extra": "mean: 382.0972740151675 nsec\nrounds: 192308"
           }
         ]
       }
