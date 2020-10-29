@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1604003803481,
+  "lastUpdate": 1604004121704,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -672,6 +672,42 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 4.142202634367005e-7",
             "extra": "mean: 382.0972740151675 nsec\nrounds: 192308"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "committer": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "distinct": true,
+          "id": "54e64e3c4e83f732661bc672bf6dbe57d9247dab",
+          "message": "Update poetry.lock",
+          "timestamp": "2020-10-29T21:41:02+01:00",
+          "tree_id": "ae6b3a2bc078fdc23738c0acb24f505a541f402b",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/54e64e3c4e83f732661bc672bf6dbe57d9247dab"
+        },
+        "date": 1604004120791,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1512393.7295735055,
+            "unit": "iter/sec",
+            "range": "stddev: 3.371298281790101e-7",
+            "extra": "mean: 661.2034819015017 nsec\nrounds: 185186"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2802187.859601783,
+            "unit": "iter/sec",
+            "range": "stddev: 7.033729193602094e-8",
+            "extra": "mean: 356.8640113025778 nsec\nrounds: 192308"
           }
         ]
       }
