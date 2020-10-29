@@ -9,13 +9,7 @@ from typing import BinaryIO, Optional, Union
 from . import generator, parser
 from .tree import Tree
 
-try:
-    import importlib.metadata as importlib_metadata
-except ModuleNotFoundError:
-    # noinspection PyUnresolvedReferences
-    import importlib_metadata
-
-__version__ = importlib_metadata.version(__name__)
+__version__ = "0.4.0"
 __author__ = "Philip Schömig"
 
 
