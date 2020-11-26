@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1606388875500,
+  "lastUpdate": 1606405453814,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -898,6 +898,42 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 5.9286095097875444e-8",
             "extra": "mean: 391.37944219697044 nsec\nrounds: 192308"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "committer": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "distinct": true,
+          "id": "ca3c402d7dab0523bcd92dcfbe23b43b7cd49a6c",
+          "message": "Implement XML mapping and add unit tests",
+          "timestamp": "2020-11-26T16:43:00+01:00",
+          "tree_id": "1758cc93c5adbab6f8d223cba48b04a6b916ec3f",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/ca3c402d7dab0523bcd92dcfbe23b43b7cd49a6c"
+        },
+        "date": 1606405453023,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1928331.0042844438,
+            "unit": "iter/sec",
+            "range": "stddev: 2.0745931639187332e-7",
+            "extra": "mean: 518.583167401127 nsec\nrounds: 90901"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2463590.901319136,
+            "unit": "iter/sec",
+            "range": "stddev: 2.472149938028364e-8",
+            "extra": "mean: 405.91154946418146 nsec\nrounds: 188680"
           }
         ]
       }
