@@ -1,7 +1,10 @@
 import os
 
+from xml.etree import ElementTree
+
 import pytest
 
+from bertlv.mapper import XmlMapping
 from bertlv.tag import Tag
 from bertlv.tree import TlvNode, Tree, TreeBuilder
 
@@ -109,7 +112,7 @@ def tlv_data_text(tlv_dump):
 @pytest.fixture
 def tlv_data_xml():
     """Return the XML data for the test tree as bytes."""
-    data = """<?xml version="1.0" ?>
+    string = """<?xml version="1.0" ?>
 <Tlv>
   <Element Tag="0xE1">
     <Primitive Tag="0x9F1E" Type="ASCII">16021437</Primitive>
@@ -125,7 +128,22 @@ def tlv_data_xml():
 </Tlv>
 """
     # Convert newlines to OS line separator before encoding the string
-    return data.replace("\n", os.linesep).encode("utf-8")
+    return string.replace("\n", os.linesep).encode("utf-8")
+
+
+@pytest.fixture
+def tlv_xml_mapping():
+    """Return the XML mapping for the test tree."""
+    string = """<?xml version="1.0" ?>
+<Mapping>
+    <Element TLVTag="0xE1" XMLTag="ConstructedTagE1"/>
+    <Element TLVTag="0xEF" XMLTag="ConstructedTagEF"/>
+    <Primitive TLVTag="0x9F1E" Type="String" XMLTag="PrimitiveTag9F1E"/>
+    <Primitive TLVTag="0xDF0D" Type="String" XMLTag="PrimitiveTagDF0D"/>
+    <Primitive TLVTag="0xDF7F" Type="String" XMLTag="PrimitiveTagDF7F"/>
+</Mapping>
+"""
+    return XmlMapping(ElementTree.fromstring(string))
 
 
 @pytest.fixture
