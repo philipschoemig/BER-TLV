@@ -18,7 +18,7 @@ References
 - `X.690 BER encoding`_
 - Type-length-value_
 - `ISO 7816-4 Annex D`_
-- `EMV - Data Structure`
+- `EMV - Data Structure`_
 
 
 .. |checks| image:: https://github.com/philipschoemig/BER-TLV/workflows/Checks/badge.svg
