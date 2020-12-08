@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1606405453814,
+  "lastUpdate": 1607467197672,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -934,6 +934,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 2.472149938028364e-8",
             "extra": "mean: 405.91154946418146 nsec\nrounds: 188680"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "distinct": true,
+          "id": "8c922c2cd1caf1f0c86e231fcf852d507dd9cd6f",
+          "message": "Add separate methods to mapping and mapper for input and output data",
+          "timestamp": "2020-12-08T23:38:53+01:00",
+          "tree_id": "57b841edced48be8fc2e3b4cb225b4997f092db7",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/8c922c2cd1caf1f0c86e231fcf852d507dd9cd6f"
+        },
+        "date": 1607467197027,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1384651.7646413874,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000004999912563274191",
+            "extra": "mean: 722.203246719576 nsec\nrounds: 131579"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2533395.3712578686,
+            "unit": "iter/sec",
+            "range": "stddev: 5.027739800177999e-7",
+            "extra": "mean: 394.72717576793696 nsec\nrounds: 200000"
           }
         ]
       }
