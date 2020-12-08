@@ -1,83 +1,133 @@
 from xml.etree import ElementTree
 
-from bertlv.mapper import XmlMapper, XmlMapping
+from bertlv.mapper import Mapper, XmlMapping
 
 
 class TestXmlMapping:
-    def test_process_primitive(self):
+    def test_lookup(self, tlv_xml_mapping):
+        element = tlv_xml_mapping.lookup("0xDF0D")
+        assert (
+            ElementTree.tostring(element, encoding="unicode").strip()
+            == """<Primitive TLVTag="0xDF0D" Type="String" XMLTag="PrimitiveTagDF0D" />"""
+        )
+
+        element = tlv_xml_mapping.lookup("0xdf0d")
+        assert element is None
+
+    def test_decode_primitive(self):
         map_root = ElementTree.fromstring(
             """<Mapping>
-    <Primitive TLVTag="0xDF0D" Type="" XMLTag="PrimitiveTagDF0D"/>
+    <Primitive TLVTag="0xDF0D" Type="" XMLTag="PrimitiveTagDF0D" />
 </Mapping>
 """
         )
         mapping = XmlMapping(map_root)
-        element = ElementTree.Element("Primitive", {"Tag": "0xDF0D", "Type": "Hex"})
+        element = ElementTree.Element("PrimitiveTagDF0D")
 
-        mapping.process(element)
-        assert (
-            ElementTree.tostring(element, encoding="unicode")
-            == """<PrimitiveTagDF0D />"""
-        )
-
-        mapping.process(element)
+        mapping.decode(element)
         assert (
             ElementTree.tostring(element, encoding="unicode")
             == """<Primitive Tag="0xDF0D" Type="Hex" />"""
         )
 
-    def test_process_primitive_with_type(self):
+    def test_decode_primitive_with_type(self):
         map_root = ElementTree.fromstring(
             """<Mapping>
-    <Primitive TLVTag="0xDF0D" Type="String" XMLTag="PrimitiveTagDF0D"/>
+    <Primitive TLVTag="0xDF0D" Type="String" XMLTag="PrimitiveTagDF0D" />
+</Mapping>
+"""
+        )
+        mapping = XmlMapping(map_root)
+        element = ElementTree.Element("PrimitiveTagDF0D")
+
+        mapping.decode(element)
+        assert (
+            ElementTree.tostring(element, encoding="unicode")
+            == """<Primitive Tag="0xDF0D" Type="ASCII" />"""
+        )
+
+    def test_decode_element(self):
+        map_root = ElementTree.fromstring(
+            """<Mapping>
+    <Element TLVTag="0xE1" XMLTag="ConstructedTagE1" />
+</Mapping>
+"""
+        )
+        mapping = XmlMapping(map_root)
+        element = ElementTree.Element("ConstructedTagE1")
+
+        mapping.decode(element)
+        assert (
+            ElementTree.tostring(element, encoding="unicode")
+            == """<Element Tag="0xE1" />"""
+        )
+
+    def test_encode_primitive(self):
+        map_root = ElementTree.fromstring(
+            """<Mapping>
+    <Primitive TLVTag="0xDF0D" Type="" XMLTag="PrimitiveTagDF0D" />
 </Mapping>
 """
         )
         mapping = XmlMapping(map_root)
         element = ElementTree.Element("Primitive", {"Tag": "0xDF0D", "Type": "Hex"})
 
-        mapping.process(element)
+        mapping.encode(element)
         assert (
             ElementTree.tostring(element, encoding="unicode")
             == """<PrimitiveTagDF0D />"""
         )
 
-        mapping.process(element)
-        assert (
-            ElementTree.tostring(element, encoding="unicode")
-            == """<Primitive Tag="0xDF0D" Type="ASCII" />"""
-        )
-
-    def test_process_element(self):
+    def test_encode_primitive_with_type(self):
         map_root = ElementTree.fromstring(
             """<Mapping>
-    <Element TLVTag="0xE1" XMLTag="ConstructedTagE1"/>
+    <Primitive TLVTag="0xDF0D" Type="String" XMLTag="PrimitiveTagDF0D" />
+</Mapping>
+"""
+        )
+        mapping = XmlMapping(map_root)
+        element = ElementTree.Element("Primitive", {"Tag": "0xDF0D", "Type": "Hex"})
+
+        mapping.encode(element)
+        assert (
+            ElementTree.tostring(element, encoding="unicode")
+            == """<PrimitiveTagDF0D />"""
+        )
+
+    def test_encode_element(self):
+        map_root = ElementTree.fromstring(
+            """<Mapping>
+    <Element TLVTag="0xE1" XMLTag="ConstructedTagE1" />
 </Mapping>
 """
         )
         mapping = XmlMapping(map_root)
         element = ElementTree.Element("Element", {"Tag": "0xE1"})
 
-        mapping.process(element)
+        mapping.encode(element)
         assert (
             ElementTree.tostring(element, encoding="unicode")
             == """<ConstructedTagE1 />"""
         )
 
-        mapping.process(element)
+
+class TestMapper:
+    def test_lookup(self, tlv_xml_mapping):
+        mapper = Mapper([tlv_xml_mapping])
+        element = mapper.lookup("0xDF0D")
         assert (
-            ElementTree.tostring(element, encoding="unicode")
-            == """<Element Tag="0xE1" />"""
+            ElementTree.tostring(element, encoding="unicode").strip()
+            == """<Primitive TLVTag="0xDF0D" Type="String" XMLTag="PrimitiveTagDF0D" />"""
         )
 
+        element = mapper.lookup("0xdf0d")
+        assert element is None
 
-class TestXmlMapper:
-    def test_map(self, tlv_data_xml, tlv_xml_mapping):
-        mappings = [tlv_xml_mapping]
-        mapper = XmlMapper(mappings)
+    def test_map_tree(self, tlv_data_xml, tlv_xml_mapping):
+        mapper = Mapper([tlv_xml_mapping])
         root = ElementTree.fromstring(tlv_data_xml)
 
-        mapper.map(root)
+        mapper.map_tree(root)
         assert (
             ElementTree.tostring(root, encoding="unicode")
             == """<Tlv>
@@ -95,7 +145,7 @@ class TestXmlMapper:
 </Tlv>"""
         )
 
-        mapper.map(root)
+        mapper.unmap_tree(root)
         assert (
             ElementTree.tostring(root, encoding="unicode")
             == """<Tlv>
@@ -113,7 +163,7 @@ class TestXmlMapper:
 </Tlv>"""
         )
 
-    def test_map_with_multiple_mappings(self, tlv_data_xml, tlv_xml_mapping):
+    def test_map_tree_with_multiple_mappings(self, tlv_data_xml, tlv_xml_mapping):
         map_root = ElementTree.fromstring(
             """<Mapping>
     <Element TLVTag="0xE1" XMLTag="ConstructedTagE1Test"/>
@@ -121,10 +171,9 @@ class TestXmlMapper:
 </Mapping>
 """
         )
-        mappings = [XmlMapping(map_root), tlv_xml_mapping]
-        mapper = XmlMapper(mappings)
+        mapper = Mapper([XmlMapping(map_root), tlv_xml_mapping])
         root = ElementTree.fromstring(tlv_data_xml)
-        mapper.map(root)
+        mapper.map_tree(root)
         assert (
             ElementTree.tostring(root, encoding="unicode")
             == """<Tlv>
@@ -142,7 +191,7 @@ class TestXmlMapper:
 </Tlv>"""
         )
 
-        mapper.map(root)
+        mapper.unmap_tree(root)
         assert (
             ElementTree.tostring(root, encoding="unicode")
             == """<Tlv>

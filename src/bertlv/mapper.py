@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, Optional
 from xml.etree import ElementTree
 
 
@@ -11,33 +11,38 @@ class XmlMapping:
             )
         self.root = root
 
-    def process(self, element: ElementTree.Element) -> bool:
+    def lookup(self, tag: str) -> Optional[ElementTree.Element]:
+        """Look up the tag in the mapping and return the element."""
+        return self.root.find(f"./*[@TLVTag='{tag}']")
+
+    def decode(self, element: ElementTree.Element) -> bool:
         """Process the mapping for the given element."""
         processed = False
-        if element.tag == "Element" or element.tag == "Primitive":
-            map_entry = self.root.find(
-                f"./{element.tag}[@TLVTag='{element.get('Tag')}']"
-            )
-            if map_entry is not None:
-                tag = map_entry.get("XMLTag")
-                element.tag = tag
-                element.attrib.clear()
-                processed = True
-        else:
-            map_entry = self.root.find(f"./*[@XMLTag='{element.tag}']")
-            if map_entry is not None:
-                element.tag = map_entry.tag
-                element.attrib.clear()
+        map_entry = self.root.find(f"./*[@XMLTag='{element.tag}']")
+        if map_entry is not None:
+            element.tag = map_entry.tag
+            element.attrib.clear()
 
-                attrib_tag = map_entry.get("TLVTag")
-                element.set("Tag", attrib_tag)
+            attrib_tag = map_entry.get("TLVTag")
+            element.set("Tag", attrib_tag)
 
-                if map_entry.tag == "Primitive":
-                    attrib_type = "Hex"
-                    if map_entry.get("Type") == "String":
-                        attrib_type = "ASCII"
-                    element.set("Type", attrib_type)
-                processed = True
+            if map_entry.tag == "Primitive":
+                attrib_type = "Hex"
+                if map_entry.get("Type") == "String":
+                    attrib_type = "ASCII"
+                element.set("Type", attrib_type)
+            processed = True
+        return processed
+
+    def encode(self, element: ElementTree.Element) -> bool:
+        """Process the mapping for the given element."""
+        processed = False
+        map_entry = self.root.find(f"./{element.tag}[@TLVTag='{element.get('Tag')}']")
+        if map_entry is not None:
+            tag = map_entry.get("XMLTag")
+            element.tag = tag
+            element.attrib.clear()
+            processed = True
         return processed
 
     @classmethod
@@ -54,20 +59,44 @@ class XmlMapping:
         return obj
 
 
-class XmlMapper:
+class Mapper:
     def __init__(self, mappings: Iterable[XmlMapping]):
         self.mappings = mappings
 
-    def map(self, root: ElementTree.Element):
-        """Map all elements in the given tree using the stored mappings."""
+    def lookup(self, tag: str) -> Optional[ElementTree.Element]:
+        """Look up the tag in the mappings and return the element."""
+        for mapping in self.mappings:
+            element = mapping.lookup(tag)
+            if element is not None:
+                return element
+        return None
+
+    def map(self, element: ElementTree.Element):
+        """Map the given element using the mappings."""
+        for mapping in self.mappings:
+            if mapping.encode(element):
+                break
+
+    def unmap(self, element: ElementTree.Element):
+        """Unmap the given element using the mappings."""
+        for mapping in self.mappings:
+            if mapping.decode(element):
+                break
+
+    def map_tree(self, root: ElementTree.Element):
+        """Map all elements in the given tree using the mappings."""
         for element in root:
             self.map(element)
-            for mapping in self.mappings:
-                if mapping.process(element):
-                    break
+            self.map_tree(element)
+
+    def unmap_tree(self, root: ElementTree.Element):
+        """Unmap all elements in the given tree using the mappings."""
+        for element in root:
+            self.unmap(element)
+            self.unmap_tree(element)
 
     @classmethod
-    def parse(cls, filenames: Iterable[Path]) -> "XmlMapper":
+    def parse(cls, filenames: Iterable[Path]) -> "Mapper":
         """Parse the given mapping files."""
         mappings = [XmlMapping.parse(filename) for filename in filenames]
         return cls(mappings)
