@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613394286559,
+  "lastUpdate": 1613431378096,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1084,6 +1084,42 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 9.024320207767703e-8",
             "extra": "mean: 378.05710635610046 nsec\nrounds: 199960"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "committer": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "distinct": true,
+          "id": "0ae84927854b8ed1a16e255fe9bdf5c3d2ff6ec4",
+          "message": "Integrate mapper module:\n* Convert Mapper class in module functions\n* Call mapper in generator, parser and tag modules\n* Add command line parameter for passing mapping files\n* Add unit-tests",
+          "timestamp": "2021-02-16T00:21:57+01:00",
+          "tree_id": "d1ff6a40b300f8e3d9b8f19998416670a0f8b30b",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/0ae84927854b8ed1a16e255fe9bdf5c3d2ff6ec4"
+        },
+        "date": 1613431377557,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1525999.9046498258,
+            "unit": "iter/sec",
+            "range": "stddev: 3.4951149509887414e-7",
+            "extra": "mean: 655.3080357036273 nsec\nrounds: 153823"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2700687.524060994,
+            "unit": "iter/sec",
+            "range": "stddev: 6.924618498578329e-8",
+            "extra": "mean: 370.276083808671 nsec\nrounds: 185186"
           }
         ]
       }
