@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1610649950359,
+  "lastUpdate": 1613394286559,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1048,6 +1048,42 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 1.435555891953596e-8",
             "extra": "mean: 322.651194162148 nsec\nrounds: 196079"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "committer": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "distinct": true,
+          "id": "3d6fa6dd9839d66b0e040ac209d528fa51186432",
+          "message": "Fix message string for InsufficientDataError",
+          "timestamp": "2021-02-15T14:03:31+01:00",
+          "tree_id": "5397846192ec70c2b260b1c9b9e65a88e5681b07",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/3d6fa6dd9839d66b0e040ac209d528fa51186432"
+        },
+        "date": 1613394286036,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 2118768.5958297006,
+            "unit": "iter/sec",
+            "range": "stddev: 8.056108053700899e-8",
+            "extra": "mean: 471.9722587779404 nsec\nrounds: 136987"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2645103.0365187353,
+            "unit": "iter/sec",
+            "range": "stddev: 9.024320207767703e-8",
+            "extra": "mean: 378.05710635610046 nsec\nrounds: 199960"
           }
         ]
       }
