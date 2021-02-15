@@ -120,7 +120,7 @@ class TestBinaryParser:
             parser.feed(b"\x5F")
             with pytest.raises(
                 InsufficientDataError,
-                match=r"insufficient data to parse the tag: offset 1$",
+                match=r"error while parsing the tag, insufficient data: offset 1$",
             ):
                 parser.close()
 
@@ -141,7 +141,7 @@ class TestBinaryParser:
             parser.feed(b"\x5F\x20")
             with pytest.raises(
                 InsufficientDataError,
-                match=r"insufficient data to parse the length: tag 5f20, offset 2$",
+                match=r"error while parsing the length, insufficient data: tag 5f20, offset 2$",
             ):
                 parser.close()
 
@@ -150,7 +150,7 @@ class TestBinaryParser:
             parser.feed(b"\x5F\x20\x81")
             with pytest.raises(
                 InsufficientDataError,
-                match=r"insufficient data to parse the length: tag 5f20, offset 3$",
+                match=r"error while parsing the length, insufficient data: tag 5f20, offset 3$",
             ):
                 parser.close()
 
@@ -159,7 +159,7 @@ class TestBinaryParser:
             parser.feed(b"\x5F\x20\x03")
             with pytest.raises(
                 InsufficientDataError,
-                match=r"insufficient data to parse the value: tag 5f20, offset 3$",
+                match=r"error while parsing the value, insufficient data: tag 5f20, offset 3$",
             ):
                 parser.close()
 
@@ -167,7 +167,7 @@ class TestBinaryParser:
             parser.feed(b"\xFF\x60\x06")
             with pytest.raises(
                 InsufficientDataError,
-                match=r"insufficient data to parse the constructed value: tag ff60, "
+                match=r"error while parsing the constructed value, insufficient data: tag ff60, "
                 r"offset 3$",
             ):
                 parser.close()
@@ -177,7 +177,7 @@ class TestBinaryParser:
             parser.feed(b"\x5F\x20\x03\x11")
             with pytest.raises(
                 InsufficientDataError,
-                match=r"insufficient data to parse the value: tag 5f20, offset 3$",
+                match=r"error while parsing the value, insufficient data: tag 5f20, offset 3$",
             ):
                 parser.close()
 
@@ -185,7 +185,7 @@ class TestBinaryParser:
             parser.feed(b"\xFF\x60\x06\x5F\x20")
             with pytest.raises(
                 InsufficientDataError,
-                match=r"insufficient data to parse the constructed value: tag ff60, "
+                match=r"error while parsing the constructed value, insufficient data: tag ff60, "
                 r"offset 3$",
             ):
                 parser.close()

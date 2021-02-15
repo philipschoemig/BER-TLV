@@ -35,7 +35,7 @@ class InsufficientDataError(ParserError):
     def __init__(
         self, message: str, **kwargs,
     ):
-        super().__init__(f"insufficient data to parse the {message}", **kwargs)
+        super().__init__(f"{message}, insufficient data", **kwargs)
 
 
 class ParserBase(ABC):
