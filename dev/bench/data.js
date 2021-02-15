@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613432600124,
+  "lastUpdate": 1613432604579,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1188,6 +1188,42 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 7.61050416213384e-7",
             "extra": "mean: 315.7269943328063 nsec\nrounds: 172414"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "committer": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "distinct": true,
+          "id": "45cf2a863f3e68e45fa59965ba6b72d7e9cf7a6d",
+          "message": "Merge branch 'master' into feature_xml2tlv_mapping",
+          "timestamp": "2021-02-16T00:40:14+01:00",
+          "tree_id": "bae30590eb66fa73d6c96ed90c0e344122ab3456",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/45cf2a863f3e68e45fa59965ba6b72d7e9cf7a6d"
+        },
+        "date": 1613432603978,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1425693.0123050576,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000033589352126972224",
+            "extra": "mean: 701.4132715592131 nsec\nrounds: 129871"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2595157.0526771857,
+            "unit": "iter/sec",
+            "range": "stddev: 4.807247841185875e-7",
+            "extra": "mean: 385.33313387216094 nsec\nrounds: 192308"
           }
         ]
       }
