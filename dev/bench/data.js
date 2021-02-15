@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613431378096,
+  "lastUpdate": 1613431958303,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1120,6 +1120,40 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 6.924618498578329e-8",
             "extra": "mean: 370.276083808671 nsec\nrounds: 185186"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "philipschoemig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "name": "philipschoemig",
+            "username": "philipschoemig"
+          },
+          "id": "0ae84927854b8ed1a16e255fe9bdf5c3d2ff6ec4",
+          "message": "Feature xml2tlv mapping",
+          "timestamp": "2021-01-10T13:22:51Z",
+          "url": "https://github.com/philipschoemig/BER-TLV/pull/5/commits/0ae84927854b8ed1a16e255fe9bdf5c3d2ff6ec4"
+        },
+        "date": 1613431955358,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1715853.8851624292,
+            "unit": "iter/sec",
+            "range": "stddev: 6.550207351973646e-7",
+            "extra": "mean: 582.8002073179654 nsec\nrounds: 138889"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2924401.538855281,
+            "unit": "iter/sec",
+            "range": "stddev: 2.1035557660527953e-7",
+            "extra": "mean: 341.950305631229 nsec\nrounds: 192308"
           }
         ]
       }
