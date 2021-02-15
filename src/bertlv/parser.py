@@ -6,6 +6,7 @@ from distutils.util import strtobool
 from typing import BinaryIO, Optional
 from xml.etree import ElementTree
 
+from . import mapper
 from .stream import BufferedStream
 from .tag import Tag
 from .tree import BuilderBase, TlvError, TlvNode, Tree, TreeBuilder
@@ -157,6 +158,7 @@ class XmlParser(ParserBase):
         event_type, element = event
         if element.tag.capitalize() == "Tlv":
             return None
+        mapper.decode(element)
         tag = self._parse_tag(element)
         node = None
         if event_type == "start":
@@ -179,7 +181,7 @@ class XmlParser(ParserBase):
             force_constructed = False
             if element.tag == "Element":
                 # noinspection PyTypeChecker
-                force_constructed = strtobool(element.get("Force", "False"))
+                force_constructed = bool(strtobool(element.get("Force", "False")))
 
             tag = Tag.from_hex(tag_attr, force_constructed=force_constructed)
             if tag.is_constructed():

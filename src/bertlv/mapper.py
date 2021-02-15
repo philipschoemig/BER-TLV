@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Iterable, Optional
+from typing import Iterable, List, Optional
 from xml.etree import ElementTree
 
 
@@ -30,6 +30,7 @@ class XmlMapping:
                 attrib_type = "Hex"
                 if map_entry.get("Type") == "String":
                     attrib_type = "ASCII"
+                # TODO: verify value matches the type
                 element.set("Type", attrib_type)
             processed = True
         return processed
@@ -59,44 +60,72 @@ class XmlMapping:
         return obj
 
 
-class Mapper:
-    def __init__(self, mappings: Iterable[XmlMapping]):
-        self.mappings = mappings
+_mappings: List[XmlMapping] = []
 
-    def lookup(self, tag: str) -> Optional[ElementTree.Element]:
-        """Look up the tag in the mappings and return the element."""
-        for mapping in self.mappings:
-            element = mapping.lookup(tag)
-            if element is not None:
-                return element
-        return None
 
-    def map(self, element: ElementTree.Element):
-        """Map the given element using the mappings."""
-        for mapping in self.mappings:
-            if mapping.encode(element):
-                break
+def init(mappings: Iterable[XmlMapping]):
+    """Init the mappings list."""
+    global _mappings
+    _mappings = mappings
 
-    def unmap(self, element: ElementTree.Element):
-        """Unmap the given element using the mappings."""
-        for mapping in self.mappings:
-            if mapping.decode(element):
-                break
 
-    def map_tree(self, root: ElementTree.Element):
-        """Map all elements in the given tree using the mappings."""
-        for element in root:
-            self.map(element)
-            self.map_tree(element)
+def parse(filenames: Iterable[Path]):
+    """Parse the given mapping files."""
+    global _mappings
+    _mappings = [XmlMapping.parse(filename) for filename in filenames]
 
-    def unmap_tree(self, root: ElementTree.Element):
-        """Unmap all elements in the given tree using the mappings."""
-        for element in root:
-            self.unmap(element)
-            self.unmap_tree(element)
 
-    @classmethod
-    def parse(cls, filenames: Iterable[Path]) -> "Mapper":
-        """Parse the given mapping files."""
-        mappings = [XmlMapping.parse(filename) for filename in filenames]
-        return cls(mappings)
+def reset():
+    """Clear the stored mappings."""
+    _mappings.clear()
+
+
+def lookup(tag: str) -> Optional[ElementTree.Element]:
+    """Look up the tag in the mappings and return the element.
+
+    Returns None if the tag is not found.
+    """
+    for mapping in _mappings:
+        element = mapping.lookup(tag)
+        if element is not None:
+            return element
+    return None
+
+
+def is_constructed(tag: str) -> Optional[bool]:
+    """Look up the tag in the mappings and return True if it's constructed.
+
+    Returns None if the tag is not found.
+    """
+    element = lookup(tag)
+    if element is not None:
+        return element.tag == "Element"
+    return None
+
+
+def encode(element: ElementTree.Element):
+    """Encode the given element using the mappings."""
+    for mapping in _mappings:
+        if mapping.encode(element):
+            break
+
+
+def decode(element: ElementTree.Element):
+    """Decode the given element using the mappings."""
+    for mapping in _mappings:
+        if mapping.decode(element):
+            break
+
+
+def encode_tree(root: ElementTree.Element):
+    """Encode all elements in the given tree using the mappings."""
+    for element in root:
+        encode(element)
+        encode_tree(element)
+
+
+def decode_tree(root: ElementTree.Element):
+    """Decode all elements in the given tree using the mappings."""
+    for element in root:
+        decode(element)
+        decode_tree(element)

@@ -10,6 +10,7 @@ from typing import List
 from . import (
     __version__,
     config,
+    mapper,
     tree_from_binary,
     tree_from_xml,
     tree_to_binary,
@@ -65,6 +66,12 @@ def main(argv: List = None) -> int:
         help="Enable strict checking of TLV encoding (default: %(default)s)",
     )
     parser.add_argument(
+        "-m",
+        "--mapping",
+        action="append",
+        help="Mapping file(s) to use for encoding/decoding (default: %(default)s)",
+    )
+    parser.add_argument(
         "--input-format",
         choices=INPUT_FORMATS.keys(),
         help="Format to use for the input (default: extension of input file)",
@@ -87,6 +94,9 @@ def main(argv: List = None) -> int:
     args = parser.parse_args(argv)
 
     config.strict_checking = args.strict
+
+    if args.mapping:
+        mapper.parse(args.mapping)
 
     input_format = args.input_format or detect_file_format(args.input, INPUT_FORMATS)
     with open_or_stdio(args.input, "rb") as file:

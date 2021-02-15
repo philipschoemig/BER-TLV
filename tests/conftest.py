@@ -4,9 +4,15 @@ from xml.etree import ElementTree
 
 import pytest
 
-from bertlv.mapper import XmlMapping
+from bertlv import mapper
 from bertlv.tag import Tag
 from bertlv.tree import TlvNode, Tree, TreeBuilder
+
+
+@pytest.fixture(autouse=True)
+def teardown_mapper():
+    yield
+    mapper.reset()
 
 
 @pytest.fixture
@@ -143,7 +149,7 @@ def tlv_xml_mapping():
     <Primitive TLVTag="0xDF7F" Type="String" XMLTag="PrimitiveTagDF7F"/>
 </Mapping>
 """
-    return XmlMapping(ElementTree.fromstring(string))
+    return mapper.XmlMapping(ElementTree.fromstring(string))
 
 
 @pytest.fixture

@@ -2,7 +2,7 @@ from enum import Enum
 from functools import total_ordering
 from xml.etree import ElementTree
 
-from . import config
+from . import config, mapper
 
 
 class TagClass(Enum):
@@ -32,6 +32,10 @@ class Tag:
 
     def __init__(self, identifier: bytes, *, force_constructed: bool = False):
         self.identifier = identifier
+
+        map_constructed = mapper.is_constructed(self.to_hex())
+        if map_constructed is not None:
+            force_constructed = map_constructed
         self._force_constructed = force_constructed
 
     def __repr__(self) -> str:
