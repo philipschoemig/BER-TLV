@@ -7,7 +7,7 @@ class XmlMapping:
     def __init__(self, root: ElementTree.Element):
         if root.tag != "Mapping" and root.tag != "XMLMapping":
             raise ValueError(
-                f"Expected root tag 'Mapping' or 'XMLMapping' but found {root.tag}"
+                f"expected root tag 'Mapping' or 'XMLMapping' but found '{root.tag}'"
             )
         self.root = root
 
@@ -55,7 +55,7 @@ class XmlMapping:
             obj = cls(root)
         except ValueError as e:
             raise ValueError(
-                f"Error occurred while parsing the mapping file {filename}"
+                f"error occurred while parsing the mapping file {filename}"
             ) from e
         return obj
 

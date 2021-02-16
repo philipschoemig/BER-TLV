@@ -1,10 +1,19 @@
 from xml.etree import ElementTree
 
+import pytest
+
 from bertlv import mapper
 from bertlv.mapper import XmlMapping
 
 
 class TestXmlMapping:
+    def test_init_with_wrong_element(self):
+        with pytest.raises(
+            ValueError,
+            match=r"^expected root tag 'Mapping' or 'XMLMapping' but found 'Invalid'$",
+        ):
+            XmlMapping(ElementTree.Element("Invalid"))
+
     def test_lookup(self, tlv_xml_mapping):
         element = tlv_xml_mapping.lookup("0xDF0D")
         assert (
@@ -110,6 +119,37 @@ class TestXmlMapping:
             ElementTree.tostring(element, encoding="unicode")
             == """<ConstructedTagE1 />"""
         )
+
+    def test_parse(self, tlv_file_mapping):
+        mapping = XmlMapping.parse(tlv_file_mapping)
+        assert mapping is not None
+
+    def test_parse_with_wrong_element(self, tmp_path):
+        string = b"""<?xml version="1.0" ?>
+<Invalid />
+"""
+        path = tmp_path / "mapping_invalid.xml"
+        path.write_bytes(string)
+        with pytest.raises(
+            ValueError,
+            match=r"^error occurred while parsing the mapping file .*mapping_invalid.xml$",
+        ):
+            XmlMapping.parse(path)
+
+
+def test_init(tlv_xml_mapping):
+    mapper.init([tlv_xml_mapping])
+    assert len(mapper._mappings) > 0
+
+
+def test_parse(tlv_file_mapping):
+    mapper.parse([tlv_file_mapping])
+    assert len(mapper._mappings) > 0
+
+
+def test_reset(tlv_file_mapping):
+    mapper.reset()
+    assert len(mapper._mappings) == 0
 
 
 def test_lookup(tlv_xml_mapping):

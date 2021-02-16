@@ -138,8 +138,8 @@ def tlv_data_xml():
 
 
 @pytest.fixture
-def tlv_xml_mapping():
-    """Return the XML mapping for the test tree."""
+def tlv_data_mapping():
+    """Return the mapping string for the test tree as bytes."""
     string = """<?xml version="1.0" ?>
 <Mapping>
     <Element TLVTag="0xE1" XMLTag="ConstructedTagE1"/>
@@ -149,7 +149,14 @@ def tlv_xml_mapping():
     <Primitive TLVTag="0xDF7F" Type="String" XMLTag="PrimitiveTagDF7F"/>
 </Mapping>
 """
-    return mapper.XmlMapping(ElementTree.fromstring(string))
+    # Convert newlines to OS line separator before encoding the string
+    return string.replace("\n", os.linesep).encode("utf-8")
+
+
+@pytest.fixture
+def tlv_xml_mapping(tlv_data_mapping):
+    """Return the XML mapping for the test tree."""
+    return mapper.XmlMapping(ElementTree.fromstring(tlv_data_mapping))
 
 
 @pytest.fixture
@@ -173,4 +180,12 @@ def tlv_file_xml(tlv_data_xml, tmp_path):
     """Return the path to an XML file containing the test tree."""
     path = tmp_path / "expected.xml"
     path.write_bytes(tlv_data_xml)
+    return path
+
+
+@pytest.fixture
+def tlv_file_mapping(tlv_data_mapping, tmp_path):
+    """Return the path to an XML file containing the mapping."""
+    path = tmp_path / "mapping.xml"
+    path.write_bytes(tlv_data_mapping)
     return path
