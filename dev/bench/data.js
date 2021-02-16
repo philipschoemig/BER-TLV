@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613434790115,
+  "lastUpdate": 1613493236559,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1294,6 +1294,42 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 8.374557943982606e-7",
             "extra": "mean: 450.03001265221945 nsec\nrounds: 185186"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "committer": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "distinct": true,
+          "id": "fd23c41ddc30dd023683424109edacd034179b7b",
+          "message": "Add encoding to generated XML header and increase test coverage",
+          "timestamp": "2021-02-16T17:32:48+01:00",
+          "tree_id": "ba1a49197bf2294113aa8371dde554b803ecb535",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/fd23c41ddc30dd023683424109edacd034179b7b"
+        },
+        "date": 1613493236042,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 2033220.0035561896,
+            "unit": "iter/sec",
+            "range": "stddev: 7.833337989089688e-8",
+            "extra": "mean: 491.830691342248 nsec\nrounds: 90910"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2548310.0766934715,
+            "unit": "iter/sec",
+            "range": "stddev: 8.797156647748788e-8",
+            "extra": "mean: 392.41692333522593 nsec\nrounds: 200000"
           }
         ]
       }
