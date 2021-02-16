@@ -125,7 +125,7 @@ class XmlGenerator(GeneratorBase):
         """Return a pretty-printed XML byte-string for the element. """
         string = ElementTree.tostring(element, "utf-8")
         document = xml.dom.minidom.parseString(string)
-        return document.toprettyxml("  ", os.linesep).encode("utf-8")
+        return document.toprettyxml("  ", os.linesep, encoding="utf-8")
 
 
 def generate(fp: BinaryIO, tree: Tree, generator: GeneratorBase) -> None:

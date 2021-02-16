@@ -164,45 +164,20 @@ def test_lookup(tlv_xml_mapping):
     assert element is None
 
 
-def test_encode_tree(tlv_data_xml, tlv_xml_mapping):
+def test_encode_tree(tlv_data_xml, tlv_string_xml_mapped, tlv_xml_mapping):
     mapper.init([tlv_xml_mapping])
 
     root = ElementTree.fromstring(tlv_data_xml)
     mapper.encode_tree(root)
-    assert (
-        ElementTree.tostring(root, encoding="unicode")
-        == """<Tlv>
-  <ConstructedTagE1>
-    <PrimitiveTag9F1E>16021437</PrimitiveTag9F1E>
-    <ConstructedTagEF>
-      <PrimitiveTagDF0D>M000-MPI</PrimitiveTagDF0D>
-      <PrimitiveTagDF7F>1-22</PrimitiveTagDF7F>
-    </ConstructedTagEF>
-    <ConstructedTagEF>
-      <PrimitiveTagDF0D>M000-TESTOS</PrimitiveTagDF0D>
-      <PrimitiveTagDF7F>6-5</PrimitiveTagDF7F>
-    </ConstructedTagEF>
-  </ConstructedTagE1>
-</Tlv>"""
-    )
+    assert ElementTree.tostring(root, encoding="unicode") == tlv_string_xml_mapped
 
+
+def test_decode_tree(tlv_data_xml_mapped, tlv_string_xml, tlv_xml_mapping):
+    mapper.init([tlv_xml_mapping])
+
+    root = ElementTree.fromstring(tlv_data_xml_mapped)
     mapper.decode_tree(root)
-    assert (
-        ElementTree.tostring(root, encoding="unicode")
-        == """<Tlv>
-  <Element Tag="0xE1">
-    <Primitive Tag="0x9F1E" Type="ASCII">16021437</Primitive>
-    <Element Tag="0xEF">
-      <Primitive Tag="0xDF0D" Type="ASCII">M000-MPI</Primitive>
-      <Primitive Tag="0xDF7F" Type="ASCII">1-22</Primitive>
-    </Element>
-    <Element Tag="0xEF">
-      <Primitive Tag="0xDF0D" Type="ASCII">M000-TESTOS</Primitive>
-      <Primitive Tag="0xDF7F" Type="ASCII">6-5</Primitive>
-    </Element>
-  </Element>
-</Tlv>"""
-    )
+    assert ElementTree.tostring(root, encoding="unicode") == tlv_string_xml
 
 
 def test_encode_tree_with_multiple_mappings(tlv_data_xml, tlv_xml_mapping):

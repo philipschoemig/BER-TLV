@@ -116,10 +116,9 @@ def tlv_data_text(tlv_dump):
 
 
 @pytest.fixture
-def tlv_data_xml():
-    """Return the XML data for the test tree as bytes."""
-    string = """<?xml version="1.0" ?>
-<Tlv>
+def tlv_string_xml() -> str:
+    """Return the XML data for the test tree as str."""
+    return """<Tlv>
   <Element Tag="0xE1">
     <Primitive Tag="0x9F1E" Type="ASCII">16021437</Primitive>
     <Element Tag="0xEF">
@@ -131,8 +130,41 @@ def tlv_data_xml():
       <Primitive Tag="0xDF7F" Type="ASCII">6-5</Primitive>
     </Element>
   </Element>
-</Tlv>
-"""
+</Tlv>"""
+
+
+@pytest.fixture
+def tlv_data_xml(tlv_string_xml) -> bytes:
+    """Return the XML data for the test tree as bytes."""
+    string = """<?xml version="1.0" encoding="utf-8"?>\n""" + tlv_string_xml + "\n"
+    # Convert newlines to OS line separator before encoding the string
+    return string.replace("\n", os.linesep).encode("utf-8")
+
+
+@pytest.fixture
+def tlv_string_xml_mapped() -> str:
+    """Return the mapped XML data for the test tree as string."""
+    return """<Tlv>
+  <ConstructedTagE1>
+    <PrimitiveTag9F1E>16021437</PrimitiveTag9F1E>
+    <ConstructedTagEF>
+      <PrimitiveTagDF0D>M000-MPI</PrimitiveTagDF0D>
+      <PrimitiveTagDF7F>1-22</PrimitiveTagDF7F>
+    </ConstructedTagEF>
+    <ConstructedTagEF>
+      <PrimitiveTagDF0D>M000-TESTOS</PrimitiveTagDF0D>
+      <PrimitiveTagDF7F>6-5</PrimitiveTagDF7F>
+    </ConstructedTagEF>
+  </ConstructedTagE1>
+</Tlv>"""
+
+
+@pytest.fixture
+def tlv_data_xml_mapped(tlv_string_xml_mapped) -> bytes:
+    """Return the mapped XML data for the test tree as bytes."""
+    string = (
+        """<?xml version="1.0" encoding="utf-8"?>\n""" + tlv_string_xml_mapped + "\n"
+    )
     # Convert newlines to OS line separator before encoding the string
     return string.replace("\n", os.linesep).encode("utf-8")
 
@@ -180,6 +212,14 @@ def tlv_file_xml(tlv_data_xml, tmp_path):
     """Return the path to an XML file containing the test tree."""
     path = tmp_path / "expected.xml"
     path.write_bytes(tlv_data_xml)
+    return path
+
+
+@pytest.fixture
+def tlv_file_xml_mapped(tlv_data_xml_mapped, tmp_path):
+    """Return the path to an mapped XML file containing the test tree."""
+    path = tmp_path / "expected_mapped.xml"
+    path.write_bytes(tlv_data_xml_mapped)
     return path
 
 

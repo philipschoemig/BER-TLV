@@ -46,7 +46,7 @@ class TestXmlGenerator:
         data = b"\n".join(data.splitlines())
         assert (
             data
-            == b"""<?xml version="1.0" ?>
+            == b"""<?xml version="1.0" encoding="utf-8"?>
 <Tlv>
   <Element Tag="0xFF60">
     <Primitive Tag="0x5F20" Type="Hex">112233</Primitive>
@@ -63,7 +63,7 @@ class TestXmlGenerator:
         data = b"\n".join(data.splitlines())
         assert (
             data
-            == b"""<?xml version="1.0" ?>
+            == b"""<?xml version="1.0" encoding="utf-8"?>
 <Tlv>
   <Primitive Tag="0x5F20" Type="ASCII">123</Primitive>
 </Tlv>"""
@@ -78,7 +78,7 @@ class TestXmlGenerator:
         data = b"\n".join(data.splitlines())
         assert (
             data
-            == b"""<?xml version="1.0" ?>
+            == b"""<?xml version="1.0" encoding="utf-8"?>
 <Tlv>
   <Primitive Tag="0x5F20" Type="Hex">0123</Primitive>
 </Tlv>"""
@@ -95,7 +95,7 @@ class TestXmlGenerator:
         data = b"\n".join(data.splitlines())
         assert (
             data
-            == b"""<?xml version="1.0" ?>
+            == b"""<?xml version="1.0" encoding="utf-8"?>
 <Tlv>
   <Primitive Tag="0x5F20" Type="Hex">007FFF</Primitive>
 </Tlv>"""
@@ -111,7 +111,7 @@ class TestXmlGenerator:
         data = b"\n".join(data.splitlines())
         assert (
             data
-            == b"""<?xml version="1.0" ?>
+            == b"""<?xml version="1.0" encoding="utf-8"?>
 <Tlv>
   <Element Tag="0xDF51">
     <Primitive Tag="0x5F20" Type="Hex">112233</Primitive>
@@ -138,7 +138,7 @@ class TestXmlGenerator:
         data = b"\n".join(data.splitlines())
         assert (
             data
-            == b"""<?xml version="1.0" ?>
+            == b"""<?xml version="1.0" encoding="utf-8"?>
 <Tlv>
   <ConstructedTagDF51>
     <PrimitiveTag5F20>112233</PrimitiveTag5F20>
