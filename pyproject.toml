@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bertlv"
-version = "0.4.0"
+version = "0.5.0"
 description = "Python library for BER-TLV en-/decoding."
 license = "BSD-3-Clause"
 authors = ["Philip Schömig <philip.schoemig@posteo.de>"]
