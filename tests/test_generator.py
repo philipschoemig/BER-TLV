@@ -1,5 +1,8 @@
 import io
 
+from xml.etree import ElementTree
+
+from bertlv import mapper
 from bertlv.generator import BinaryGenerator, XmlGenerator, generate, generate_bytes
 from bertlv.tag import Tag
 from bertlv.tree import TlvNode
@@ -43,7 +46,7 @@ class TestXmlGenerator:
         data = b"\n".join(data.splitlines())
         assert (
             data
-            == b"""<?xml version="1.0" ?>
+            == b"""<?xml version="1.0" encoding="utf-8"?>
 <Tlv>
   <Element Tag="0xFF60">
     <Primitive Tag="0x5F20" Type="Hex">112233</Primitive>
@@ -60,14 +63,14 @@ class TestXmlGenerator:
         data = b"\n".join(data.splitlines())
         assert (
             data
-            == b"""<?xml version="1.0" ?>
+            == b"""<?xml version="1.0" encoding="utf-8"?>
 <Tlv>
   <Primitive Tag="0x5F20" Type="ASCII">123</Primitive>
 </Tlv>"""
         )
 
-    def test_close_with_wrong_encoding(self):
-        node = TlvNode(Tag.from_hex("5F20"), b"\x00\x7F\xFF")
+    def test_close_with_type_hex(self):
+        node = TlvNode(Tag.from_hex("5F20"), b"\x01\x23")
         generator = XmlGenerator()
         generator.write(node)
         data = generator.close()
@@ -75,9 +78,71 @@ class TestXmlGenerator:
         data = b"\n".join(data.splitlines())
         assert (
             data
-            == b"""<?xml version="1.0" ?>
+            == b"""<?xml version="1.0" encoding="utf-8"?>
+<Tlv>
+  <Primitive Tag="0x5F20" Type="Hex">0123</Primitive>
+</Tlv>"""
+        )
+
+    def test_close_with_wrong_encoding(self):
+        node = TlvNode(
+            Tag.from_hex("5F20"), b"\x00\x7F\xFF"
+        )  # value raises UnicodeError
+        generator = XmlGenerator()
+        generator.write(node)
+        data = generator.close()
+        # Convert OS line endings to newline for comparison
+        data = b"\n".join(data.splitlines())
+        assert (
+            data
+            == b"""<?xml version="1.0" encoding="utf-8"?>
 <Tlv>
   <Primitive Tag="0x5F20" Type="Hex">007FFF</Primitive>
+</Tlv>"""
+        )
+
+    def test_close_with_forced_constructed(self):
+        children = [TlvNode(Tag.from_hex("5F20"), b"\x11\x22\x33")]
+        node = TlvNode(Tag.from_hex("DF51", force_constructed=True), children=children)
+        generator = XmlGenerator()
+        generator.write(node)
+        data = generator.close()
+        # Convert OS line endings to newline for comparison
+        data = b"\n".join(data.splitlines())
+        assert (
+            data
+            == b"""<?xml version="1.0" encoding="utf-8"?>
+<Tlv>
+  <Element Tag="0xDF51">
+    <Primitive Tag="0x5F20" Type="Hex">112233</Primitive>
+  </Element>
+</Tlv>"""
+        )
+
+    def test_close_with_mapping(self):
+        map_root = ElementTree.fromstring(
+            """<Mapping>
+  <Element TLVTag="0xDF51" XMLTag="ConstructedTagDF51"/>
+  <Primitive TLVTag="0x5F20" Type="Hex" XMLTag="PrimitiveTag5F20"/>
+</Mapping>
+"""
+        )
+        mapper.init([mapper.XmlMapping(map_root)])
+
+        children = [TlvNode(Tag.from_hex("5F20"), b"\x11\x22\x33")]
+        node = TlvNode(Tag.from_hex("DF51"), children=children)
+        generator = XmlGenerator()
+        generator.write(node)
+        data = generator.close()
+        # Convert OS line endings to newline for comparison
+        data = b"\n".join(data.splitlines())
+        assert (
+            data
+            == b"""<?xml version="1.0" encoding="utf-8"?>
+<Tlv>
+  <ConstructedTagDF51>
+    <PrimitiveTag5F20>112233</PrimitiveTag5F20>
+  </ConstructedTagDF51>
 </Tlv>"""
         )
 

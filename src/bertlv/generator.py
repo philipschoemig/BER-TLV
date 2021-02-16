@@ -6,6 +6,7 @@ from abc import ABC, abstractmethod
 from typing import BinaryIO
 from xml.etree import ElementTree
 
+from . import mapper
 from .tree import TlvNode, Tree
 
 
@@ -77,6 +78,7 @@ class XmlGenerator(GeneratorBase):
         """Close the generator and return the written bytes."""
         stream = io.BytesIO()
         try:
+            mapper.encode_tree(self.root)
             stream.write(self._prettify(self.root))
         finally:
             self.root = ElementTree.Element("Tlv")
@@ -123,7 +125,7 @@ class XmlGenerator(GeneratorBase):
         """Return a pretty-printed XML byte-string for the element. """
         string = ElementTree.tostring(element, "utf-8")
         document = xml.dom.minidom.parseString(string)
-        return document.toprettyxml("  ", os.linesep).encode("utf-8")
+        return document.toprettyxml("  ", os.linesep, encoding="utf-8")
 
 
 def generate(fp: BinaryIO, tree: Tree, generator: GeneratorBase) -> None:

@@ -8,7 +8,7 @@ from xml.etree import ElementTree
 
 import pytest
 
-from bertlv import config
+from bertlv import config, mapper
 from bertlv.parser import (
     BinaryParser,
     InsufficientDataError,
@@ -120,7 +120,7 @@ class TestBinaryParser:
             parser.feed(b"\x5F")
             with pytest.raises(
                 InsufficientDataError,
-                match=r"insufficient data to parse the tag: offset 1$",
+                match=r"error while parsing the tag, insufficient data: offset 1$",
             ):
                 parser.close()
 
@@ -141,7 +141,7 @@ class TestBinaryParser:
             parser.feed(b"\x5F\x20")
             with pytest.raises(
                 InsufficientDataError,
-                match=r"insufficient data to parse the length: tag 5f20, offset 2$",
+                match=r"error while parsing the length, insufficient data: tag 5f20, offset 2$",
             ):
                 parser.close()
 
@@ -150,7 +150,7 @@ class TestBinaryParser:
             parser.feed(b"\x5F\x20\x81")
             with pytest.raises(
                 InsufficientDataError,
-                match=r"insufficient data to parse the length: tag 5f20, offset 3$",
+                match=r"error while parsing the length, insufficient data: tag 5f20, offset 3$",
             ):
                 parser.close()
 
@@ -159,7 +159,7 @@ class TestBinaryParser:
             parser.feed(b"\x5F\x20\x03")
             with pytest.raises(
                 InsufficientDataError,
-                match=r"insufficient data to parse the value: tag 5f20, offset 3$",
+                match=r"error while parsing the value, insufficient data: tag 5f20, offset 3$",
             ):
                 parser.close()
 
@@ -167,7 +167,7 @@ class TestBinaryParser:
             parser.feed(b"\xFF\x60\x06")
             with pytest.raises(
                 InsufficientDataError,
-                match=r"insufficient data to parse the constructed value: tag ff60, "
+                match=r"error while parsing the constructed value, insufficient data: tag ff60, "
                 r"offset 3$",
             ):
                 parser.close()
@@ -177,7 +177,7 @@ class TestBinaryParser:
             parser.feed(b"\x5F\x20\x03\x11")
             with pytest.raises(
                 InsufficientDataError,
-                match=r"insufficient data to parse the value: tag 5f20, offset 3$",
+                match=r"error while parsing the value, insufficient data: tag 5f20, offset 3$",
             ):
                 parser.close()
 
@@ -185,7 +185,7 @@ class TestBinaryParser:
             parser.feed(b"\xFF\x60\x06\x5F\x20")
             with pytest.raises(
                 InsufficientDataError,
-                match=r"insufficient data to parse the constructed value: tag ff60, "
+                match=r"error while parsing the constructed value, insufficient data: tag ff60, "
                 r"offset 3$",
             ):
                 parser.close()
@@ -403,6 +403,41 @@ class TestXmlParser:
                 tree.dump()
                 == """root
 └── ff60
+    └── 5f20: 112233"""
+            )
+
+    def test_close_with_mapping(self):
+        map_root = ElementTree.fromstring(
+            """<Mapping>
+    <Element TLVTag="0xDF51" XMLTag="ConstructedTagDF51"/>
+    <Primitive TLVTag="0x5F20" Type="Hex" XMLTag="PrimitiveTag5F20"/>
+</Mapping>
+"""
+        )
+        mapper.init([mapper.XmlMapping(map_root)])
+
+        calls = [
+            ("start", ["df51"]),
+            ("start", ["5f20"]),
+            ("data", ["112233"]),
+            ("end", ["5f20"]),
+            ("end", ["df51"]),
+        ]
+        with self._create_parser(calls) as parser:
+            parser.feed(
+                b"""<Tlv>
+  <ConstructedTagDF51>
+    <PrimitiveTag5F20>
+      112233
+    </PrimitiveTag5F20>
+  </ConstructedTagDF51>
+</Tlv>"""
+            )
+            tree = parser.close()
+            assert (
+                tree.dump()
+                == """root
+└── df51
     └── 5f20: 112233"""
             )
 
