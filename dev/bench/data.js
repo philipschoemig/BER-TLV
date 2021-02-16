@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613493242744,
+  "lastUpdate": 1613494415326,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1364,6 +1364,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 9.688402297990103e-7",
             "extra": "mean: 441.9189154176628 nsec\nrounds: 200000"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "31efb642e59ab38b6685859330187de3a02a0d20",
+          "message": "Feature xml2tlv mapping (#5)\n\nImplement feature for reading and processing XML mapping files:\r\n* Add mapper module and unit tests\r\n* Fix message string for InsufficientDataError\r\n* Call mapper in generator, parser and tag modules\r\n* Add command line parameter for passing mapping files\r\n* Add encoding to generated XML header\r\n\r\nCo-authored-by: Philip Schömig <p.schoemig@de.ccv.eu>",
+          "timestamp": "2021-02-16T17:52:40+01:00",
+          "tree_id": "ba1a49197bf2294113aa8371dde554b803ecb535",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/31efb642e59ab38b6685859330187de3a02a0d20"
+        },
+        "date": 1613494414793,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1599332.0647248635,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000011106430912055625",
+            "extra": "mean: 625.2610211826349 nsec\nrounds: 133334"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2787876.8066200926,
+            "unit": "iter/sec",
+            "range": "stddev: 2.709151940541132e-7",
+            "extra": "mean: 358.6959070879315 nsec\nrounds: 192308"
           }
         ]
       }
