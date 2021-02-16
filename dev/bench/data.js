@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613434787186,
+  "lastUpdate": 1613434790115,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1258,6 +1258,42 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 3.5538808630786334e-7",
             "extra": "mean: 350.1000009923263 nsec\nrounds: 43291"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "committer": {
+            "email": "p.schoemig@de.ccv.eu",
+            "name": "Philip Schömig"
+          },
+          "distinct": true,
+          "id": "40c8e3022673ab0145f83adc77b469570d0e2d8a",
+          "message": "Increase test coverage for mapper module",
+          "timestamp": "2021-02-16T01:18:40+01:00",
+          "tree_id": "c19ab4f0f59c21eeba66cb57e3645259870a66e8",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/40c8e3022673ab0145f83adc77b469570d0e2d8a"
+        },
+        "date": 1613434789475,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1328439.5302770035,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000016307191685149833",
+            "extra": "mean: 752.7629050540841 nsec\nrounds: 128206"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2222074.0214789314,
+            "unit": "iter/sec",
+            "range": "stddev: 8.374557943982606e-7",
+            "extra": "mean: 450.03001265221945 nsec\nrounds: 185186"
           }
         ]
       }
