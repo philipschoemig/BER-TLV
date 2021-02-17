@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613494806575,
+  "lastUpdate": 1613603016758,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1438,6 +1438,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 7.667912838418869e-8",
             "extra": "mean: 395.8065358337104 nsec\nrounds: 181819"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "distinct": true,
+          "id": "8b103cf1eada7af5476ff72ce280d6369a67a5b5",
+          "message": "Change scope of file watcher tasks to current file",
+          "timestamp": "2021-02-18T00:02:43+01:00",
+          "tree_id": "3cd12f0a6844b401a6b3bd56b04c0e379719c8a2",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/8b103cf1eada7af5476ff72ce280d6369a67a5b5"
+        },
+        "date": 1613603016250,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 2273285.298359466,
+            "unit": "iter/sec",
+            "range": "stddev: 2.211361935199738e-7",
+            "extra": "mean: 439.8919927567102 nsec\nrounds: 98030"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2933752.145654754,
+            "unit": "iter/sec",
+            "range": "stddev: 2.270104497213894e-8",
+            "extra": "mean: 340.86042390465263 nsec\nrounds: 192308"
           }
         ]
       }
