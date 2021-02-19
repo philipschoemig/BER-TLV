@@ -77,16 +77,16 @@ pytz = ">=2015.7"
 
 [[package]]
 name = "bandit"
-version = "1.6.2"
+version = "1.7.0"
 description = "Security oriented static analyser for python code."
 category = "main"
 optional = true
-python-versions = "*"
+python-versions = ">=3.5"
 
 [package.dependencies]
 colorama = {version = ">=0.3.9", markers = "platform_system == \"Windows\""}
 GitPython = ">=1.0.1"
-PyYAML = ">=3.13"
+PyYAML = ">=5.3.1"
 six = ">=1.10.0"
 stevedore = ">=1.20.0"
 
@@ -893,7 +893,7 @@ tests = ["pytest", "pytest-benchmark", "pytest-cov"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "54268e3c6b5f3ad513d25ec9d5d6dcda83216f887514882513c5d253b5629a7f"
+content-hash = "ffe491a2180bd04f45df69cc26f702af875687998840bce27d6a3a17e06fe9cb"
 
 [metadata.files]
 alabaster = [
@@ -925,8 +925,8 @@ babel = [
     {file = "Babel-2.8.0.tar.gz", hash = "sha256:1aac2ae2d0d8ea368fa90906567f5c08463d98ade155c0c4bfedd6a0f7160e38"},
 ]
 bandit = [
-    {file = "bandit-1.6.2-py2.py3-none-any.whl", hash = "sha256:336620e220cf2d3115877685e264477ff9d9abaeb0afe3dc7264f55fa17a3952"},
-    {file = "bandit-1.6.2.tar.gz", hash = "sha256:41e75315853507aa145d62a78a2a6c5e3240fe14ee7c601459d0df9418196065"},
+    {file = "bandit-1.7.0-py3-none-any.whl", hash = "sha256:216be4d044209fa06cf2a3e51b319769a51be8318140659719aa7a115c35ed07"},
+    {file = "bandit-1.7.0.tar.gz", hash = "sha256:8a4c7415254d75df8ff3c3b15cfe9042ecee628a1e40b44c15a98890fbfc2608"},
 ]
 black = [
     {file = "black-19.10b0-py36-none-any.whl", hash = "sha256:1b30e59be925fafc1ee4565e5e08abef6b03fe455102883820fe5ee2e4734e0b"},
