@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613776987230,
+  "lastUpdate": 1613777017939,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -2208,6 +2208,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 8.207299668844284e-8",
             "extra": "mean: 411.0753662505277 nsec\nrounds: 200000"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7799946dbf10320a6c446e245e44e04f534316f9",
+          "message": "Bump pytest-cov from 2.10.1 to 2.11.1 (#9)\n\nBumps [pytest-cov](https://github.com/pytest-dev/pytest-cov) from 2.10.1 to 2.11.1.\r\n- [Release notes](https://github.com/pytest-dev/pytest-cov/releases)\r\n- [Changelog](https://github.com/pytest-dev/pytest-cov/blob/master/CHANGELOG.rst)\r\n- [Commits](https://github.com/pytest-dev/pytest-cov/compare/v2.10.1...v2.11.1)\r\n\r\nSigned-off-by: dependabot[bot] <support@github.com>\r\n\r\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+          "timestamp": "2021-02-20T00:22:42+01:00",
+          "tree_id": "761df296c4e9f001af37f17122157c06976fb448",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/7799946dbf10320a6c446e245e44e04f534316f9"
+        },
+        "date": 1613777017385,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1465498.7693449915,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000005829368257148378",
+            "extra": "mean: 682.361541966325 nsec\nrounds: 147059"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2583445.521767216,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000001194292914390927",
+            "extra": "mean: 387.079964169521 nsec\nrounds: 196079"
           }
         ]
       }
