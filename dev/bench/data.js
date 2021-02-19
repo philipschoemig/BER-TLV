@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613775400429,
+  "lastUpdate": 1613775451568,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1844,6 +1844,40 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 4.887903310557308e-7",
             "extra": "mean: 411.18002478729926 nsec\nrounds: 188680"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "philipschoemig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "name": "philipschoemig",
+            "username": "philipschoemig"
+          },
+          "id": "b334a9c9ac6415d8bd7132215546c40a97acbe17",
+          "message": "Bump pytest-cov from 2.10.1 to 2.11.1",
+          "timestamp": "2021-02-19T22:52:51Z",
+          "url": "https://github.com/philipschoemig/BER-TLV/pull/9/commits/b334a9c9ac6415d8bd7132215546c40a97acbe17"
+        },
+        "date": 1613775451038,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1372016.457917211,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000052456109482997985",
+            "extra": "mean: 728.8542307415536 nsec\nrounds: 133334"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2476336.333773222,
+            "unit": "iter/sec",
+            "range": "stddev: 4.6815318667722914e-7",
+            "extra": "mean: 403.8223670839763 nsec\nrounds: 192308"
           }
         ]
       }
