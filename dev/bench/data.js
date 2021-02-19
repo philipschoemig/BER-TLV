@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613777190623,
+  "lastUpdate": 1613777246060,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -2390,6 +2390,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 4.517152444720985e-7",
             "extra": "mean: 410.25199439729045 nsec\nrounds: 192308"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "62ceb71b1ebcef618d0ba37ca6144acb2a207abc",
+          "message": "Bump tox from 3.19.0 to 3.22.0\n\nBumps [tox](https://github.com/tox-dev/tox) from 3.19.0 to 3.22.0.\n- [Release notes](https://github.com/tox-dev/tox/releases)\n- [Changelog](https://github.com/tox-dev/tox/blob/master/docs/changelog.rst)\n- [Commits](https://github.com/tox-dev/tox/compare/3.19.0...3.22.0)\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2021-02-19T23:24:35Z",
+          "tree_id": "47f3524447d19e179fcff119a886b52b9c78e442",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/62ceb71b1ebcef618d0ba37ca6144acb2a207abc"
+        },
+        "date": 1613777245492,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1344118.2051087462,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000035394606153838987",
+            "extra": "mean: 743.9821856434827 nsec\nrounds: 131579"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2426009.479686329,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000011035557841140003",
+            "extra": "mean: 412.199543478059 nsec\nrounds: 196079"
           }
         ]
       }
