@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613775261826,
+  "lastUpdate": 1613775289293,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1666,6 +1666,40 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 2.2168413402378128e-8",
             "extra": "mean: 338.39254484176087 nsec\nrounds: 196079"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "philipschoemig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "name": "philipschoemig",
+            "username": "philipschoemig"
+          },
+          "id": "01bf7bbf618e28067db8747ec609339123cd8b53",
+          "message": "Bump paambaati/codeclimate-action from v2.7.4 to v2.7.5",
+          "timestamp": "2021-02-19T22:52:51Z",
+          "url": "https://github.com/philipschoemig/BER-TLV/pull/6/commits/01bf7bbf618e28067db8747ec609339123cd8b53"
+        },
+        "date": 1613775288770,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1642882.4154381147,
+            "unit": "iter/sec",
+            "range": "stddev: 5.035578685525764e-7",
+            "extra": "mean: 608.6862885639479 nsec\nrounds: 140846"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2706064.771901315,
+            "unit": "iter/sec",
+            "range": "stddev: 7.235451732854278e-7",
+            "extra": "mean: 369.5403045719712 nsec\nrounds: 188680"
           }
         ]
       }
