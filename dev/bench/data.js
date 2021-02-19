@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613775237790,
+  "lastUpdate": 1613775261826,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1628,6 +1628,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 2.1414031984225622e-8",
             "extra": "mean: 423.94844136073914 nsec\nrounds: 188680"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1031be8412b144403742e03a159e0f771993e900",
+          "message": "Bump actions/cache from v2 to v2.1.4\n\nBumps [actions/cache](https://github.com/actions/cache) from v2 to v2.1.4.\n- [Release notes](https://github.com/actions/cache/releases)\n- [Commits](https://github.com/actions/cache/compare/v2...26968a09c0ea4f3e233fdddbafd1166051a095f6)\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2021-02-19T22:53:06Z",
+          "tree_id": "b2e7e55b3757e5a5e96ab2debda6476738ee6d0a",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/1031be8412b144403742e03a159e0f771993e900"
+        },
+        "date": 1613775261317,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1646870.2528027245,
+            "unit": "iter/sec",
+            "range": "stddev: 1.0356238945656235e-7",
+            "extra": "mean: 607.2123765051625 nsec\nrounds: 119048"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2955147.8460199325,
+            "unit": "iter/sec",
+            "range": "stddev: 2.2168413402378128e-8",
+            "extra": "mean: 338.39254484176087 nsec\nrounds: 196079"
           }
         ]
       }
