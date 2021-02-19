@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613775458810,
+  "lastUpdate": 1613775500592,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1916,6 +1916,40 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 1.0169694905619439e-7",
             "extra": "mean: 380.02108336673837 nsec\nrounds: 192308"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "philipschoemig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "name": "philipschoemig",
+            "username": "philipschoemig"
+          },
+          "id": "6174d13a3d4887bfeac90b0edb1a6f61009169f7",
+          "message": "Bump bandit from 1.6.2 to 1.7.0",
+          "timestamp": "2021-02-19T22:52:51Z",
+          "url": "https://github.com/philipschoemig/BER-TLV/pull/10/commits/6174d13a3d4887bfeac90b0edb1a6f61009169f7"
+        },
+        "date": 1613775500073,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1518506.0159993055,
+            "unit": "iter/sec",
+            "range": "stddev: 4.466511009792746e-7",
+            "extra": "mean: 658.5420073834316 nsec\nrounds: 178540"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2609659.0931422794,
+            "unit": "iter/sec",
+            "range": "stddev: 9.137640209611997e-8",
+            "extra": "mean: 383.19181330146466 nsec\nrounds: 188644"
           }
         ]
       }
