@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613775604320,
+  "lastUpdate": 1613776420266,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -2094,6 +2094,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 2.669134358264905e-8",
             "extra": "mean: 336.9351251268192 nsec\nrounds: 196079"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "2e9bac3048ceb4340cf2357d6db2df44620e0b42",
+          "message": "Create codeql-analysis.yml",
+          "timestamp": "2021-02-20T00:12:44+01:00",
+          "tree_id": "7e583736ba3e8cf89cd904771a5f5934a84deff5",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/2e9bac3048ceb4340cf2357d6db2df44620e0b42"
+        },
+        "date": 1613776419715,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1288523.4184625468,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000015360637841436114",
+            "extra": "mean: 776.0821306555607 nsec\nrounds: 121952"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2313341.4315611944,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000001366423189076836",
+            "extra": "mean: 432.275143805891 nsec\nrounds: 188680"
           }
         ]
       }
