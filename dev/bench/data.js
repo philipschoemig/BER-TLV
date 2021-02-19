@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613775546730,
+  "lastUpdate": 1613775583871,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -2022,6 +2022,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 2.2573220335096786e-8",
             "extra": "mean: 334.26129162110067 nsec\nrounds: 196079"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "189e0803cf1f4901cdb0540e07cca7264ccc9ec2",
+          "message": "Bump bump2version from 1.0.0 to 1.0.1\n\nBumps [bump2version](https://github.com/c4urself/bump2version) from 1.0.0 to 1.0.1.\n- [Release notes](https://github.com/c4urself/bump2version/releases)\n- [Changelog](https://github.com/c4urself/bump2version/blob/master/CHANGELOG.md)\n- [Commits](https://github.com/c4urself/bump2version/compare/v1.0.0...v1.0.1)\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2021-02-19T22:55:03Z",
+          "tree_id": "8a795986e67bc4a499b6b3c0a5ee33970b980a3d",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/189e0803cf1f4901cdb0540e07cca7264ccc9ec2"
+        },
+        "date": 1613775583333,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1619189.044472352,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000015354952170649857",
+            "extra": "mean: 617.5931114491154 nsec\nrounds: 112360"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2739607.03948151,
+            "unit": "iter/sec",
+            "range": "stddev: 5.000565966977915e-7",
+            "extra": "mean: 365.0158528537532 nsec\nrounds: 196079"
           }
         ]
       }
