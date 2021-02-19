@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613775531351,
+  "lastUpdate": 1613775546730,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1988,6 +1988,40 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.0000011063644390085395",
             "extra": "mean: 407.3214521874702 nsec\nrounds: 200000"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "philipschoemig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "name": "philipschoemig",
+            "username": "philipschoemig"
+          },
+          "id": "8828bfd31229994c2ee9cafe5f3646d1e7583116",
+          "message": "Bump pylint from 2.6.0 to 2.6.2",
+          "timestamp": "2021-02-19T22:52:51Z",
+          "url": "https://github.com/philipschoemig/BER-TLV/pull/11/commits/8828bfd31229994c2ee9cafe5f3646d1e7583116"
+        },
+        "date": 1613775546194,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1692464.425759903,
+            "unit": "iter/sec",
+            "range": "stddev: 1.1151163750381584e-7",
+            "extra": "mean: 590.854368800696 nsec\nrounds: 161291"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2991671.5607349114,
+            "unit": "iter/sec",
+            "range": "stddev: 2.2573220335096786e-8",
+            "extra": "mean: 334.26129162110067 nsec\nrounds: 196079"
           }
         ]
       }
