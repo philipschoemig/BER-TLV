@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613776420266,
+  "lastUpdate": 1613776954077,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -2132,6 +2132,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.000001366423189076836",
             "extra": "mean: 432.275143805891 nsec\nrounds: 188680"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "988d2578535ecfeed39c5e1534013f49891e8dd7",
+          "message": "Bump actions/cache from v2 to v2.1.4 (#7)\n\nBumps [actions/cache](https://github.com/actions/cache) from v2 to v2.1.4.\r\n- [Release notes](https://github.com/actions/cache/releases)\r\n- [Commits](https://github.com/actions/cache/compare/v2...26968a09c0ea4f3e233fdddbafd1166051a095f6)\r\n\r\nSigned-off-by: dependabot[bot] <support@github.com>\r\n\r\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+          "timestamp": "2021-02-20T00:21:41+01:00",
+          "tree_id": "48d151b2212d60646e7e029d200e8768fbfedcdb",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/988d2578535ecfeed39c5e1534013f49891e8dd7"
+        },
+        "date": 1613776953533,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1315830.8626577368,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000013402154104628657",
+            "extra": "mean: 759.9760944808542 nsec\nrounds: 140846"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2260377.4143597586,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000001816987038650325",
+            "extra": "mean: 442.4039957429656 nsec\nrounds: 188680"
           }
         ]
       }
