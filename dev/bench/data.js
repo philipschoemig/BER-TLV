@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613775372332,
+  "lastUpdate": 1613775400429,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1806,6 +1806,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 6.071462395044596e-7",
             "extra": "mean: 401.03774414308936 nsec\nrounds: 196079"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "b334a9c9ac6415d8bd7132215546c40a97acbe17",
+          "message": "Bump pytest-cov from 2.10.1 to 2.11.1\n\nBumps [pytest-cov](https://github.com/pytest-dev/pytest-cov) from 2.10.1 to 2.11.1.\n- [Release notes](https://github.com/pytest-dev/pytest-cov/releases)\n- [Changelog](https://github.com/pytest-dev/pytest-cov/blob/master/CHANGELOG.rst)\n- [Commits](https://github.com/pytest-dev/pytest-cov/compare/v2.10.1...v2.11.1)\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2021-02-19T22:54:27Z",
+          "tree_id": "5a46b7ac05dabbcaac9f01e75486d48707063b60",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/b334a9c9ac6415d8bd7132215546c40a97acbe17"
+        },
+        "date": 1613775399911,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1344064.970022016,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000005788890346498017",
+            "extra": "mean: 744.0116529364052 nsec\nrounds: 116280"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2432024.757322211,
+            "unit": "iter/sec",
+            "range": "stddev: 4.887903310557308e-7",
+            "extra": "mean: 411.18002478729926 nsec\nrounds: 188680"
           }
         ]
       }
