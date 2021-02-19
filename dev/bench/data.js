@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613775451568,
+  "lastUpdate": 1613775458810,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1878,6 +1878,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 4.6815318667722914e-7",
             "extra": "mean: 403.8223670839763 nsec\nrounds: 192308"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6174d13a3d4887bfeac90b0edb1a6f61009169f7",
+          "message": "Bump bandit from 1.6.2 to 1.7.0\n\nBumps [bandit](https://github.com/PyCQA/bandit) from 1.6.2 to 1.7.0.\n- [Release notes](https://github.com/PyCQA/bandit/releases)\n- [Commits](https://github.com/PyCQA/bandit/compare/1.6.2...1.7.0)\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2021-02-19T22:54:39Z",
+          "tree_id": "d5ccd835b724665bd1ae8d023cdaa2acd3fd1696",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/6174d13a3d4887bfeac90b0edb1a6f61009169f7"
+        },
+        "date": 1613775458288,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1447166.8061330966,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000012344562429051725",
+            "extra": "mean: 691.0053462821268 nsec\nrounds: 140846"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2631432.9487733217,
+            "unit": "iter/sec",
+            "range": "stddev: 1.0169694905619439e-7",
+            "extra": "mean: 380.02108336673837 nsec\nrounds: 192308"
           }
         ]
       }
