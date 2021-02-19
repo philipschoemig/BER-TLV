@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613775212630,
+  "lastUpdate": 1613775237790,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1590,6 +1590,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 3.599115630390401e-7",
             "extra": "mean: 296.8660944873584 nsec\nrounds: 196079"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "01bf7bbf618e28067db8747ec609339123cd8b53",
+          "message": "Bump paambaati/codeclimate-action from v2.7.4 to v2.7.5\n\nBumps [paambaati/codeclimate-action](https://github.com/paambaati/codeclimate-action) from v2.7.4 to v2.7.5.\n- [Release notes](https://github.com/paambaati/codeclimate-action/releases)\n- [Changelog](https://github.com/paambaati/codeclimate-action/blob/master/CHANGELOG.md)\n- [Commits](https://github.com/paambaati/codeclimate-action/compare/v2.7.4...7bcf9e73c0ee77d178e72c0ec69f1a99c1afc1f3)\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2021-02-19T22:53:05Z",
+          "tree_id": "bf5acd1b4cc13dc4d22ee61f6002cc4ea4666cce",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/01bf7bbf618e28067db8747ec609339123cd8b53"
+        },
+        "date": 1613775237307,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1359899.0165388894,
+            "unit": "iter/sec",
+            "range": "stddev: 1.1023738638633666e-7",
+            "extra": "mean: 735.3487191608707 nsec\nrounds: 166667"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2358777.3947010273,
+            "unit": "iter/sec",
+            "range": "stddev: 2.1414031984225622e-8",
+            "extra": "mean: 423.94844136073914 nsec\nrounds: 188680"
           }
         ]
       }
