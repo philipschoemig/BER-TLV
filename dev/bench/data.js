@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613775342080,
+  "lastUpdate": 1613775372332,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -1772,6 +1772,40 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 8.762359619708667e-8",
             "extra": "mean: 394.11843054436116 nsec\nrounds: 181819"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "philipschoemig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "name": "philipschoemig",
+            "username": "philipschoemig"
+          },
+          "id": "0ebf9a989cfb7462d51be0ca2338572bcfeeadf2",
+          "message": "Bump tox from 3.19.0 to 3.22.0",
+          "timestamp": "2021-02-19T22:52:51Z",
+          "url": "https://github.com/philipschoemig/BER-TLV/pull/8/commits/0ebf9a989cfb7462d51be0ca2338572bcfeeadf2"
+        },
+        "date": 1613775371818,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1365000.4180278312,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000020476447948609685",
+            "extra": "mean: 732.6005082436618 nsec\nrounds: 50762"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2493530.8823281107,
+            "unit": "iter/sec",
+            "range": "stddev: 6.071462395044596e-7",
+            "extra": "mean: 401.03774414308936 nsec\nrounds: 196079"
           }
         ]
       }
