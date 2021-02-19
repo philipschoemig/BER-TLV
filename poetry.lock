@@ -112,7 +112,7 @@ d = ["aiohttp (>=3.3.2)", "aiohttp-cors"]
 
 [[package]]
 name = "bump2version"
-version = "1.0.0"
+version = "1.0.1"
 description = "Version-bump your software with a single command!"
 category = "main"
 optional = true
@@ -893,7 +893,7 @@ tests = ["pytest", "pytest-benchmark", "pytest-cov"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "54268e3c6b5f3ad513d25ec9d5d6dcda83216f887514882513c5d253b5629a7f"
+content-hash = "ff12e528e6d9bf0fac8db062aed1fa9db00563a78a2e89d8b9d3f06107575281"
 
 [metadata.files]
 alabaster = [
@@ -933,8 +933,8 @@ black = [
     {file = "black-19.10b0.tar.gz", hash = "sha256:c2edb73a08e9e0e6f65a0e6af18b059b8b1cdd5bef997d7a0b181df93dc81539"},
 ]
 bump2version = [
-    {file = "bump2version-1.0.0-py2.py3-none-any.whl", hash = "sha256:477f0e18a0d58e50bb3dbc9af7fcda464fd0ebfc7a6151d8888602d7153171a0"},
-    {file = "bump2version-1.0.0.tar.gz", hash = "sha256:cd4f3a231305e405ed8944d8ff35bd742d9bc740ad62f483bd0ca21ce7131984"},
+    {file = "bump2version-1.0.1-py2.py3-none-any.whl", hash = "sha256:37f927ea17cde7ae2d7baf832f8e80ce3777624554a653006c9144f8017fe410"},
+    {file = "bump2version-1.0.1.tar.gz", hash = "sha256:762cb2bfad61f4ec8e2bdf452c7c267416f8c70dd9ecb1653fd0bbb01fa936e6"},
 ]
 certifi = [
     {file = "certifi-2020.6.20-py2.py3-none-any.whl", hash = "sha256:8fc0819f1f30ba15bdb34cceffb9ef04d99f420f68eb75d901e9560b8749fc41"},
