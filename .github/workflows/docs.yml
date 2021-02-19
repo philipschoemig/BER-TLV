@@ -1,6 +1,6 @@
 name: Docs
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   Sphinx:
@@ -42,7 +42,7 @@ jobs:
 
     - name: Commit documentation changes
       run: |
-        git clone https://github.com/philipschoemig/BER-TLV.git --branch gh-pages --single-branch gh-pages
+        git clone https://github.com/philipschoemig/BER-TLV.git --branch gh-pages
         cp -r docs/_build/* gh-pages/docs/
         cd gh-pages
         git config --local user.email "action@github.com"
