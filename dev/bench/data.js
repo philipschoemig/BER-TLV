@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613777358877,
+  "lastUpdate": 1613779440026,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -2534,6 +2534,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 6.518826593486392e-8",
             "extra": "mean: 391.40546998700006 nsec\nrounds: 188680"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4ae8d21f34bd337375d45b42b679e4637c3703ec",
+          "message": "Update dependabot.yml",
+          "timestamp": "2021-02-20T01:02:50+01:00",
+          "tree_id": "74422dbb620b843a5c6223cfd69a84344c06807b",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/4ae8d21f34bd337375d45b42b679e4637c3703ec"
+        },
+        "date": 1613779433606,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1415277.238822161,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000027711623498331894",
+            "extra": "mean: 706.5753426743668 nsec\nrounds: 131579"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2319991.9500749987,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000001488034704184122",
+            "extra": "mean: 431.03597836516377 nsec\nrounds: 192308"
           }
         ]
       }
