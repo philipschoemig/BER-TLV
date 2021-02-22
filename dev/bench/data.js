@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1613978145572,
+  "lastUpdate": 1613978149984,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -2606,6 +2606,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 9.306317864182102e-8",
             "extra": "mean: 369.3248266802869 nsec\nrounds: 192308"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4c4f5cadfa6933d32071cf84fa314fa8c048722b",
+          "message": "Bump pylint from 2.6.0 to 2.7.0\n\nBumps [pylint](https://github.com/PyCQA/pylint) from 2.6.0 to 2.7.0.\n- [Release notes](https://github.com/PyCQA/pylint/releases)\n- [Changelog](https://github.com/PyCQA/pylint/blob/master/ChangeLog)\n- [Commits](https://github.com/PyCQA/pylint/compare/pylint-2.6.0...pylint-2.7.0)\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2021-02-22T07:14:53Z",
+          "tree_id": "21fdf82e10f2e56b76bb7d482609df77ac7b61e5",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/4c4f5cadfa6933d32071cf84fa314fa8c048722b"
+        },
+        "date": 1613978146468,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1351635.0232764352,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000017612946883573166",
+            "extra": "mean: 739.8446938552589 nsec\nrounds: 116280"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2361407.03600449,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000001192624565708351",
+            "extra": "mean: 423.4763362489543 nsec\nrounds: 200000"
           }
         ]
       }
