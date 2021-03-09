@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1615187785577,
+  "lastUpdate": 1615328914036,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -2788,6 +2788,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 5.0413519519289986e-8",
             "extra": "mean: 417.8371077501627 nsec\nrounds: 196079"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "distinct": true,
+          "id": "b14356bb12f80a9df5ceac352d2649173d639d9d",
+          "message": "Rework and simplify GitHub workflows",
+          "timestamp": "2021-03-09T23:10:38+01:00",
+          "tree_id": "5cfede2f0a483fe4b2af9daad63061bf0e5ebb14",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/b14356bb12f80a9df5ceac352d2649173d639d9d"
+        },
+        "date": 1615328913416,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1304108.4957790044,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000016594658143121912",
+            "extra": "mean: 766.8073655195794 nsec\nrounds: 40486"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2406726.6314166253,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000014109993000403176",
+            "extra": "mean: 415.50211268125247 nsec\nrounds: 192308"
           }
         ]
       }
