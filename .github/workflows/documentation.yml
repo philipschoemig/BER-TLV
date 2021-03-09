@@ -1,45 +1,32 @@
-name: Docs
+name: Documentation
 
-on: [push]
+on:
+  push:
+    branches:
+    - master
 
 jobs:
-  Sphinx:
+  docs:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-    
-    - name: Get full python version
-      id: full-python-version
-      shell: bash
-      run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
-    
     - name: Set up Poetry
       uses: abatilo/actions-poetry@v2.1.0
-
     - name: Set up cache
       uses: actions/cache@v2.1.4
       id: cache
       with:
         path: .venv
-        key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
-
-    - name: Ensure cache is healthy
-      if: steps.cache.outputs.cache-hit == 'true'
-      shell: bash
-      run: poetry run pip --version >/dev/null 2>&1 || rm -rf .venv
-
+        key: venv-${{ runner.os }}-${{ hashFiles('poetry.lock') }}
     - name: Install dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
       run: poetry install -E basis
-
     - name: Create documentation
       run: poetry run tox -e docs
-
     - name: Commit documentation changes
       run: |
         git clone https://github.com/philipschoemig/BER-TLV.git --branch gh-pages gh-pages
@@ -50,7 +37,6 @@ jobs:
         git add .
         git commit -m "Update documentation" -a || true
         # The above command will fail if no changes were present, so we ignore that.
-
     - name: Push changes
       uses: ad-m/github-push-action@v0.6.0
       with:

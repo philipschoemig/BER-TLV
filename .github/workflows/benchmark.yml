@@ -1,0 +1,39 @@
+name: Benchmark
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Set up Poetry
+      uses: abatilo/actions-poetry@v2.1.0
+    - name: Set up cache
+      uses: actions/cache@v2.1.4
+      id: cache
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ hashFiles('poetry.lock') }}
+    - name: Install dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: poetry install -E basis
+    - name: Run benchmark
+      run: poetry run tox -e benchmark -- --benchmark-json output.json
+    - name: Store benchmark result
+      uses: rhysd/github-action-benchmark@v1
+      with:
+        tool: 'pytest'
+        output-file-path: output.json
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        fail-on-alert: true
+        comment-on-alert: true
+        alert-comment-cc-users: '@philipschoemig'
+        auto-push: true

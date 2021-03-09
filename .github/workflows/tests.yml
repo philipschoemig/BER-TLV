@@ -1,148 +1,46 @@
 name: Tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
 
 jobs:
-  Tests:
-    name: ${{ matrix.os }} / ${{ matrix.python-version }}
+  tests:
+    name: Tests ${{ matrix.os }} / ${{ matrix.python-version }} / Poetry ${{ matrix.poetry-version }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
         os: [Ubuntu, MacOS, Windows]
         python-version: [3.7, 3.8]
         poetry-version: [1.1.3]
-
     steps:
     - uses: actions/checkout@v2
-
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-
     - name: Get full python version
       id: full-python-version
       run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
-
     - name: Set up Poetry ${{ matrix.poetry-version }}
       uses: abatilo/actions-poetry@v2.1.0
       with:
         poetry-version: ${{ matrix.poetry-version }}
-
-    - name: Configure Poetry
-      run: poetry config virtualenvs.in-project true
-
     - name: Set up cache
       uses: actions/cache@v2.1.4
       id: cache
       with:
         path: .venv
         key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-poetry${{ matrix.poetry-version }}-${{ hashFiles('poetry.lock') }}
-
     - name: Ensure cache is healthy
       if: steps.cache.outputs.cache-hit == 'true'
       shell: bash
       run: poetry run pip --version >/dev/null 2>&1 || rm -rf .venv
-
     - name: Install dependencies
       run: poetry install -E basis
-
     - name: Run unit-tests
       run: poetry run tox -e py
-
-  Benchmark:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-
-    - name: Get full python version
-      id: full-python-version
-      run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
-
-    - name: Set up Poetry
-      uses: abatilo/actions-poetry@v2.1.0
-
-    - name: Configure Poetry
-      run: poetry config virtualenvs.in-project true
-
-    - name: Set up cache
-      uses: actions/cache@v2.1.4
-      id: cache
-      with:
-        path: .venv
-        key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('poetry.lock') }}
-
-    - name: Ensure cache is healthy
-      if: steps.cache.outputs.cache-hit == 'true'
-      shell: bash
-      run: poetry run pip --version >/dev/null 2>&1 || rm -rf .venv
-
-    - name: Install dependencies
-      run: poetry install -E basis
-
-    - name: Run benchmark
-      run: poetry run tox -e benchmark -- --benchmark-json output.json
-
-    - name: Store benchmark result
-      uses: rhysd/github-action-benchmark@v1
-      with:
-        tool: 'pytest'
-        output-file-path: output.json
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        fail-on-alert: true
-        comment-on-alert: true
-        alert-comment-cc-users: '@philipschoemig'
-        auto-push: true
-
-  Coverage:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-
-    - name: Get full python version
-      id: full-python-version
-      shell: bash
-      run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
-
-    - name: Set up Poetry
-      uses: abatilo/actions-poetry@v2.1.0
-
-    - name: Configure Poetry
-      run: poetry config virtualenvs.in-project true
-
-    - name: Set up cache
-      uses: actions/cache@v2.1.4
-      id: cache
-      with:
-        path: .venv
-        key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('poetry.lock') }}
-
-    - name: Ensure cache is healthy
-      if: steps.cache.outputs.cache-hit == 'true'
-      shell: bash
-      run: poetry run pip --version >/dev/null 2>&1 || rm -rf .venv
-
-    - name: Install dependencies
-      run: poetry install -E basis
-
-    - name: Generate coverage report
-      uses: paambaati/codeclimate-action@v2.7.5
-      env:
-        CC_TEST_REPORTER_ID: 79982f5a1d5cce202bcdc009fedfbb9fc9f391da090c0f85f04fabd93d71ddb3
-      with:
-        coverageCommand: poetry run tox -e py -- --cov-report=xml
-
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
