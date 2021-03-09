@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1615328914036,
+  "lastUpdate": 1615329111684,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -2826,6 +2826,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.0000014109993000403176",
             "extra": "mean: 415.50211268125247 nsec\nrounds: 192308"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "distinct": true,
+          "id": "ec31848f4f0db8d2d7863e5d7673c96bd9b14c37",
+          "message": "Fix error in coverage.yml workflow",
+          "timestamp": "2021-03-09T23:31:05+01:00",
+          "tree_id": "99a10ad15e5c5de7179c9898431ccde5a850b644",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/ec31848f4f0db8d2d7863e5d7673c96bd9b14c37"
+        },
+        "date": 1615329111158,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1420572.7600269662,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000004168607882995521",
+            "extra": "mean: 703.9414158420279 nsec\nrounds: 153847"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2492119.9818355246,
+            "unit": "iter/sec",
+            "range": "stddev: 3.120353335447307e-7",
+            "extra": "mean: 401.2647895320966 nsec\nrounds: 196079"
           }
         ]
       }
