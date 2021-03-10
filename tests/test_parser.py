@@ -437,8 +437,8 @@ class TestXmlParser:
             assert (
                 tree.dump()
                 == """root
-└── df51
-    └── 5f20: 112233"""
+└── df51 (ConstructedTagDF51)
+    └── 5f20 (PrimitiveTag5F20): 112233"""
             )
 
     def test_feed_with_partial_data(self):

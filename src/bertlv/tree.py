@@ -78,6 +78,9 @@ class TlvNode(Node):
             if text:
                 text += "\n"
             text += f"{pre}{repr(node.tag)}"
+            xml_tag = node.tag.xml_tag()
+            if xml_tag:
+                text += f" ({xml_tag})"
             if not node.is_constructed():
                 text += f": {node.value.hex()}"
         return text

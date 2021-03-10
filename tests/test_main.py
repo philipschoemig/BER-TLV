@@ -40,14 +40,14 @@ def test_main_with_input_xml_and_output_txt(capsys, tlv_file_xml, tlv_dump):
 
 
 def test_main_with_mapped_input_xml_and_output_txt(
-    capsys, tlv_file_mapping, tlv_file_xml_mapped, tlv_dump
+    capsys, tlv_file_mapping, tlv_file_xml_mapped, tlv_dump_mapped
 ):
     exit_code = bertlv.__main__.main(
         ["--mapping", str(tlv_file_mapping), str(tlv_file_xml_mapped)]
     )
     captured = capsys.readouterr()
     assert exit_code == 0
-    assert tlv_dump in captured.out
+    assert tlv_dump_mapped in captured.out
 
 
 def test_main_with_unknown_file_format():

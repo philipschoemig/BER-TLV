@@ -77,6 +77,13 @@ class Tag:
         type_bits = (self._identifier[0] & self.TYPE_BITMASK) >> 5
         return TagType(type_bits)
 
+    def xml_tag(self) -> str:
+        entry = mapper.lookup(self.to_hex())
+        xml_tag = ""
+        if entry is not None:
+            xml_tag = entry.get("XMLTag") or ""
+        return xml_tag
+
     def is_constructed(self) -> bool:
         """Return true if the tag is constructed otherwise false."""
         if self.tag_type == TagType.CONSTRUCTED or self._force_constructed:

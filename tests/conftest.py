@@ -9,6 +9,12 @@ from bertlv.tag import Tag
 from bertlv.tree import TlvNode, Tree, TreeBuilder
 
 
+@pytest.fixture
+def setup_mapper(tlv_file_mapping):
+    mapper.parse([tlv_file_mapping])
+    return mapper
+
+
 @pytest.fixture(autouse=True)
 def teardown_mapper():
     yield
@@ -58,6 +64,20 @@ def tlv_dump():
     └── ef
         ├── df0d: 4d3030302d544553544f53
         └── df7f: 362d35"""
+
+
+@pytest.fixture
+def tlv_dump_mapped():
+    """Return the mapped dump for the test tree."""
+    return """root
+└── e1 (ConstructedTagE1)
+    ├── 9f1e (PrimitiveTag9F1E): 3136303231343337
+    ├── ef (ConstructedTagEF)
+    │   ├── df0d (PrimitiveTagDF0D): 4d3030302d4d5049
+    │   └── df7f (PrimitiveTagDF7F): 312d3232
+    └── ef (ConstructedTagEF)
+        ├── df0d (PrimitiveTagDF0D): 4d3030302d544553544f53
+        └── df7f (PrimitiveTagDF7F): 362d35"""
 
 
 @pytest.fixture

@@ -82,6 +82,13 @@ class TestTag:
         tag = Tag(bytes.fromhex("FF60"))
         assert tag.tag_type == TagType.CONSTRUCTED
 
+    def test_xml_tag(self, setup_mapper):
+        tag = Tag(bytes.fromhex("DF01"))
+        assert tag.xml_tag() == ""
+
+        tag = Tag(bytes.fromhex("DF0D"))
+        assert tag.xml_tag() == "PrimitiveTagDF0D"
+
     def test_is_constructed(self):
         tag = Tag(bytes.fromhex("DF01"))
         assert not tag.is_constructed()

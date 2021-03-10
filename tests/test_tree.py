@@ -105,6 +105,9 @@ class TestTree:
     def test_dump(self, tlv_dump, tlv_tree):
         assert tlv_tree.dump() == tlv_dump
 
+    def test_dump_mapper(self, setup_mapper, tlv_dump_mapped, tlv_tree):
+        assert tlv_tree.dump() == tlv_dump_mapped
+
 
 class TestTreeBuilder:
     def test_init(self):
