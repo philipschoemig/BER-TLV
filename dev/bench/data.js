@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1615329111684,
+  "lastUpdate": 1615376659110,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -2864,6 +2864,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 3.120353335447307e-7",
             "extra": "mean: 401.2647895320966 nsec\nrounds: 196079"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "distinct": true,
+          "id": "f13fc4cd4aa9bd09580d4986689b7ecd9909dbcb",
+          "message": "Add XML tag to tree dump",
+          "timestamp": "2021-03-10T12:43:20+01:00",
+          "tree_id": "5656ba76addd995d330c3cd553759743b33da7f0",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/f13fc4cd4aa9bd09580d4986689b7ecd9909dbcb"
+        },
+        "date": 1615376656803,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1366175.343721667,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000019729199322692282",
+            "extra": "mean: 731.9704638175137 nsec\nrounds: 144907"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2407191.318106664,
+            "unit": "iter/sec",
+            "range": "stddev: 5.534638283757879e-7",
+            "extra": "mean: 415.4219037253217 nsec\nrounds: 192308"
           }
         ]
       }
