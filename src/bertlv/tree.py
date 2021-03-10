@@ -38,6 +38,8 @@ class TlvNode(Node):
             self.children = children
 
     def __eq__(self, other: "TlvNode"):
+        if isinstance(other, str):
+            return self.tag == Tag.from_hex(other)
         return self.tag == other.tag
 
     def __lt__(self, other: "TlvNode"):

@@ -12,6 +12,8 @@ class TestTlvNode:
 
     def test_comparison(self):
         node_5f20 = TlvNode(Tag.from_hex("5F20"))
+        assert node_5f20 == "5F20"
+
         node_5f20_data = TlvNode(Tag.from_hex("5F20"), b"\x11\x22\x33")
         assert node_5f20 == node_5f20_data
 
