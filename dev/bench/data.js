@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1615392574713,
+  "lastUpdate": 1615472068247,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -2974,6 +2974,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 4.334224846952881e-7",
             "extra": "mean: 436.3916893729504 nsec\nrounds: 192308"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "distinct": true,
+          "id": "7a1f1eb4002cffc4982047ef0b2d1ca04fc98f93",
+          "message": "Add utils for prettifying XML and add related config options",
+          "timestamp": "2021-03-11T15:13:22+01:00",
+          "tree_id": "a02059dfe159fad8a61a0462ba3e4637413fbb8d",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/7a1f1eb4002cffc4982047ef0b2d1ca04fc98f93"
+        },
+        "date": 1615472067686,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1454185.101110165,
+            "unit": "iter/sec",
+            "range": "stddev: 1.7072815048895938e-7",
+            "extra": "mean: 687.670365510259 nsec\nrounds: 142837"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2505203.466306923,
+            "unit": "iter/sec",
+            "range": "stddev: 5.9051790312022226e-8",
+            "extra": "mean: 399.16917465959125 nsec\nrounds: 196040"
           }
         ]
       }
