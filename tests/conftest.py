@@ -1,5 +1,3 @@
-import os
-
 from xml.etree import ElementTree
 
 import pytest
@@ -7,6 +5,7 @@ import pytest
 from bertlv import mapper
 from bertlv.tag import Tag
 from bertlv.tree import TlvNode, Tree, TreeBuilder
+from bertlv.utils import xml_prettify
 
 
 @pytest.fixture
@@ -156,9 +155,7 @@ def tlv_string_xml() -> str:
 @pytest.fixture
 def tlv_data_xml(tlv_string_xml) -> bytes:
     """Return the XML data for the test tree as bytes."""
-    string = """<?xml version="1.0" encoding="utf-8"?>\n""" + tlv_string_xml + "\n"
-    # Convert newlines to OS line separator before encoding the string
-    return string.replace("\n", os.linesep).encode("utf-8")
+    return xml_prettify(tlv_string_xml)
 
 
 @pytest.fixture
@@ -182,11 +179,7 @@ def tlv_string_xml_mapped() -> str:
 @pytest.fixture
 def tlv_data_xml_mapped(tlv_string_xml_mapped) -> bytes:
     """Return the mapped XML data for the test tree as bytes."""
-    string = (
-        """<?xml version="1.0" encoding="utf-8"?>\n""" + tlv_string_xml_mapped + "\n"
-    )
-    # Convert newlines to OS line separator before encoding the string
-    return string.replace("\n", os.linesep).encode("utf-8")
+    return xml_prettify(tlv_string_xml_mapped)
 
 
 @pytest.fixture
@@ -194,15 +187,14 @@ def tlv_data_mapping():
     """Return the mapping string for the test tree as bytes."""
     string = """<?xml version="1.0" ?>
 <Mapping>
-    <Element TLVTag="0xE1" XMLTag="ConstructedTagE1"/>
-    <Element TLVTag="0xEF" XMLTag="ConstructedTagEF"/>
-    <Primitive TLVTag="0x9F1E" Type="String" XMLTag="PrimitiveTag9F1E"/>
-    <Primitive TLVTag="0xDF0D" Type="String" XMLTag="PrimitiveTagDF0D"/>
-    <Primitive TLVTag="0xDF7F" Type="String" XMLTag="PrimitiveTagDF7F"/>
+  <Element TLVTag="0xE1" XMLTag="ConstructedTagE1"/>
+  <Element TLVTag="0xEF" XMLTag="ConstructedTagEF"/>
+  <Primitive TLVTag="0x9F1E" Type="String" XMLTag="PrimitiveTag9F1E"/>
+  <Primitive TLVTag="0xDF0D" Type="String" XMLTag="PrimitiveTagDF0D"/>
+  <Primitive TLVTag="0xDF7F" Type="String" XMLTag="PrimitiveTagDF7F"/>
 </Mapping>
 """
-    # Convert newlines to OS line separator before encoding the string
-    return string.replace("\n", os.linesep).encode("utf-8")
+    return xml_prettify(string)
 
 
 @pytest.fixture

@@ -1,12 +1,10 @@
 import io
-import os
-import xml.dom.minidom
 
 from abc import ABC, abstractmethod
 from typing import BinaryIO
 from xml.etree import ElementTree
 
-from . import mapper
+from . import config, mapper, utils
 from .tree import TlvNode, Tree
 
 
@@ -79,7 +77,8 @@ class XmlGenerator(GeneratorBase):
         stream = io.BytesIO()
         try:
             mapper.encode_tree(self.root)
-            stream.write(self._prettify(self.root))
+            data = utils.xml_prettify_element(self.root, config.xml_settings)
+            stream.write(data)
         finally:
             self.root = ElementTree.Element("Tlv")
         return stream.getvalue()
@@ -106,7 +105,7 @@ class XmlGenerator(GeneratorBase):
     @staticmethod
     def _build_value(node: TlvNode, element: ElementTree.Element) -> None:
         try:
-            text = node.value.decode("utf-8")
+            text = node.value.decode(config.xml_settings.encoding)
         except UnicodeError:
             text = None
         if text and text.isprintable():
@@ -119,13 +118,6 @@ class XmlGenerator(GeneratorBase):
     def _build_children(self, node: TlvNode, element: ElementTree.Element) -> None:
         for child in node.children:
             self._build(child, element)
-
-    @staticmethod
-    def _prettify(element: ElementTree.Element) -> bytes:
-        """Return a pretty-printed XML byte-string for the element. """
-        string = ElementTree.tostring(element, "utf-8")
-        document = xml.dom.minidom.parseString(string)
-        return document.toprettyxml("  ", os.linesep, encoding="utf-8")
 
 
 def generate(fp: BinaryIO, tree: Tree, generator: GeneratorBase) -> None:

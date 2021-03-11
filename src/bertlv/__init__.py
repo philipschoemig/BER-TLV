@@ -6,7 +6,7 @@ Versioning scheme: https://semver.org/spec/v2.0.0.html
 """
 from typing import BinaryIO, Optional, Union
 
-from . import generator, parser
+from . import config, generator, parser
 from .tree import Tree
 
 __version__ = "0.7.0"
@@ -48,7 +48,7 @@ def tree_to_text(source: Tree, file: BinaryIO = None) -> Optional[bytes]:
 
     If *file* is ``None`` return the `bytes` otherwise write data to *file*.
     """
-    data = source.dump().encode("utf-8")
+    data = source.dump().encode(config.encoding)
     if file:
         file.write(data)
         return None
