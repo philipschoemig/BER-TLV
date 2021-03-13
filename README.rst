@@ -1,4 +1,4 @@
-|checks| |tests| |codecov| |maintainability| |coverage|
+|ci| |codecov| |maintainability| |coverage|
 |pre-commit| |black| |pep8| |semver|
 
 
@@ -21,13 +21,9 @@ References
 - `EMV - Data Structure`_
 
 
-.. |checks| image:: https://github.com/philipschoemig/BER-TLV/workflows/Checks/badge.svg
-   :target: https://github.com/philipschoemig/BER-TLV/actions?query=workflow%3AChecks
-   :alt: Checks
-
-.. |tests| image:: https://github.com/philipschoemig/BER-TLV/workflows/Tests/badge.svg
-   :target: https://github.com/philipschoemig/BER-TLV/actions?query=workflow%3ATests
-   :alt: Tests
+.. |ci| image:: https://github.com/philipschoemig/BER-TLV/actions/workflows/ci.yml/badge.svg
+   :target: https://github.com/philipschoemig/BER-TLV/actions/workflows/ci.yml
+   :alt: Continuous Integration
 
 .. |codecov| image:: https://codecov.io/gh/philipschoemig/BER-TLV/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/philipschoemig/BER-TLV
