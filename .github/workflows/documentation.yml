@@ -30,7 +30,7 @@ jobs:
     - name: Commit documentation changes
       run: |
         git clone https://github.com/philipschoemig/BER-TLV.git --branch gh-pages gh-pages
-        cp -r docs/_build/* gh-pages/docs/
+        cp -r docs/_build/html/* gh-pages/docs/
         cd gh-pages
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
