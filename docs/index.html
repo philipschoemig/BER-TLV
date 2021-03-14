@@ -1,62 +1,152 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API Reference" href="reference/index.html" />
 
-<!DOCTYPE html>
+    <meta name="generator" content="sphinx-3.5.2, furo 2021.02.28.beta28"/>
+        <title>Home - bertlv 0.7.0 documentation</title>
+      <link rel="stylesheet" href="_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
+    <link rel="stylesheet" href="_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="_static/pygments_dark.css">
+    
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BER-TLV &#8212; bertlv 0.7.0 documentation</title>
-    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API" href="api.html" /> 
-  </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="api.html" title="API"
-             accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">bertlv 0.7.0 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">BER-TLV</a></li> 
-      </ul>
-    </div>  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
-  <div class="section" id="ber-tlv">
-<h1>BER-TLV<a class="headerlink" href="#ber-tlv" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
+<style>
+  :root {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style><link rel="stylesheet" href="_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="#"><div class="brand">bertlv 0.7.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+  
+  
+  <span class="sidebar-brand-text">bertlv 0.7.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/bertlv.html">bertlv</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/bertlv.config.html">bertlv.config</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/bertlv.generator.html">bertlv.generator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/bertlv.parser.html">bertlv.parser</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/bertlv.stream.html">bertlv.stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/bertlv.tag.html">bertlv.tag</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/bertlv.tree.html">bertlv.tree</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/bertlv.html">Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/bertlv.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/bertlv.generator.html">Generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/bertlv.mapper.html">Mapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/bertlv.parser.html">Parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/bertlv.stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/bertlv.tag.html">Tag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/bertlv.tree.html">Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/bertlv.utils.html">Utils</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/philipschoemig/BER-TLV">GitHub page</a></li>
+</ul>
+
 </div>
-<p><a class="reference external" href="https://github.com/philipschoemig/BER-TLV/actions?query=workflow%3AChecks"><img alt="Checks" src="https://github.com/philipschoemig/BER-TLV/workflows/Checks/badge.svg" /></a> <a class="reference external" href="https://github.com/philipschoemig/BER-TLV/actions?query=workflow%3ATests"><img alt="Tests" src="https://github.com/philipschoemig/BER-TLV/workflows/Tests/badge.svg" /></a> <a class="reference external" href="https://codecov.io/gh/philipschoemig/BER-TLV"><img alt="Code Coverage" src="https://codecov.io/gh/philipschoemig/BER-TLV/branch/master/graph/badge.svg" /></a> <a class="reference external" href="https://codeclimate.com/github/philipschoemig/BER-TLV/maintainability"><img alt="Maintainability" src="https://api.codeclimate.com/v1/badges/0231c41187cd922b6329/maintainability" /></a> <a class="reference external" href="https://codeclimate.com/github/philipschoemig/BER-TLV/test_coverage"><img alt="Test Coverage" src="https://api.codeclimate.com/v1/badges/0231c41187cd922b6329/test_coverage" /></a>
-<a class="reference external" href="https://github.com/pre-commit/pre-commit"><img alt="pre-commit" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white" /></a> <a class="reference external" href="https://github.com/psf/black"><img alt="black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a> <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/"><img alt="pep8" src="https://img.shields.io/badge/code%20style-pep8-orange.svg" /></a> <a class="reference external" href="https://semver.org/spec/v2.0.0.html"><img alt="Semantic Versioning" src="https://img.shields.io/badge/semver-2.0.0-black.svg" /></a></p>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <div class="section" id="bertlv">
+<h1>bertlv<a class="headerlink" href="#bertlv" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<p><a class="reference external" href="https://github.com/philipschoemig/BER-TLV/actions/workflows/ci.yml"><img alt="Continuous Integration" src="https://github.com/philipschoemig/BER-TLV/actions/workflows/ci.yml/badge.svg"/></a> <a class="reference external" href="https://codecov.io/gh/philipschoemig/BER-TLV"><img alt="Code Coverage" src="https://codecov.io/gh/philipschoemig/BER-TLV/branch/master/graph/badge.svg"/></a> <a class="reference external" href="https://codeclimate.com/github/philipschoemig/BER-TLV/maintainability"><img alt="Maintainability" src="https://api.codeclimate.com/v1/badges/0231c41187cd922b6329/maintainability"/></a> <a class="reference external" href="https://codeclimate.com/github/philipschoemig/BER-TLV/test_coverage"><img alt="Test Coverage" src="https://api.codeclimate.com/v1/badges/0231c41187cd922b6329/test_coverage"/></a>
+<a class="reference external" href="https://github.com/pre-commit/pre-commit"><img alt="pre-commit" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white"/></a> <a class="reference external" href="https://github.com/psf/black"><img alt="black" src="https://img.shields.io/badge/code%20style-black-000000.svg"/></a> <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/"><img alt="pep8" src="https://img.shields.io/badge/code%20style-pep8-orange.svg"/></a> <a class="reference external" href="https://semver.org/spec/v2.0.0.html"><img alt="Semantic Versioning" src="https://img.shields.io/badge/semver-2.0.0-black.svg"/></a></p>
 <p>Python library for BER-TLV en-/decoding.</p>
 <div class="section" id="glossary">
 <h2>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
@@ -80,65 +170,68 @@ See <a class="reference external" href="https://en.wikipedia.org/wiki/Type-lengt
 </div>
 </div>
 
-
-            <div class="clearer"></div>
-          </div>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="reference/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">API Reference</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          
         </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="#">Table of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">BER-TLV</a><ul>
+
+        <div class="related-information">
+              Copyright &#169; 2021, Philip Schömig
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+            |
+            <a class="muted-link" href="_sources/index.rst.txt"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">bertlv</a><ul>
 <li><a class="reference internal" href="#glossary">Glossary</a></li>
 <li><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 </ul>
 
-  <h4>Next topic</h4>
-  <p class="topless"><a href="api.html"
-                        title="next chapter">API</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/index.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
+          </div>
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="api.html" title="API"
-             >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">bertlv 0.7.0 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">BER-TLV</a></li> 
-      </ul>
-    </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2020, Philip Schömig.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
-    </div>
-  </body>
+      
+      
+    </aside>
+  </main>
+</div>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
 </html>

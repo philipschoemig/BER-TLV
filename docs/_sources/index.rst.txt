@@ -1,9 +1,19 @@
-BER-TLV
-=======
+bertlv
+======
 
 .. toctree::
-   :maxdepth: 2
+   :caption: Documentation
+   :hidden:
+   :maxdepth: 3
 
-   api
+   reference/index
+   genindex
+
+.. toctree::
+   :caption: Links
+   :hidden:
+
+   GitHub page <https://github.com/philipschoemig/BER-TLV>
+
 
 .. include:: ../README.rst

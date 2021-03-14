@@ -1,0 +1,306 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+
+    <meta name="generator" content="sphinx-3.5.2, furo 2021.02.28.beta28"/>
+        <title>bertlv.mapper - bertlv 0.7.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
+    
+
+
+<style>
+  :root {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style><link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">bertlv 0.7.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  
+  <span class="sidebar-brand-text">bertlv 0.7.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/bertlv.html">Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/bertlv.config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/bertlv.generator.html">Generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/bertlv.mapper.html">Mapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/bertlv.parser.html">Parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/bertlv.stream.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/bertlv.tag.html">Tag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/bertlv.tree.html">Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/bertlv.utils.html">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/philipschoemig/BER-TLV">GitHub page</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <h1>Source code for bertlv.mapper</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">xml.etree</span> <span class="kn">import</span> <span class="n">ElementTree</span>
+
+
+<div class="viewcode-block" id="XmlMapping"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.XmlMapping">[docs]</a><span class="k">class</span> <span class="nc">XmlMapping</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">tag</span> <span class="o">!=</span> <span class="s2">"Mapping"</span> <span class="ow">and</span> <span class="n">root</span><span class="o">.</span><span class="n">tag</span> <span class="o">!=</span> <span class="s2">"XMLMapping"</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"expected root tag 'Mapping' or 'XMLMapping' but found '</span><span class="si">{</span><span class="n">root</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2">'"</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span>
+
+<div class="viewcode-block" id="XmlMapping.lookup"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.XmlMapping.lookup">[docs]</a>    <span class="k">def</span> <span class="nf">lookup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span><span class="p">]:</span>
+        <span class="sd">"""Look up the tag in the mapping and return the element."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="sa">f</span><span class="s2">"./*[@TLVTag='</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">']"</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="XmlMapping.decode"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.XmlMapping.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">"""Process the mapping for the given element."""</span>
+        <span class="n">processed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">map_entry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="sa">f</span><span class="s2">"./*[@XMLTag='</span><span class="si">{</span><span class="n">element</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2">']"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">map_entry</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">map_entry</span><span class="o">.</span><span class="n">tag</span>
+            <span class="n">element</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+            <span class="n">attrib_tag</span> <span class="o">=</span> <span class="n">map_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"TLVTag"</span><span class="p">)</span>
+            <span class="n">element</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"Tag"</span><span class="p">,</span> <span class="n">attrib_tag</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">map_entry</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">"Primitive"</span><span class="p">:</span>
+                <span class="n">attrib_type</span> <span class="o">=</span> <span class="s2">"Hex"</span>
+                <span class="k">if</span> <span class="n">map_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Type"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"String"</span><span class="p">:</span>
+                    <span class="n">attrib_type</span> <span class="o">=</span> <span class="s2">"ASCII"</span>
+                <span class="c1"># TODO: verify value matches the type</span>
+                <span class="n">element</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"Type"</span><span class="p">,</span> <span class="n">attrib_type</span><span class="p">)</span>
+            <span class="n">processed</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="n">processed</span></div>
+
+<div class="viewcode-block" id="XmlMapping.encode"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.XmlMapping.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">"""Process the mapping for the given element."""</span>
+        <span class="n">processed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">map_entry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="sa">f</span><span class="s2">"./</span><span class="si">{</span><span class="n">element</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2">[@TLVTag='</span><span class="si">{</span><span class="n">element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'Tag'</span><span class="p">)</span><span class="si">}</span><span class="s2">']"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">map_entry</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">tag</span> <span class="o">=</span> <span class="n">map_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"XMLTag"</span><span class="p">)</span>
+            <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">tag</span>
+            <span class="n">element</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="n">processed</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="n">processed</span></div>
+
+<div class="viewcode-block" id="XmlMapping.parse"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.XmlMapping.parse">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"XmlMapping"</span><span class="p">:</span>
+        <span class="sd">"""Parse the given mapping file."""</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"error occurred while parsing the mapping file </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+        <span class="k">return</span> <span class="n">obj</span></div></div>
+
+
+<span class="n">_mappings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">XmlMapping</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+<div class="viewcode-block" id="init"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">mappings</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">XmlMapping</span><span class="p">]):</span>
+    <span class="sd">"""Init the mappings list."""</span>
+    <span class="k">global</span> <span class="n">_mappings</span>
+    <span class="n">_mappings</span> <span class="o">=</span> <span class="n">mappings</span></div>
+
+
+<div class="viewcode-block" id="parse"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.parse">[docs]</a><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">filenames</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Path</span><span class="p">]):</span>
+    <span class="sd">"""Parse the given mapping files."""</span>
+    <span class="k">global</span> <span class="n">_mappings</span>
+    <span class="n">_mappings</span> <span class="o">=</span> <span class="p">[</span><span class="n">XmlMapping</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="reset"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.reset">[docs]</a><span class="k">def</span> <span class="nf">reset</span><span class="p">():</span>
+    <span class="sd">"""Clear the stored mappings."""</span>
+    <span class="n">_mappings</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="lookup"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.lookup">[docs]</a><span class="k">def</span> <span class="nf">lookup</span><span class="p">(</span><span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span><span class="p">]:</span>
+    <span class="sd">"""Look up the tag in the mappings and return the element.</span>
+
+<span class="sd">    Returns None if the tag is not found.</span>
+<span class="sd">    """</span>
+    <span class="k">for</span> <span class="n">mapping</span> <span class="ow">in</span> <span class="n">_mappings</span><span class="p">:</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">mapping</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">element</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="is_constructed"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.is_constructed">[docs]</a><span class="k">def</span> <span class="nf">is_constructed</span><span class="p">(</span><span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]:</span>
+    <span class="sd">"""Look up the tag in the mappings and return True if it's constructed.</span>
+
+<span class="sd">    Returns None if the tag is not found.</span>
+<span class="sd">    """</span>
+    <span class="n">element</span> <span class="o">=</span> <span class="n">lookup</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">"Element"</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="encode"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.encode">[docs]</a><span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="n">element</span><span class="p">:</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span><span class="p">):</span>
+    <span class="sd">"""Encode the given element using the mappings."""</span>
+    <span class="k">for</span> <span class="n">mapping</span> <span class="ow">in</span> <span class="n">_mappings</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mapping</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">element</span><span class="p">):</span>
+            <span class="k">break</span></div>
+
+
+<div class="viewcode-block" id="decode"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.decode">[docs]</a><span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="n">element</span><span class="p">:</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span><span class="p">):</span>
+    <span class="sd">"""Decode the given element using the mappings."""</span>
+    <span class="k">for</span> <span class="n">mapping</span> <span class="ow">in</span> <span class="n">_mappings</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mapping</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">element</span><span class="p">):</span>
+            <span class="k">break</span></div>
+
+
+<div class="viewcode-block" id="encode_tree"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.encode_tree">[docs]</a><span class="k">def</span> <span class="nf">encode_tree</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span><span class="p">):</span>
+    <span class="sd">"""Encode all elements in the given tree using the mappings."""</span>
+    <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">root</span><span class="p">:</span>
+        <span class="n">encode</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="n">encode_tree</span><span class="p">(</span><span class="n">element</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="decode_tree"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.decode_tree">[docs]</a><span class="k">def</span> <span class="nf">decode_tree</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span><span class="p">):</span>
+    <span class="sd">"""Decode all elements in the given tree using the mappings."""</span>
+    <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">root</span><span class="p">:</span>
+        <span class="n">decode</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="n">decode_tree</span><span class="p">(</span><span class="n">element</span><span class="p">)</span></div>
+</pre></div>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2021, Philip Schömig
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </main>
+</div>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
+</html>
