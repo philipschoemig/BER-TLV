@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1615472068247,
+  "lastUpdate": 1615721307139,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -3012,6 +3012,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 5.9051790312022226e-8",
             "extra": "mean: 399.16917465959125 nsec\nrounds: 196040"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "distinct": true,
+          "id": "a47929e2a8dcb76f45a3ab7185bdb382cfab94c6",
+          "message": "Update sphinx documentation and use furo theme",
+          "timestamp": "2021-03-14T12:27:25+01:00",
+          "tree_id": "61636bd0563edf11b4ff71c8bdba8d83c2004544",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/a47929e2a8dcb76f45a3ab7185bdb382cfab94c6"
+        },
+        "date": 1615721306642,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1455100.9246355104,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000001976571183921778",
+            "extra": "mean: 687.2375538146888 nsec\nrounds: 133334"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2634114.1661029644,
+            "unit": "iter/sec",
+            "range": "stddev: 0.0000013280615376973044",
+            "extra": "mean: 379.6342667560004 nsec\nrounds: 192308"
           }
         ]
       }
