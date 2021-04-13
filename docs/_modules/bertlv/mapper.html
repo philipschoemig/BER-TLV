@@ -144,11 +144,38 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">xml.etree</span> <span class="kn">import</span> <span class="n">ElementTree</span>
 
+<span class="kn">from</span> <span class="nn">bertlv</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">bertlv.tree</span> <span class="kn">import</span> <span class="n">TlvError</span>
+
+
+<div class="viewcode-block" id="MapperError"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.MapperError">[docs]</a><span class="k">class</span> <span class="nc">MapperError</span><span class="p">(</span><span class="n">TlvError</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">element</span><span class="p">:</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">mapping</span><span class="p">:</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"unicode"</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">"element"</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">string</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span><span class="si">}</span><span class="s2">'"</span>
+        <span class="k">if</span> <span class="n">mapping</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"unicode"</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">"mapping"</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">string</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span><span class="si">}</span><span class="s2">'"</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="XmlMapping"><a class="viewcode-back" href="../../reference/bertlv.mapper.html#bertlv.mapper.XmlMapping">[docs]</a><span class="k">class</span> <span class="nc">XmlMapping</span><span class="p">:</span>
+    <span class="n">TYPE_MAP</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"String"</span><span class="p">:</span> <span class="s2">"ASCII"</span><span class="p">,</span>
+        <span class="s2">"Hex"</span><span class="p">:</span> <span class="s2">"Hex"</span><span class="p">,</span>
+        <span class="s2">""</span><span class="p">:</span> <span class="s2">"Hex"</span><span class="p">,</span>
+    <span class="p">}</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">tag</span> <span class="o">!=</span> <span class="s2">"Mapping"</span> <span class="ow">and</span> <span class="n">root</span><span class="o">.</span><span class="n">tag</span> <span class="o">!=</span> <span class="s2">"XMLMapping"</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="k">raise</span> <span class="n">MapperError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">"expected root tag 'Mapping' or 'XMLMapping' but found '</span><span class="si">{</span><span class="n">root</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2">'"</span>
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span>
@@ -162,18 +189,12 @@
         <span class="n">processed</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">map_entry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="sa">f</span><span class="s2">"./*[@XMLTag='</span><span class="si">{</span><span class="n">element</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2">']"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">map_entry</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_check_type</span><span class="p">(</span><span class="n">map_entry</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
             <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">map_entry</span><span class="o">.</span><span class="n">tag</span>
             <span class="n">element</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-
-            <span class="n">attrib_tag</span> <span class="o">=</span> <span class="n">map_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"TLVTag"</span><span class="p">)</span>
-            <span class="n">element</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"Tag"</span><span class="p">,</span> <span class="n">attrib_tag</span><span class="p">)</span>
-
+            <span class="n">element</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"Tag"</span><span class="p">,</span> <span class="n">map_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"TLVTag"</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">map_entry</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">"Primitive"</span><span class="p">:</span>
-                <span class="n">attrib_type</span> <span class="o">=</span> <span class="s2">"Hex"</span>
-                <span class="k">if</span> <span class="n">map_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Type"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"String"</span><span class="p">:</span>
-                    <span class="n">attrib_type</span> <span class="o">=</span> <span class="s2">"ASCII"</span>
-                <span class="c1"># TODO: verify value matches the type</span>
-                <span class="n">element</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"Type"</span><span class="p">,</span> <span class="n">attrib_type</span><span class="p">)</span>
+                <span class="n">element</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"Type"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">TYPE_MAP</span><span class="p">[</span><span class="n">map_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Type"</span><span class="p">)])</span>
             <span class="n">processed</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="n">processed</span></div>
 
@@ -182,8 +203,8 @@
         <span class="n">processed</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">map_entry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="sa">f</span><span class="s2">"./</span><span class="si">{</span><span class="n">element</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2">[@TLVTag='</span><span class="si">{</span><span class="n">element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'Tag'</span><span class="p">)</span><span class="si">}</span><span class="s2">']"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">map_entry</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">tag</span> <span class="o">=</span> <span class="n">map_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"XMLTag"</span><span class="p">)</span>
-            <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">tag</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_check_type</span><span class="p">(</span><span class="n">map_entry</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+            <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">map_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"XMLTag"</span><span class="p">)</span>
             <span class="n">element</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
             <span class="n">processed</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="n">processed</span></div>
@@ -195,11 +216,32 @@
         <span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">obj</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="k">except</span> <span class="n">MapperError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MapperError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">"error occurred while parsing the mapping file </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">"</span>
             <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
-        <span class="k">return</span> <span class="n">obj</span></div></div>
+        <span class="k">return</span> <span class="n">obj</span></div>
+
+    <span class="k">def</span> <span class="nf">_check_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">map_entry</span><span class="p">:</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">map_entry</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">"Primitive"</span><span class="p">:</span>
+            <span class="n">map_type</span> <span class="o">=</span> <span class="n">map_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Type"</span><span class="p">)</span>
+            <span class="n">actual_type</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Type"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">map_type</span> <span class="ow">and</span> <span class="n">actual_type</span> <span class="ow">and</span> <span class="n">actual_type</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TYPE_MAP</span><span class="p">[</span><span class="n">map_type</span><span class="p">]:</span>
+                <span class="k">raise</span> <span class="n">MapperError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"mapping type '</span><span class="si">{</span><span class="n">map_type</span><span class="si">}</span><span class="s2">' doesn't match the actual type '</span><span class="si">{</span><span class="n">actual_type</span><span class="si">}</span><span class="s2">'"</span><span class="p">,</span>
+                    <span class="n">element</span><span class="o">=</span><span class="n">element</span><span class="p">,</span>
+                    <span class="n">mapping</span><span class="o">=</span><span class="n">map_entry</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">TYPE_MAP</span><span class="p">[</span><span class="n">map_type</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Hex"</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">utils</span><span class="o">.</span><span class="n">xml_text2hex</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="n">MapperError</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">"value is not hexadecimal as specified by mapping type '</span><span class="si">{</span><span class="n">map_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'Type'</span><span class="p">)</span><span class="si">}</span><span class="s2">'"</span><span class="p">,</span>
+                            <span class="n">element</span><span class="o">=</span><span class="n">element</span><span class="p">,</span>
+                            <span class="n">mapping</span><span class="o">=</span><span class="n">map_entry</span><span class="p">,</span>
+                        <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span></div>
 
 
 <span class="n">_mappings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">XmlMapping</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>

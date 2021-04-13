@@ -178,6 +178,14 @@
     <span class="sd">"""Return a pretty-printed XML byte-string for the element. """</span>
     <span class="n">string</span> <span class="o">=</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">xml_prettify</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">settings</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="xml_text2hex"><a class="viewcode-back" href="../../reference/bertlv.utils.html#bertlv.utils.xml_text2hex">[docs]</a><span class="k">def</span> <span class="nf">xml_text2hex</span><span class="p">(</span><span class="n">element</span><span class="p">:</span> <span class="n">ElementTree</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="sd">"""Return a byte-string from the hexadecimal element text. """</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"0"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
 </pre></div>
       </article>
       <footer>
