@@ -36,3 +36,11 @@ def xml_prettify_element(
     """Return a pretty-printed XML byte-string for the element. """
     string = ElementTree.tostring(element, settings.encoding).decode(settings.encoding)
     return xml_prettify(string, settings)
+
+
+def xml_text2hex(element: ElementTree.Element) -> bytes:
+    """Return a byte-string from the hexadecimal element text. """
+    text = "".join(element.text.split())
+    if len(text) % 2 == 1:
+        text = text.rjust(len(text) + 1, "0")
+    return bytes.fromhex(text)

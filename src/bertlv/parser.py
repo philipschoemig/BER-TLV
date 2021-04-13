@@ -6,7 +6,7 @@ from distutils.util import strtobool
 from typing import BinaryIO, Optional
 from xml.etree import ElementTree
 
-from . import mapper
+from . import mapper, utils
 from .stream import BufferedStream
 from .tag import Tag
 from .tree import BuilderBase, TlvError, TlvNode, Tree, TreeBuilder
@@ -198,12 +198,9 @@ class XmlParser(ParserBase):
             value = bytes()
             if element.text:
                 if element.get("Type") == "Hex" or not element.get("Type"):
-                    text = "".join(element.text.split())
-                    if len(text) % 2 == 1:
-                        text = text.rjust(len(text) + 1, "0")
-                    value = bytearray.fromhex(text)
+                    value = utils.xml_text2hex(element)
                 elif element.get("Type") == "ASCII":
-                    value = bytearray(element.text, "iso8859_15")
+                    value = bytes(element.text, "iso8859_15")
                 else:
                     raise ValueError(
                         f"invalid 'Type' attribute value: {element.get('Type')}"

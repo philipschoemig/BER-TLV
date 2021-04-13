@@ -2,11 +2,38 @@ from pathlib import Path
 from typing import Iterable, List, Optional
 from xml.etree import ElementTree
 
+from bertlv import utils
+from bertlv.tree import TlvError
+
+
+class MapperError(TlvError):
+    def __init__(
+        self,
+        message: str,
+        *,
+        element: ElementTree.Element = None,
+        mapping: ElementTree.Element = None,
+    ):
+        kwargs = {}
+        if element is not None:
+            string = ElementTree.tostring(element, encoding="unicode")
+            kwargs["element"] = f"'{string.rstrip()}'"
+        if mapping is not None:
+            string = ElementTree.tostring(mapping, encoding="unicode")
+            kwargs["mapping"] = f"'{string.rstrip()}'"
+        super().__init__(f"{message}", **kwargs)
+
 
 class XmlMapping:
+    TYPE_MAP = {
+        "String": "ASCII",
+        "Hex": "Hex",
+        "": "Hex",
+    }
+
     def __init__(self, root: ElementTree.Element):
         if root.tag != "Mapping" and root.tag != "XMLMapping":
-            raise ValueError(
+            raise MapperError(
                 f"expected root tag 'Mapping' or 'XMLMapping' but found '{root.tag}'"
             )
         self.root = root
@@ -20,18 +47,12 @@ class XmlMapping:
         processed = False
         map_entry = self.root.find(f"./*[@XMLTag='{element.tag}']")
         if map_entry is not None:
+            self._check_type(map_entry, element)
             element.tag = map_entry.tag
             element.attrib.clear()
-
-            attrib_tag = map_entry.get("TLVTag")
-            element.set("Tag", attrib_tag)
-
+            element.set("Tag", map_entry.get("TLVTag"))
             if map_entry.tag == "Primitive":
-                attrib_type = "Hex"
-                if map_entry.get("Type") == "String":
-                    attrib_type = "ASCII"
-                # TODO: verify value matches the type
-                element.set("Type", attrib_type)
+                element.set("Type", self.TYPE_MAP[map_entry.get("Type")])
             processed = True
         return processed
 
@@ -40,8 +61,8 @@ class XmlMapping:
         processed = False
         map_entry = self.root.find(f"./{element.tag}[@TLVTag='{element.get('Tag')}']")
         if map_entry is not None:
-            tag = map_entry.get("XMLTag")
-            element.tag = tag
+            self._check_type(map_entry, element)
+            element.tag = map_entry.get("XMLTag")
             element.attrib.clear()
             processed = True
         return processed
@@ -53,11 +74,32 @@ class XmlMapping:
         root = tree.getroot()
         try:
             obj = cls(root)
-        except ValueError as e:
-            raise ValueError(
+        except MapperError as e:
+            raise MapperError(
                 f"error occurred while parsing the mapping file {filename}"
             ) from e
         return obj
+
+    def _check_type(self, map_entry: ElementTree.Element, element: ElementTree.Element):
+        if map_entry.tag == "Primitive":
+            map_type = map_entry.get("Type")
+            actual_type = element.get("Type")
+            if map_type and actual_type and actual_type != self.TYPE_MAP[map_type]:
+                raise MapperError(
+                    f"mapping type '{map_type}' doesn't match the actual type '{actual_type}'",
+                    element=element,
+                    mapping=map_entry,
+                )
+            if element.text:
+                if self.TYPE_MAP[map_type] == "Hex":
+                    try:
+                        utils.xml_text2hex(element)
+                    except ValueError as e:
+                        raise MapperError(
+                            f"value is not hexadecimal as specified by mapping type '{map_entry.get('Type')}'",
+                            element=element,
+                            mapping=map_entry,
+                        ) from e
 
 
 _mappings: List[XmlMapping] = []
