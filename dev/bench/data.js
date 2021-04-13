@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1615721307139,
+  "lastUpdate": 1618355717112,
   "repoUrl": "https://github.com/philipschoemig/BER-TLV",
   "entries": {
     "Benchmark": [
@@ -3050,6 +3050,44 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.0000013280615376973044",
             "extra": "mean: 379.6342667560004 nsec\nrounds: 192308"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "committer": {
+            "email": "philip.schoemig@posteo.de",
+            "name": "Philip Schömig",
+            "username": "philipschoemig"
+          },
+          "distinct": true,
+          "id": "e116bb5add7c40809e54bca67d9d7ac66f406ce6",
+          "message": "Implement type checks in mapper module\n* Add utils method for conversion of XML element text to hexadecimal\n* Create class for mapper related errors\n* Use dictionary to convert mapping type to XML TLV type\n* Add method to check the type of a mapping entry and an element",
+          "timestamp": "2021-04-14T01:14:13+02:00",
+          "tree_id": "a7889ea6a7e3f70052dfe4fb251d8dbaba44ab59",
+          "url": "https://github.com/philipschoemig/BER-TLV/commit/e116bb5add7c40809e54bca67d9d7ac66f406ce6"
+        },
+        "date": 1618355716556,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_is_eof",
+            "value": 1346017.3242696004,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000003128405088334205",
+            "extra": "mean: 742.9324882892109 nsec\nrounds: 120468"
+          },
+          {
+            "name": "tests/test_stream.py::TestBufferedStream::test_size",
+            "value": 2392984.3345035133,
+            "unit": "iter/sec",
+            "range": "stddev: 6.170853064134495e-7",
+            "extra": "mean: 417.88823502963766 nsec\nrounds: 185186"
           }
         ]
       }
