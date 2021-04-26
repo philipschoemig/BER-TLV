@@ -15,7 +15,7 @@ jobs:
       with:
         python-version: 3.8
     - name: Set up Poetry
-      uses: abatilo/actions-poetry@v2.1.0
+      uses: abatilo/actions-poetry@v2.1.2
     - name: Set up cache
       uses: actions/cache@v2.1.4
       id: cache
