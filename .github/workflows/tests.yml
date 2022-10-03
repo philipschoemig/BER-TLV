@@ -31,7 +31,7 @@ jobs:
       with:
         poetry-version: ${{ matrix.poetry-version }}
     - name: Set up cache
-      uses: actions/cache@v2.1.4
+      uses: actions/cache@v3.0.10
       id: cache
       with:
         path: .venv
