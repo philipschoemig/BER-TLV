@@ -29,7 +29,7 @@ jobs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: poetry install -E basis
     - name: Generate coverage report
-      uses: paambaati/codeclimate-action@v2.7.5
+      uses: paambaati/codeclimate-action@v3.1.0
       env:
         CC_TEST_REPORTER_ID: 79982f5a1d5cce202bcdc009fedfbb9fc9f391da090c0f85f04fabd93d71ddb3
       with:
