@@ -27,7 +27,7 @@ jobs:
       id: full-python-version
       run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
     - name: Set up Poetry ${{ matrix.poetry-version }}
-      uses: abatilo/actions-poetry@v2.1.0
+      uses: abatilo/actions-poetry@v2.3.0
       with:
         poetry-version: ${{ matrix.poetry-version }}
     - name: Set up cache
