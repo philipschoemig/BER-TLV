@@ -17,7 +17,7 @@ jobs:
     - name: Set up Poetry
       uses: abatilo/actions-poetry@v2.1.0
     - name: Set up cache
-      uses: actions/cache@v2.1.4
+      uses: actions/cache@v3.3.1
       id: cache
       with:
         path: .venv
